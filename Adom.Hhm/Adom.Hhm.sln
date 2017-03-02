@@ -1,0 +1,198 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{51A8FAA5-9DB5-4AAD-984F-BF0AEB1639DA}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2. Distributed Services", "2. Distributed Services", "{F9503418-4371-4310-A13D-9A48DA7B6497}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Web.Rest", "src\Adom.Hhm.Web.Rest\Adom.Hhm.Web.Rest.xproj", "{15BA3072-9030-4837-9446-454697A56842}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3. Application", "3. Application", "{5B48A449-94DA-4178-BD8C-B769F4A93BC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4. Domain", "4. Domain", "{64D8694F-939D-4089-87BD-246AB38662CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "5. Data", "5. Data", "{9ADABAE6-AEDB-4E75-959C-EDD4ABE17CBC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "6. Infrastructure", "6. Infrastructure", "{F5316810-261E-4A1B-9B12-4F045301DA00}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "7. Test", "7. Test", "{D715BEFF-B8F5-460E-8127-A8F228936529}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "8.Common", "8.Common", "{C80F702F-6CF9-4871-B110-2056AD3017CA}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1. UI", "1. UI", "{417AD830-53B3-4333-8327-79CDFFD4B837}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Adom.Hhm.Test", "src\Adom.Hhm.Test\Adom.Hhm.Test.csproj", "{D46E7993-2BD9-4642-90F1-5E5DFEBEC253}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.AppServices", "src\Adom.Hhm.AppServices\Adom.Hhm.AppServices.xproj", "{1FF1C4BE-614A-4922-9A92-92E5635DC575}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.AppServices.Security", "src\Adom.Hhm.AppServices.Security\Adom.Hhm.AppServices.Security.xproj", "{86A346D0-7555-47FC-AAB9-4D19C8CEFA59}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Domain", "src\Adom.Hhm.Domain\Adom.Hhm.Domain.xproj", "{1FF057C4-5CC8-4E03-BFAD-BA2A872A6856}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Domain.Entities", "src\Adom.Hhm.Domain.Entities\Adom.Hhm.Domain.Entities.xproj", "{53F50C53-C277-4953-9140-F53EF26182AE}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Domain.Entities.Security", "src\Adom.Hhm.Domain.Entities.Security\Adom.Hhm.Domain.Entities.Security.xproj", "{C58460AF-3F28-4DC5-804A-FFA6DB070D52}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Domain.Services", "src\Adom.Hhm.Domain.Services\Adom.Hhm.Domain.Services.xproj", "{11BCBA3C-1287-42E4-B37C-1F7C1DE10040}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Domain.Services.Security", "src\Adom.Hhm.Domain.Services.Security\Adom.Hhm.Domain.Services.Security.xproj", "{DCB588BC-DF0B-4787-B10C-3347C90D13A9}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Data", "src\Adom.Hhm.Data\Adom.Hhm.Data.xproj", "{F2064D7B-893B-4E1E-A8BB-98EB33B353BD}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Ioc", "src\Adom.Hhm.Ioc\Adom.Hhm.Ioc.xproj", "{E084EB0F-6DE0-4BFC-94A0-95E7B859B146}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Domain.Security", "src\Adom.Hhm.Domain.Security\Adom.Hhm.Domain.Security.xproj", "{C40A9DE1-A500-4F6D-9B11-9AB79CEC1999}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Adom.Hhm.Utility", "src\Adom.Hhm.Utility\Adom.Hhm.Utility.xproj", "{F146F586-A1EC-4AE9-9EF9-3A3DABCECE1D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{15BA3072-9030-4837-9446-454697A56842}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15BA3072-9030-4837-9446-454697A56842}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15BA3072-9030-4837-9446-454697A56842}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15BA3072-9030-4837-9446-454697A56842}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D46E7993-2BD9-4642-90F1-5E5DFEBEC253}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D46E7993-2BD9-4642-90F1-5E5DFEBEC253}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D46E7993-2BD9-4642-90F1-5E5DFEBEC253}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D46E7993-2BD9-4642-90F1-5E5DFEBEC253}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF1C4BE-614A-4922-9A92-92E5635DC575}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF1C4BE-614A-4922-9A92-92E5635DC575}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF1C4BE-614A-4922-9A92-92E5635DC575}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF1C4BE-614A-4922-9A92-92E5635DC575}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86A346D0-7555-47FC-AAB9-4D19C8CEFA59}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86A346D0-7555-47FC-AAB9-4D19C8CEFA59}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86A346D0-7555-47FC-AAB9-4D19C8CEFA59}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86A346D0-7555-47FC-AAB9-4D19C8CEFA59}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1FF057C4-5CC8-4E03-BFAD-BA2A872A6856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1FF057C4-5CC8-4E03-BFAD-BA2A872A6856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1FF057C4-5CC8-4E03-BFAD-BA2A872A6856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1FF057C4-5CC8-4E03-BFAD-BA2A872A6856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{53F50C53-C277-4953-9140-F53EF26182AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{53F50C53-C277-4953-9140-F53EF26182AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{53F50C53-C277-4953-9140-F53EF26182AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{53F50C53-C277-4953-9140-F53EF26182AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C58460AF-3F28-4DC5-804A-FFA6DB070D52}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C58460AF-3F28-4DC5-804A-FFA6DB070D52}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C58460AF-3F28-4DC5-804A-FFA6DB070D52}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C58460AF-3F28-4DC5-804A-FFA6DB070D52}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BCBA3C-1287-42E4-B37C-1F7C1DE10040}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BCBA3C-1287-42E4-B37C-1F7C1DE10040}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BCBA3C-1287-42E4-B37C-1F7C1DE10040}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BCBA3C-1287-42E4-B37C-1F7C1DE10040}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB588BC-DF0B-4787-B10C-3347C90D13A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB588BC-DF0B-4787-B10C-3347C90D13A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB588BC-DF0B-4787-B10C-3347C90D13A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB588BC-DF0B-4787-B10C-3347C90D13A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F2064D7B-893B-4E1E-A8BB-98EB33B353BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F2064D7B-893B-4E1E-A8BB-98EB33B353BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F2064D7B-893B-4E1E-A8BB-98EB33B353BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F2064D7B-893B-4E1E-A8BB-98EB33B353BD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E084EB0F-6DE0-4BFC-94A0-95E7B859B146}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E084EB0F-6DE0-4BFC-94A0-95E7B859B146}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E084EB0F-6DE0-4BFC-94A0-95E7B859B146}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E084EB0F-6DE0-4BFC-94A0-95E7B859B146}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C40A9DE1-A500-4F6D-9B11-9AB79CEC1999}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C40A9DE1-A500-4F6D-9B11-9AB79CEC1999}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C40A9DE1-A500-4F6D-9B11-9AB79CEC1999}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C40A9DE1-A500-4F6D-9B11-9AB79CEC1999}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F146F586-A1EC-4AE9-9EF9-3A3DABCECE1D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F146F586-A1EC-4AE9-9EF9-3A3DABCECE1D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F146F586-A1EC-4AE9-9EF9-3A3DABCECE1D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F146F586-A1EC-4AE9-9EF9-3A3DABCECE1D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{F9503418-4371-4310-A13D-9A48DA7B6497} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{15BA3072-9030-4837-9446-454697A56842} = {F9503418-4371-4310-A13D-9A48DA7B6497}
+		{5B48A449-94DA-4178-BD8C-B769F4A93BC9} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{64D8694F-939D-4089-87BD-246AB38662CE} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{9ADABAE6-AEDB-4E75-959C-EDD4ABE17CBC} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{F5316810-261E-4A1B-9B12-4F045301DA00} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{D715BEFF-B8F5-460E-8127-A8F228936529} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{C80F702F-6CF9-4871-B110-2056AD3017CA} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{417AD830-53B3-4333-8327-79CDFFD4B837} = {B0CA75EC-464A-4A34-8E63-D65A7E5DFA87}
+		{D46E7993-2BD9-4642-90F1-5E5DFEBEC253} = {D715BEFF-B8F5-460E-8127-A8F228936529}
+		{1FF1C4BE-614A-4922-9A92-92E5635DC575} = {5B48A449-94DA-4178-BD8C-B769F4A93BC9}
+		{86A346D0-7555-47FC-AAB9-4D19C8CEFA59} = {5B48A449-94DA-4178-BD8C-B769F4A93BC9}
+		{1FF057C4-5CC8-4E03-BFAD-BA2A872A6856} = {64D8694F-939D-4089-87BD-246AB38662CE}
+		{53F50C53-C277-4953-9140-F53EF26182AE} = {64D8694F-939D-4089-87BD-246AB38662CE}
+		{C58460AF-3F28-4DC5-804A-FFA6DB070D52} = {64D8694F-939D-4089-87BD-246AB38662CE}
+		{11BCBA3C-1287-42E4-B37C-1F7C1DE10040} = {64D8694F-939D-4089-87BD-246AB38662CE}
+		{DCB588BC-DF0B-4787-B10C-3347C90D13A9} = {64D8694F-939D-4089-87BD-246AB38662CE}
+		{F2064D7B-893B-4E1E-A8BB-98EB33B353BD} = {9ADABAE6-AEDB-4E75-959C-EDD4ABE17CBC}
+		{E084EB0F-6DE0-4BFC-94A0-95E7B859B146} = {C80F702F-6CF9-4871-B110-2056AD3017CA}
+		{C40A9DE1-A500-4F6D-9B11-9AB79CEC1999} = {64D8694F-939D-4089-87BD-246AB38662CE}
+		{F146F586-A1EC-4AE9-9EF9-3A3DABCECE1D} = {C80F702F-6CF9-4871-B110-2056AD3017CA}
+	EndGlobalSection
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 14
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = https://jhongarzon.visualstudio.com/
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = src\\Adom.Hhm.AppServices.Security\\Adom.Hhm.AppServices.Security.xproj
+		SccProjectTopLevelParentUniqueName1 = Adom.Hhm.sln
+		SccProjectName1 = src/Adom.Hhm.AppServices.Security
+		SccLocalPath1 = src\\Adom.Hhm.AppServices.Security
+		SccProjectUniqueName2 = src\\Adom.Hhm.AppServices\\Adom.Hhm.AppServices.xproj
+		SccProjectTopLevelParentUniqueName2 = Adom.Hhm.sln
+		SccProjectName2 = src/Adom.Hhm.AppServices
+		SccLocalPath2 = src\\Adom.Hhm.AppServices
+		SccProjectUniqueName3 = src\\Adom.Hhm.Data\\Adom.Hhm.Data.xproj
+		SccProjectTopLevelParentUniqueName3 = Adom.Hhm.sln
+		SccProjectName3 = src/Adom.Hhm.Data
+		SccLocalPath3 = src\\Adom.Hhm.Data
+		SccProjectUniqueName4 = src\\Adom.Hhm.Domain.Entities.Security\\Adom.Hhm.Domain.Entities.Security.xproj
+		SccProjectTopLevelParentUniqueName4 = Adom.Hhm.sln
+		SccProjectName4 = src/Adom.Hhm.Domain.Entities.Security
+		SccLocalPath4 = src\\Adom.Hhm.Domain.Entities.Security
+		SccProjectUniqueName5 = src\\Adom.Hhm.Domain.Entities\\Adom.Hhm.Domain.Entities.xproj
+		SccProjectTopLevelParentUniqueName5 = Adom.Hhm.sln
+		SccProjectName5 = src/Adom.Hhm.Domain.Entities
+		SccLocalPath5 = src\\Adom.Hhm.Domain.Entities
+		SccProjectUniqueName6 = src\\Adom.Hhm.Domain.Security\\Adom.Hhm.Domain.Security.xproj
+		SccProjectTopLevelParentUniqueName6 = Adom.Hhm.sln
+		SccProjectName6 = src/Adom.Hhm.Domain.Security
+		SccLocalPath6 = src\\Adom.Hhm.Domain.Security
+		SccProjectUniqueName7 = src\\Adom.Hhm.Domain.Services.Security\\Adom.Hhm.Domain.Services.Security.xproj
+		SccProjectTopLevelParentUniqueName7 = Adom.Hhm.sln
+		SccProjectName7 = src/Adom.Hhm.Domain.Services.Security
+		SccLocalPath7 = src\\Adom.Hhm.Domain.Services.Security
+		SccProjectUniqueName8 = src\\Adom.Hhm.Domain.Services\\Adom.Hhm.Domain.Services.xproj
+		SccProjectTopLevelParentUniqueName8 = Adom.Hhm.sln
+		SccProjectName8 = src/Adom.Hhm.Domain.Services
+		SccLocalPath8 = src\\Adom.Hhm.Domain.Services
+		SccProjectUniqueName9 = src\\Adom.Hhm.Domain\\Adom.Hhm.Domain.xproj
+		SccProjectTopLevelParentUniqueName9 = Adom.Hhm.sln
+		SccProjectName9 = src/Adom.Hhm.Domain
+		SccLocalPath9 = src\\Adom.Hhm.Domain
+		SccProjectUniqueName10 = src\\Adom.Hhm.Ioc\\Adom.Hhm.Ioc.xproj
+		SccProjectTopLevelParentUniqueName10 = Adom.Hhm.sln
+		SccProjectName10 = src/Adom.Hhm.Ioc
+		SccLocalPath10 = src\\Adom.Hhm.Ioc
+		SccProjectUniqueName11 = src\\Adom.Hhm.Test\\Adom.Hhm.Test.csproj
+		SccProjectTopLevelParentUniqueName11 = Adom.Hhm.sln
+		SccProjectName11 = src/Adom.Hhm.Test
+		SccLocalPath11 = src\\Adom.Hhm.Test
+		SccProjectUniqueName12 = src\\Adom.Hhm.Utility\\Adom.Hhm.Utility.xproj
+		SccProjectTopLevelParentUniqueName12 = Adom.Hhm.sln
+		SccProjectName12 = src/Adom.Hhm.Utility
+		SccLocalPath12 = src\\Adom.Hhm.Utility
+		SccProjectUniqueName13 = src\\Adom.Hhm.Web.Rest\\Adom.Hhm.Web.Rest.xproj
+		SccProjectTopLevelParentUniqueName13 = Adom.Hhm.sln
+		SccProjectName13 = src/Adom.Hhm.Web.Rest
+		SccLocalPath13 = src\\Adom.Hhm.Web.Rest
+	EndGlobalSection
+EndGlobal

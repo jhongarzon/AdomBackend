@@ -1,0 +1,18 @@
+{
+  "version": "1.0.0-*",
+
+  "dependencies": {
+    "Adom.Hhm.Domain.Entities.Security": "1.0.0-*",
+    "Adom.Hhm.Domain.Security": "1.0.0-*",
+    "Adom.Hhm.Utility": "1.0.0-*",
+    "Microsoft.AspNetCore.Authorization": "1.1.0",
+    "Microsoft.Extensions.Configuration.Abstractions": "1.1.0",
+    "NETStandard.Library": "1.6.0"
+  },
+
+  "frameworks": {
+    "netstandard1.6": {
+      "imports": "dnxcore50"
+    }
+  }
+}
