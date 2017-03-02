@@ -22,12 +22,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
         private readonly ILogger logger;
         private readonly IAuthenticationAppService authenticacion;
         private readonly IAuthorizationAppService authorization;
+        private readonly IUserAppService userAppService;
 
-        public AccountController(ILoggerFactory loggerFactory, IAuthenticationAppService authenticacion, IAuthorizationAppService authorization)
+        public AccountController(ILoggerFactory loggerFactory, IAuthenticationAppService authenticacion, IAuthorizationAppService authorization, IUserAppService userAppService)
         {
             this.logger = loggerFactory.CreateLogger<AccountController>();
             this.authenticacion = authenticacion;
             this.authorization = authorization;
+            this.userAppService = userAppService;
         }
 
         [HttpPost]
@@ -75,6 +77,26 @@ namespace Adom.Hhm.Web.Rest.Controllers
             catch (Exception ex)
             {
                 result = new ServiceResult<bool>();
+                result.Errors = new string[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
+
+        [AllowAnonymous]
+        [HttpGet("{email}")]
+        public ServiceResult<User> Get(string email)
+        {
+            ServiceResult<User> result = new ServiceResult<User>();
+
+            try
+            {
+                result = this.userAppService.RecoverPassword(email);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<User>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }

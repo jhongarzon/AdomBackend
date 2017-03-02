@@ -16,5 +16,7 @@ namespace Adom.Hhm.Domain.Security.Repositories
         User GetUserByEmailWithoutId(int userId, string email);
         User Insert(User user);
         User Update(User user);
+        bool ChangePassword(int userId, string password);
+        User RecoverPassword(string email);
     }
 }

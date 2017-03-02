@@ -9,8 +9,8 @@ using System.Security.Claims;
 using Microsoft.Extensions.Configuration;
 using System.Data;
 using Adom.Hhm.Data.Querys;
-using Adom.Hhm.Domain.Security.Repositories;
 using Dapper;
+using Adom.Hhm.Domain.Security.Repositories;
 
 namespace Adom.Hhm.Data.Repositories
 {
@@ -55,6 +55,17 @@ namespace Adom.Hhm.Data.Repositories
         {
             var affectedRows = connection.Execute(UserQuerys.Update, user);
             return user;
+        }
+
+        public bool ChangePassword(int userId, string password)
+        {
+            var affectedRows = connection.Execute(UserQuerys.ChangePassword, new { UserId = userId, Password = password });
+            return affectedRows > 0;
+        }
+
+        public User RecoverPassword(string email)
+        {
+            return connection.Query<User>(UserQuerys.RecoverPassword, new { Email = email }).FirstOrDefault();
         }
     }
 }

@@ -15,5 +15,7 @@ namespace Adom.Hhm.Domain.Services.Security.Interface
         ServiceResult<User> GetUserById(int userId);
         ServiceResult<User> Insert(User user);
         ServiceResult<User> Update(User user);
+        ServiceResult<bool> ChangePassword(int userId, string password);
+        ServiceResult<User> RecoverPassword(string email);
     }
 }

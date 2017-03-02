@@ -11,6 +11,8 @@ using Adom.Hhm.Web.Rest.Validators;
 using Adom.Hhm.Web.Rest.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Cors;
+using System.IdentityModel.Tokens.Jwt;
+using Adom.Hhm.Utility;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -103,6 +105,35 @@ namespace Adom.Hhm.Web.Rest.Controllers
             {
                 result = new ServiceResult<User>();
                 result.Errors = validatorResult.GetErrors();
+                result.Success = false;
+            }
+
+            return result;
+        }
+
+        [Authorize(Policy = "/Users/ChangePassword")]
+        [HttpPost("{id}")]
+        public ServiceResult<bool> PostChangePassword(int id, [FromBody]Passwords password)
+        {
+            ServiceResult<bool> result = null;
+
+            if (password != null)
+            {
+                try
+                {
+                    result = this.appService.ChangePassword(TokenJWT.GetUserByToken(Request.Headers["Authorization"]), password.Password);
+                }
+                catch (Exception ex)
+                {
+                    result = new ServiceResult<bool>();
+                    result.Errors = new string[] { ex.Message };
+                    result.Success = false;
+                }
+            }
+            else
+            {
+                result = new ServiceResult<bool>();
+                result.Errors = new string[1] { MessageValidator.PasswordRequired };
                 result.Success = false;
             }
 

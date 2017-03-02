@@ -18,6 +18,11 @@ namespace Adom.Hhm.AppServices.Security
             this.service = service;
         }
 
+        public ServiceResult<bool> ChangePassword(int userId, string password)
+        {
+            return this.service.ChangePassword(userId, password);
+        }
+
         public ServiceResult<User> GetUserById(int userId)
         {
             return this.service.GetUserById(userId);
@@ -31,6 +36,11 @@ namespace Adom.Hhm.AppServices.Security
         public ServiceResult<User> Insert(User user)
         {
             return this.service.Insert(user);
+        }
+
+        public ServiceResult<User> RecoverPassword(string email)
+        {
+            return this.service.RecoverPassword(email);
         }
 
         public ServiceResult<User> Update(User user)

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Adom.Hhm.Domain.Entities.Security;
 using System.Security.Claims;
 using Adom.Hhm.Domain.Security.Repositories;
-using Adom.Hhm.Domain.Secutiry.Repositories;
 using Microsoft.AspNetCore.Authorization;
 using Adom.Hhm.Utility;
 using Microsoft.Extensions.Configuration;
@@ -87,6 +86,40 @@ namespace Adom.Hhm.Domain.Services.Security
             {
                 Success = false,
                 Errors = new string[] { MessageError.EmailExists }
+            };
+        }
+
+        public ServiceResult<bool> ChangePassword(int userId, string password)
+        {
+            password = Encrypt.EncryptString(password, this.configuration["KeyEncription"]);
+            bool result = this.repository.ChangePassword(userId, password);
+
+            return new ServiceResult<bool>
+            {
+                Success = true,
+                Result = result
+            };
+        }
+
+        public ServiceResult<User> RecoverPassword(string email)
+        {
+            User user = this.repository.RecoverPassword(email);
+
+            if (user != null)
+            {
+                user.Password = Encrypt.DecryptDecryptString(user.Password, this.configuration["KeyEncription"]);
+                ///TODO: Llama al api de correo electrónico.
+                return new ServiceResult<User>
+                {
+                    Success = true,
+                    Result = user
+                };
+            }
+
+            return new ServiceResult<User>
+            {
+                Success = false,
+                Errors = new string[] { MessageError.UserNotExist }
             };
         }
     }

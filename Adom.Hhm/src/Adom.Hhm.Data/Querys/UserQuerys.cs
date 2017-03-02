@@ -10,7 +10,6 @@ namespace Adom.Hhm.Data.Querys
         public static string GetAll =
         @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],Count(*) Over() AS TotalRows
             FROM	    [sec].[Users]
-            WHERE       [State] = 1
             ORDER BY    [UserId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetByEmail =
@@ -45,17 +44,15 @@ namespace Adom.Hhm.Data.Querys
                     [State] = @State
             WHERE   [UserId] = @UserId";
 
-        public static string UpdatePassword =
+        public static string ChangePassword =
         @"  UPDATE [sec].[Users]
-            SET     [FirstName] = @FirstName, 
-                    [SecondName] = @SecondName, 
-                    [Surname] = @Surname, 
-                    [SecondSurname] = @SecondSurname, 
-                    [Email] = @Email,
-                    [Password] = @Password
-                    [State] = @State
+            SET     [Password] = @Password
             WHERE   [UserId] = @UserId";
 
-
+        public static string RecoverPassword =
+        @"  SELECT	[UserId],[Password],[FirstName],[SecondName],[Surname],[SecondSurname],[Email]
+            FROM	[sec].[Users]
+            WHERE   [Email] = @Email
+            AND     [State] = 1";
     }
 }
