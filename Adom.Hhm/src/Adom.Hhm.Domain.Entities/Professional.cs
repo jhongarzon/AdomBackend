@@ -9,7 +9,7 @@ namespace Adom.Hhm.Domain.Entities
     {
         public int ProfessionalId { get; set; }
         public int UserId { get; set; }
-        public int Document { get; set; }
+        public string Document { get; set; }
         public DateTime BirthDate { get; set; }
         public DateTime DateAdmission { get; set; }
         public int Availability { get; set; }

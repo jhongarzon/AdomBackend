@@ -136,6 +136,8 @@ namespace Adom.Hhm.Web.Rest
             services.AddScoped<RoleValidator>();
             services.AddScoped<UserRoleValidator>();
             services.AddScoped<RoleActionResourceValidator>();
+            services.AddScoped<PatientValidator>();
+            services.AddScoped<ProfessionalValidator>();
         }
     }
 }

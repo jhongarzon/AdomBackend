@@ -14,6 +14,7 @@ namespace Adom.Hhm.AppServices.IoC
             var dic = new Dictionary<Type, Type>();
             dic.Add(typeof(IProfessionalAppService), typeof(ProfessionalAppService));
             dic.Add(typeof(IPatientAppService), typeof(PatientAppService));
+            dic.Add(typeof(IParameterAppService), typeof(ParameterAppService));
             return dic;
         }
     }

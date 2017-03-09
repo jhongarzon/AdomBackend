@@ -11,6 +11,7 @@ namespace Adom.Hhm.Domain.Services.IoC
             var dic = new Dictionary<Type, Type>();
             dic.Add(typeof(IProfessionalDomainService), typeof(ProfessionalDomainServices));
             dic.Add(typeof(IPatientDomainService), typeof(PatientDomainServices));
+            dic.Add(typeof(IParameterDomainService), typeof(ParameterDomainServices));
             return dic;
         }
     }
