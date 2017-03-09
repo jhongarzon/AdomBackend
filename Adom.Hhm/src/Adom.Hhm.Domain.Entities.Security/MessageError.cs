@@ -15,5 +15,6 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string RoleUpdate = "Error al guardar el usuario";
         public static string InvalidCredentials = "La credenciales son inválidas";
         public static string UserNotExist = "El usuario no existe o no está activo";
+        public static string DocumentExists = "El documento ya existe.";
     }
 }

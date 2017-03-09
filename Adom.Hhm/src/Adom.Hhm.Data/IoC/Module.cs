@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Adom.Hhm.Domain.Security.Repositories;
+using Adom.Hhm.Domain.Repositories;
 
 namespace Adom.Hhm.Data.IoC
 {
@@ -19,7 +20,8 @@ namespace Adom.Hhm.Data.IoC
                 {typeof (IUserRepository), typeof (UserRepository)},
                 {typeof (IRoleRepository), typeof (RoleRepository)},
                 {typeof (IUserRoleRepository), typeof (UserRoleRepository)},
-                {typeof (IRoleActionResourceRepository), typeof (RoleActionResourceRepository)}
+                {typeof (IRoleActionResourceRepository), typeof (RoleActionResourceRepository)},
+                {typeof (IProfessionalRepository), typeof (ProfessionalRepository)}
             };
             return dic;
         }

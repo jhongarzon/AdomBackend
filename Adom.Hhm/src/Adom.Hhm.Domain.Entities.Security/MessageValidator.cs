@@ -7,6 +7,7 @@ namespace Adom.Hhm.Domain.Entities.Security
 {
     public class MessageValidator
     {
+        public static string GenderRequired { get; set; } = "El género es requerido";
 
         public static string EmailRequired { get; set; } = "El email es requerido";
         public static string FirstNameRequired { get; set; } = "El primer nombre es requerido";
@@ -18,5 +19,12 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string ResourceIdRequired { get; set; } = "El id del recurso es requerido";
         public static string RoleIdRequired { get; set; } = "El id del rol es requerido";
         public static string HasRoleIdRequired { get; set; } = "La bandera del rol es requerido";
+        public static string DocumentTypeIdRequired { get; set; } = "El tipo de documento es requerido";
+        public static string DocumentRequired { get; set; } = "El documento es requerido";
+        public static string SpecialtyRequired { get; set; } = "La especialidad es requerido";
+        public static string Telephone1Required { get; set; } = "El celular es requerido";
+        public static string BankRequired { get; set; } = "El banco es requerido";
+        public static string AccountRequired { get; set; } = "La cuenta es requerida";
+        public static string AccountTypeRequired { get; set; } = "El tipo de cuenta es requerido";
     }
 }

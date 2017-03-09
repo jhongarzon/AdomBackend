@@ -1,7 +1,9 @@
-﻿{
+{
   "version": "1.0.0-*",
 
   "dependencies": {
+    "Adom.Hhm.Domain.Entities": "1.0.0-*",
+    "Adom.Hhm.Domain.Services": "1.0.0-*",
     "NETStandard.Library": "1.6.0"
   },
 

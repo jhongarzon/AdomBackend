@@ -2,9 +2,12 @@
   "version": "1.0.0-*",
 
   "dependencies": {
+    "Adom.Hhm.AppServices": "1.0.0-*",
     "Adom.Hhm.AppServices.Security": "1.0.0-*",
     "Adom.Hhm.Data": "1.0.0-*",
+    "Adom.Hhm.Domain": "1.0.0-*",
     "Adom.Hhm.Domain.Security": "1.0.0-*",
+    "Adom.Hhm.Domain.Services": "1.0.0-*",
     "Adom.Hhm.Domain.Services.Security": "1.0.0-*",
     "Microsoft.Extensions.DependencyInjection.Abstractions": "1.1.0",
     "NETStandard.Library": "1.6.0"
