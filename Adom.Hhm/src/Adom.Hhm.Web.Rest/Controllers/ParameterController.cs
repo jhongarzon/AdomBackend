@@ -28,8 +28,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
             this.configuration = configuration;
         }
 
-        [Authorize(Policy = "/Parameter/Get")]
-        [HttpGet("{parametricTable}")]
+        [Authorize(Policy = "/Parameters/Get")]
         public ServiceResult<IEnumerable<Parameter>> Get(string parametricTable)
         {
             ServiceResult<IEnumerable<Parameter>> result = null;

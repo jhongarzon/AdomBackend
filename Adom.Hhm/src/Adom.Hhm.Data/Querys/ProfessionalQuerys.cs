@@ -8,41 +8,43 @@ namespace Adom.Hhm.Data.Querys
     public static class ProfessionalQuerys
     {
         public static string GetAll =
-        @"  SELECT [ProfessionalId]
-            ,[UserId]
-            ,[Document]
-            ,[BirthDate]
-            ,[DateAdmission]
-            ,[Neighborhood]
-            ,[Availability]
-            ,[Address]
-            ,[Telephone1]
-            ,[Telephone2]
-            ,[AccountNumber]
-            ,[CodeBank]
-            ,[GenderId]
-            ,[SpecialtyId]
-            ,[ZoneId]
-            ,[FamilyName]
-            ,[FamilyRelationship]
-            ,[FamilyPhone]
-            ,[Coverage]
+        @"  SELECT Pro.[ProfessionalId]
+            ,Pro.[UserId]
+            ,Pro.[Document]
+            ,Pro.[BirthDate]
+            ,Pro.[DateAdmission]
+            ,Pro.[Neighborhood]
+            ,Pro.[Availability]
+            ,Pro.[Address]
+            ,Pro.[Telephone1]
+            ,Pro.[Telephone2]
+            ,Pro.[AccountNumber]
+            ,Pro.[CodeBank]
+            ,Pro.[GenderId]
+            ,Pro.[SpecialtyId]
+            ,Pro.[FamilyName]
+            ,Pro.[FamilyRelationship]
+            ,Pro.[FamilyPhone]
+            ,Pro.[Coverage]
+            , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname
             ,[DocumentTypeId],Count(*) Over() AS TotalRows
-            FROM	    [cfg].[Professionals]
+            FROM	    [cfg].[Professionals] Pro
+            INNER JOIN  [sec].[Users] Urs
+            ON          [Urs].[UserId] = [Pro].[UserId]
             ORDER BY    [ProfessionalId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetByEmail =
         @"  SELECT	    Pro.*
             FROM	    [cfg].[Professionals] Pro
             INNER JOIN  [sec].[Users] Urs
-            ON          [Urs].[UserId] = [sec].[UserId]
+            ON          [Urs].[UserId] = [Pro].[UserId]
             WHERE       [Urs].[Email] = @Email";
 
         public static string GetByEmailWithoutId =
         @"  SELECT	    Pro.*
             FROM	    [cfg].[Professionals] Pro
             INNER JOIN  [sec].[Users] Urs
-            ON          [Urs].[UserId] = [sec].[UserId]
+            ON          [Urs].[UserId] = [Pro].[UserId]
             WHERE       [Urs].[Email] = @Email
             AND         [Pro].[ProfessionalId] <> @ProfessionalId";
 
@@ -67,7 +69,6 @@ namespace Adom.Hhm.Data.Querys
                ,[CodeBank]
                ,[GenderId]
                ,[SpecialtyId]
-               ,[ZoneId]
                ,[DocumentTypeId]
                ,[FamilyName]
                ,[FamilyRelationship]
@@ -87,7 +88,6 @@ namespace Adom.Hhm.Data.Querys
                ,@CodeBank
                ,@GenderId
                ,@SpecialtyId
-               ,@ZoneId
                ,@DocumentTypeId
                ,@FamilyName
                ,@FamilyRelationship
@@ -110,7 +110,6 @@ namespace Adom.Hhm.Data.Querys
               ,[CodeBank] = @CodeBank
               ,[GenderId] = @GenderId
               ,[SpecialtyId] = @SpecialtyId
-              ,[ZoneId] = @ZoneId
               ,[DocumentTypeId] = @DocumentTypeId
               ,[Coverage] = @Coverage
               ,[FamilyName] = @FamilyName

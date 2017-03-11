@@ -15,13 +15,13 @@ namespace Adom.Hhm.Domain.Entities
         public int Availability { get; set; }
         public string Neighborhood { get; set; }
         public string Address { get; set; }
-        public int Telephone1 { get; set; }
-        public int Telephone2 { get; set; }
-        public int AccountNumber { get; set; }
-        public int CodeBank { get; set; }
+        public string Telephone1 { get; set; }
+        public string Telephone2 { get; set; }
+        public string AccountNumber { get; set; }
+        public string CodeBank { get; set; }
         public int GenderId { get; set; }
         public int SpecialtyId { get; set; }
-        public int ZoneId { get; set; }
+        public string Coverage { get; set; }
         public int DocumentTypeId { get; set; }
         public bool State { get; set; }
         public int TotalRows { get; set; }

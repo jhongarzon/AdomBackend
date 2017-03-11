@@ -10,7 +10,7 @@ namespace Adom.Hhm.Data.Querys
         public static string GetDocumentType =
         @"  SELECT   [Id]
                     ,[Name]
-            FROM	    [cfg].[AccountType]";
+            FROM	    [cfg].[DocumentType]";
 
         public static string GetSpecialties =
         @"  SELECT [Id]
