@@ -7,6 +7,7 @@ namespace Adom.Hhm.Domain.Repositories
     public interface ICoordinatorRepository
     {
         IEnumerable<Coordinator> GetCoordinators(int pageNumber, int pageSize);
+        IEnumerable<Coordinator> GetCoordinators();
         Coordinator GetCoordinatorById(int CoordinatorId);
         Coordinator GetCoordinatorByEmail(string email);
         Coordinator GetCoordinatorByEmailWithoutId(int CoordinatorId, string email);

@@ -23,6 +23,11 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Parameter>(ParameterQuerys.GetAccountType);
         }
 
+        public IEnumerable<Parameter> GetClassification()
+        {
+            return connection.Query<Parameter>(ParameterQuerys.GetClassification);
+        }
+
         public IEnumerable<Parameter> GetDocumentType()
         {
             return connection.Query<Parameter>(ParameterQuerys.GetDocumentType);
@@ -31,6 +36,11 @@ namespace Adom.Hhm.Data.Repositories
         public IEnumerable<Parameter> GetGender()
         {
             return connection.Query<Parameter>(ParameterQuerys.GetGender);
+        }
+
+        public IEnumerable<Parameter> GetServiceType()
+        {
+            return connection.Query<Parameter>(ParameterQuerys.GetServiceType);
         }
 
         public IEnumerable<Parameter> GetSpecialties()

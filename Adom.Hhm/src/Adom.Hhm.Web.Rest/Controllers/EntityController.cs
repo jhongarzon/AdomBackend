@@ -38,32 +38,6 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/Entity/Get")]
         [HttpGet]
-        public ServiceResult<IEnumerable<Entity>> Get(int? pageNumber, int? pageSize)
-        {
-            ServiceResult<IEnumerable<Entity>> result = null;
-
-            try
-            {
-                if (pageNumber == null)
-                    pageNumber = 1;
-
-                if (pageSize == null)
-                    pageSize = int.Parse(this.configuration["RowsSize"]);
-
-                result = this.appService.GetEntities(pageNumber.Value, pageSize.Value);
-            }
-            catch (Exception ex)
-            {
-                result = new ServiceResult<IEnumerable<Entity>>();
-                result.Errors = new string[] { ex.Message };
-                result.Success = false;
-            }
-
-            return result;
-        }
-
-        [Authorize(Policy = "/Entity/Get")]
-        [HttpGet]
         public ServiceResult<IEnumerable<Entity>> Get()
         {
             ServiceResult<IEnumerable<Entity>> result = null;

@@ -31,5 +31,14 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string BusinessEntityRequired { get; set; } = "La razón social es requerido";
         public static string CodeEntityRequired { get; set; } = "El código es requerido";
         public static string NitEntityRequired { get; set; } = "El nit es requerido";
+        public static string NameSupplyRequired { get; set; } = "El nombre del insumo es requerido";
+        public static string PresentationSupplyRequired { get; set; } = "La presentación del insumo es requerido";
+        public static string CodeSupplyRequired { get; set; } = "El código del insumo es requerido";
+        public static string NameServiceRequired { get; set; } = "El nombre del servicio es requerido";
+        public static string ValueServiceRequired { get; set; } = "El valor del servicio es requerido";
+        public static string ValueGreaterServiceRequired { get; set; } = "El valor del servicio debe ser mayor a 0";
+        public static string CodeServiceRequired { get; set; } = "El código del s eervicios requerido";
+        public static string ClassificationServiceRequired { get; set; } = "La clasificación del servicio es requerido";
+        public static string ServiceTypeServiceRequired { get; set; } = "El tipo de servicio es requerido";
     }
 }

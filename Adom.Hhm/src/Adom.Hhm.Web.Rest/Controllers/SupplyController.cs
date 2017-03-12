@@ -1,18 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
-using Adom.Hhm.AppServices.Security.Interfaces;
 using Microsoft.Extensions.Logging;
 using Adom.Hhm.Domain.Entities.Security;
 using Adom.Hhm.Web.Rest.Validators;
 using Adom.Hhm.Web.Rest.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Cors;
-using System.IdentityModel.Tokens.Jwt;
-using Adom.Hhm.Utility;
 using Adom.Hhm.AppServices.Interfaces;
 using Adom.Hhm.Domain.Entities;
 
@@ -22,33 +17,33 @@ namespace Adom.Hhm.Web.Rest.Controllers
 {
     [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
-    public class CoordinatorController : Controller
+    public class SupplyController : Controller
     {
         private readonly ILogger logger;
-        private readonly ICoordinatorAppService appService;
-        private readonly CoordinatorValidator validator;
+        private readonly ISupplyAppService appService;
+        private readonly SupplyValidator validator;
         private readonly IConfigurationRoot configuration;
 
-        public CoordinatorController(ICoordinatorAppService appService, CoordinatorValidator validator, IConfigurationRoot configuration)
+        public SupplyController(ISupplyAppService appService, SupplyValidator validator, IConfigurationRoot configuration)
         {
             this.appService = appService;
             this.validator = validator;
             this.configuration = configuration;
         }
 
-        [Authorize(Policy = "/Coordinator/Get")]
+        [Authorize(Policy = "/Supply/Get")]
         [HttpGet]
-        public ServiceResult<IEnumerable<Coordinator>> Get()
+        public ServiceResult<IEnumerable<Supply>> Get()
         {
-            ServiceResult<IEnumerable<Coordinator>> result = null;
+            ServiceResult<IEnumerable<Supply>> result = null;
 
             try
             {
-                result = this.appService.GetCoordinators();
+                result = this.appService.GetSupplies();
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<IEnumerable<Coordinator>>();
+                result = new ServiceResult<IEnumerable<Supply>>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }
@@ -56,19 +51,19 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
-        [Authorize(Policy = "/Coordinator/Get")]
+        [Authorize(Policy = "/Supply/Get")]
         [HttpGet("{id}")]
-        public ServiceResult<Coordinator> Get(int id)
+        public ServiceResult<Supply> Get(int id)
         {
-            ServiceResult<Coordinator> result = null;
+            ServiceResult<Supply> result = null;
 
             try
             {
-                result = this.appService.GetCoordinatorById(id);
+                result = this.appService.GetSupplyById(id);
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<Coordinator>();
+                result = new ServiceResult<Supply>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }
@@ -76,11 +71,11 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
-        [Authorize(Policy = "/Coordinator/Create")]
+        [Authorize(Policy = "/Supply/Create")]
         [HttpPost]
-        public ServiceResult<Coordinator> Post([FromBody]Coordinator model)
+        public ServiceResult<Supply> Post([FromBody]Supply model)
         {
-            ServiceResult<Coordinator> result = null;
+            ServiceResult<Supply> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
@@ -91,14 +86,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<Coordinator>();
+                    result = new ServiceResult<Supply>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<Coordinator>();
+                result = new ServiceResult<Supply>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }
@@ -106,11 +101,11 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
-        [Authorize(Policy = "/Coordinator/Edit")]
+        [Authorize(Policy = "/Supply/Edit")]
         [HttpPut("{id}")]
-        public ServiceResult<Coordinator> Put(int id, [FromBody]Coordinator model)
+        public ServiceResult<Supply> Put(int id, [FromBody]Supply model)
         {
-            ServiceResult<Coordinator> result = null;
+            ServiceResult<Supply> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
@@ -121,14 +116,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<Coordinator>();
+                    result = new ServiceResult<Supply>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<Coordinator>();
+                result = new ServiceResult<Supply>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }

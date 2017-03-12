@@ -17,5 +17,7 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string UserNotExist = "El usuario no existe o no está activo";
         public static string DocumentExists = "El documento ya existe.";
         public static string NameEntityExists = "El nombre de la entidad ya existe.";
+        public static string NameSupplyExists = "El nombre del insumo ya existe.";
+        public static string NameServiceExists = "El nombre del servicio ya existe.";
     }
 }

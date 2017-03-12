@@ -11,5 +11,7 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<Parameter> GetZones();
         IEnumerable<Parameter> GetGender();
         IEnumerable<Parameter> GetDocumentType();
+        IEnumerable<Parameter> GetServiceType();
+        IEnumerable<Parameter> GetClassification();
     }
 }

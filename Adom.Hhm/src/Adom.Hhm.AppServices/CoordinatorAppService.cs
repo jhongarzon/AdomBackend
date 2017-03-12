@@ -25,6 +25,11 @@ namespace Adom.Hhm.AppServices
             return this.service.GetCoordinators(pageNumber, pageSize);
         }
 
+        public ServiceResult<IEnumerable<Coordinator>> GetCoordinators()
+        {
+            return this.service.GetCoordinators();
+        }
+
         public ServiceResult<Coordinator> Insert(Coordinator coordinator)
         {
             return this.service.Insert(coordinator);

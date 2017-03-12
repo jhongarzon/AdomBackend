@@ -16,13 +16,26 @@ namespace Adom.Hhm.Data.Querys
             ,Pro.[Telephone1]
             ,Pro.[Telephone2]
             ,Pro.[GenderId]
-            ,Pro.[Coverage]
             , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname, Urs.State
             ,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Coordinators] Pro
             INNER JOIN  [sec].[Users] Urs
             ON          [Urs].[UserId] = [Pro].[UserId]
             ORDER BY    [CoordinatorId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
+
+        public static string GetAllWithoutPagination =
+        @"  SELECT Pro.[CoordinatorId]
+            ,Pro.[UserId]
+            ,Pro.[Document]
+            ,Pro.[DocumentTypeId]
+            ,Pro.[BirthDate]
+            ,Pro.[Telephone1]
+            ,Pro.[Telephone2]
+            ,Pro.[GenderId]
+            , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname, Urs.State
+            FROM	    [cfg].[Coordinators] Pro
+            INNER JOIN  [sec].[Users] Urs
+            ON          [Urs].[UserId] = [Pro].[UserId]";
 
         public static string GetByEmail =
         @"  SELECT	    Pro.*,Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname, Urs.State

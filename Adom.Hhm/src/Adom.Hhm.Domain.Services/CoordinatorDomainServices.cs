@@ -45,6 +45,17 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
+        public ServiceResult<IEnumerable<Coordinator>> GetCoordinators()
+        {
+            var getCoordinators = this.repository.GetCoordinators();
+            return new ServiceResult<IEnumerable<Coordinator>>
+            {
+                Success = true,
+                Errors = new string[] { string.Empty },
+                Result = getCoordinators
+            };
+        }
+
         public ServiceResult<Coordinator> Insert(Coordinator coordinator)
         {
             Coordinator emailExist = this.repository.GetCoordinatorByEmail(coordinator.Email);

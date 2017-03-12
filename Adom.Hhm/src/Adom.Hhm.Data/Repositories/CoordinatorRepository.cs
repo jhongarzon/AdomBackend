@@ -44,6 +44,11 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Coordinator>(CoordinatorQuerys.GetAll, new { PageNumber = pageNumber, PageSize = pageSize });
         }
 
+        public IEnumerable<Coordinator> GetCoordinators()
+        {
+            return connection.Query<Coordinator>(CoordinatorQuerys.GetAllWithoutPagination);
+        }
+
         public Coordinator Insert(Coordinator coordinator)
         {
             var id = connection.Query<int>(CoordinatorQuerys.Insert, coordinator).Single();

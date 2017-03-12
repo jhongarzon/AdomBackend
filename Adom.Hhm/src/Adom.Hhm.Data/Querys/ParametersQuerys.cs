@@ -31,5 +31,15 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT [Id]
                    ,[Name]
             FROM	    [cfg].[AccountType]";
+
+        public static string GetServiceType =
+        @"  SELECT [Id]
+                   ,[Name]
+            FROM	    [cfg].[ServiceType]";
+
+        public static string GetClassification =
+        @"  SELECT [Id]
+                   ,[Name]
+            FROM	    [cfg].[Classification]";
     }
 }

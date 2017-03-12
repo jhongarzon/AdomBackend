@@ -41,6 +41,12 @@ namespace Adom.Hhm.Domain.Services
                 case "zones":
                     getParameter = this.repository.GetZones();
                     break;
+                case "classification":
+                    getParameter = this.repository.GetClassification();
+                    break;
+                case "serviceType":
+                    getParameter = this.repository.GetServiceType();
+                    break;
             }
 
             return new ServiceResult<IEnumerable<Parameter>>
