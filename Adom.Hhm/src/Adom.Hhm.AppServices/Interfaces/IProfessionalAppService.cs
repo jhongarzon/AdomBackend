@@ -8,6 +8,7 @@ namespace Adom.Hhm.AppServices.Interfaces
     public interface IProfessionalAppService
     {
         ServiceResult<IEnumerable<Professional>> GetProfessionals(int pageNumber, int pageSize);
+        ServiceResult<IEnumerable<Professional>> GetProfessionals();
         ServiceResult<Professional> GetProfessionalById(int ProfessionalId);
         ServiceResult<Professional> Insert(Professional Professional);
         ServiceResult<Professional> Update(Professional Professional);

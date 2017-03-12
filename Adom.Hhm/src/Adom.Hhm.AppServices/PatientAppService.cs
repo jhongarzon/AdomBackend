@@ -25,6 +25,11 @@ namespace Adom.Hhm.AppServices
             return this.service.GetPatients(pageNumber, pageSize);
         }
 
+        public ServiceResult<IEnumerable<Patient>> GetPatients()
+        {
+            return this.service.GetPatients();
+        }
+
         public ServiceResult<Patient> Insert(Patient patient)
         {
             return this.service.Insert(patient);

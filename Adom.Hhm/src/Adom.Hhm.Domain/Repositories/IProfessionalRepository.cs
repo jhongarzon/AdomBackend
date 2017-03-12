@@ -7,6 +7,7 @@ namespace Adom.Hhm.Domain.Repositories
     public interface IProfessionalRepository
     {
         IEnumerable<Professional> GetProfessionals(int pageNumber, int pageSize);
+        IEnumerable<Professional> GetProfessionals();
         Professional GetProfessionalById(int ProfessionalId);
         Professional GetProfessionalByEmail(string email);
         Professional GetProfessionalByEmailWithoutId(int ProfessionalId, string email);

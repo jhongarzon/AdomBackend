@@ -21,15 +21,14 @@ namespace Adom.Hhm.Domain.Entities
         public int GenderId { get; set; }
         public string Occupation { get; set; }
         public string Address { get; set; }
-        public int Telephone1 { get; set; }
-        public int Telephone2 { get; set; }
+        public string Telephone1 { get; set; }
+        public string Telephone2 { get; set; }
         public string AttendantName { get; set; }
         public string AttendantRelationship { get; set; }
         public string AttendantPhone { get; set; }
         public string AttendantEmail { get; set; }
         public string Profile { get; set; }
         public DateTime CreatedOn { get; set; }
-        public bool State { get; set; }
         public int TotalRows { get; set; }
     }
 }

@@ -45,6 +45,17 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
+        public ServiceResult<IEnumerable<Professional>> GetProfessionals()
+        {
+            var getProfessionals = this.repository.GetProfessionals();
+            return new ServiceResult<IEnumerable<Professional>>
+            {
+                Success = true,
+                Errors = new string[] { string.Empty },
+                Result = getProfessionals
+            };
+        }
+
         public ServiceResult<Professional> Insert(Professional professional)
         {
             Professional emailExist = this.repository.GetProfessionalByEmail(professional.Email);

@@ -13,5 +13,6 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<Parameter> GetDocumentType();
         IEnumerable<Parameter> GetServiceType();
         IEnumerable<Parameter> GetClassification();
+        IEnumerable<Parameter> GetUnitTime();
     }
 }

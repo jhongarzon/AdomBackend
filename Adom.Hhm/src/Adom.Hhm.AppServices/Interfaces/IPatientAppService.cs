@@ -8,6 +8,7 @@ namespace Adom.Hhm.AppServices.Interfaces
     public interface IPatientAppService
     {
         ServiceResult<IEnumerable<Patient>> GetPatients(int pageNumber, int pageSize);
+        ServiceResult<IEnumerable<Patient>> GetPatients();
         ServiceResult<Patient> GetPatientById(int patientId);
         ServiceResult<Patient> Insert(Patient patient);
         ServiceResult<Patient> Update(Patient patient);

@@ -45,6 +45,17 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
+        public ServiceResult<IEnumerable<Patient>> GetPatients()
+        {
+            var getPatients = this.repository.GetPatients();
+            return new ServiceResult<IEnumerable<Patient>>
+            {
+                Success = true,
+                Errors = new string[] { string.Empty },
+                Result = getPatients
+            };
+        }
+
         public ServiceResult<Patient> Insert(Patient patient)
         {
             Patient emailExist = this.repository.GetPatientByEmail(patient.Email);

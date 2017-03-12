@@ -25,6 +25,11 @@ namespace Adom.Hhm.AppServices
             return this.service.GetProfessionals(pageNumber, pageSize);
         }
 
+        public ServiceResult<IEnumerable<Professional>> GetProfessionals()
+        {
+            return this.service.GetProfessionals();
+        }
+
         public ServiceResult<Professional> Insert(Professional Professional)
         {
             return this.service.Insert(Professional);

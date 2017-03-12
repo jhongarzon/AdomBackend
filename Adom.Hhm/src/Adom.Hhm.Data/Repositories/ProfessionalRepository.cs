@@ -44,6 +44,11 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Professional>(ProfessionalQuerys.GetAll, new { PageNumber = pageNumber, PageSize = pageSize });
         }
 
+        public IEnumerable<Professional> GetProfessionals()
+        {
+            return connection.Query<Professional>(ProfessionalQuerys.GetAllWithoutPagination);
+        }
+
         public Professional Insert(Professional Professional)
         {
             var id = connection.Query<int>(ProfessionalQuerys.Insert, Professional).Single();

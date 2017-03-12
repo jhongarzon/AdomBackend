@@ -7,6 +7,7 @@ namespace Adom.Hhm.Domain.Repositories
     public interface IPatientRepository
     {
         IEnumerable<Patient> GetPatients(int pageNumber, int pageSize);
+        IEnumerable<Patient> GetPatients();
         Patient GetPatientById(int PatientId);
         Patient GetPatientByEmail(string email);
         Patient GetPatientByEmailWithoutId(int PatientId, string email);

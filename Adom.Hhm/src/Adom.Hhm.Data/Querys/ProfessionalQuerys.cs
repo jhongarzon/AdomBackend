@@ -33,6 +33,31 @@ namespace Adom.Hhm.Data.Querys
             ON          [Urs].[UserId] = [Pro].[UserId]
             ORDER BY    [ProfessionalId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
+        public static string GetAllWithoutPagination =
+        @"  SELECT Pro.[ProfessionalId]
+            ,Pro.[UserId]
+            ,Pro.[Document]
+            ,Pro.[BirthDate]
+            ,Pro.[DateAdmission]
+            ,Pro.[Neighborhood]
+            ,Pro.[Availability]
+            ,Pro.[Address]
+            ,Pro.[Telephone1]
+            ,Pro.[Telephone2]
+            ,Pro.[AccountNumber]
+            ,Pro.[CodeBank]
+            ,Pro.[GenderId]
+            ,Pro.[SpecialtyId]
+            ,Pro.[FamilyName]
+            ,Pro.[FamilyRelationship]
+            ,Pro.[FamilyPhone]
+            ,Pro.[Coverage]
+            , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname
+            ,[DocumentTypeId]
+            FROM	    [cfg].[Professionals] Pro
+            INNER JOIN  [sec].[Users] Urs
+            ON          [Urs].[UserId] = [Pro].[UserId]";
+
         public static string GetByEmail =
         @"  SELECT	    Pro.*
             FROM	    [cfg].[Professionals] Pro

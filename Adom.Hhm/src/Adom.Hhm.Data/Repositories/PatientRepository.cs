@@ -47,11 +47,15 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Patient>(PatientQuerys.GetAll, new { PageNumber = pageNumber, PageSize = pageSize });
         }
 
+        public IEnumerable<Patient> GetPatients()
+        {
+            return connection.Query<Patient>(PatientQuerys.GetAllWithoutPagination);
+        }
+
         public Patient Insert(Patient Patient)
         {
             var id = connection.Query<int>(PatientQuerys.Insert, Patient).Single();
             Patient.PatientId = id;
-            Patient.State = true;
             return Patient;
         }
 

@@ -41,5 +41,10 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT [Id]
                    ,[Name]
             FROM	    [cfg].[Classification]";
+
+        public static string GetUnitTime =
+        @"  SELECT [Id]
+                   ,[Name]
+            FROM	    [cfg].[UnitTime]";
     }
 }

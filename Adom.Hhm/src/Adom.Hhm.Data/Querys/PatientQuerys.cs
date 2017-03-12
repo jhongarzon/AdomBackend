@@ -33,6 +33,31 @@ namespace Adom.Hhm.Data.Querys
             FROM	    [cfg].[Patients]
             ORDER BY    [PatientId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
+        public static string GetAllWithoutPagination =
+        @"  SELECT [PatientId]
+            ,[Document]
+            ,[DocumentTypeId]
+            ,[BirthDate]
+            ,[Age]
+            ,[UnitTimeId]
+            ,[FirstName]
+            ,[SecondName]
+            ,[Surname]
+            ,[SecondSurname]
+            ,[Email]
+            ,[GenderId]
+            ,[Occupation]
+            ,[Address]
+            ,[Telephone1]
+            ,[Telephone2]
+            ,[AttendantName]
+            ,[AttendantRelationship]
+            ,[AttendantPhone]
+            ,[AttendantEmail]
+            ,[Profile]
+            ,[CreatedOn]
+            FROM	    [cfg].[Patients]";
+
         public static string GetByDocument =
         @"  SELECT	    Pat.*
             FROM	    [cfg].[Patients] Pat
@@ -104,7 +129,8 @@ namespace Adom.Hhm.Data.Querys
                ,@AttendantRelationship
                ,@AttendantPhone
                ,@AttendantEmail
-               ,@Profile);
+               ,@Profile
+               ,getdate());
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
@@ -129,7 +155,6 @@ namespace Adom.Hhm.Data.Querys
                 ,[AttendantPhone] = @AttendantPhone
                 ,[AttendantEmail] = @AttendantEmail
                 ,[Profile] = @Profile
-                ,[CreatedOn] = @CreatedOn
             WHERE   [PatientId] = @PatientId";
     }
 }

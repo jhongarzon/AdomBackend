@@ -52,5 +52,10 @@ namespace Adom.Hhm.Data.Repositories
         {
             return connection.Query<Parameter>(ParameterQuerys.GetZones);
         }
+
+        public IEnumerable<Parameter> GetUnitTime()
+        {
+            return connection.Query<Parameter>(ParameterQuerys.GetUnitTime);
+        }
     }
 }

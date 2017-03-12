@@ -47,6 +47,9 @@ namespace Adom.Hhm.Domain.Services
                 case "serviceType":
                     getParameter = this.repository.GetServiceType();
                     break;
+                case "unitTime":
+                    getParameter = this.repository.GetUnitTime();
+                    break;
             }
 
             return new ServiceResult<IEnumerable<Parameter>>
