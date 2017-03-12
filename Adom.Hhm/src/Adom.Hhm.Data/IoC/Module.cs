@@ -23,7 +23,9 @@ namespace Adom.Hhm.Data.IoC
                 {typeof (IRoleActionResourceRepository), typeof (RoleActionResourceRepository)},
                 {typeof (IProfessionalRepository), typeof (ProfessionalRepository)},
                 {typeof (IParameterRepository), typeof (ParameterRepository)},
-                {typeof (IPatientRepository), typeof (PatientRepository)}
+                {typeof (IPatientRepository), typeof (PatientRepository)},
+                {typeof (ICoordinatorRepository), typeof (CoordinatorRepository)},
+                {typeof (IEntityRepository), typeof (EntityRepository)}
             };
             return dic;
         }

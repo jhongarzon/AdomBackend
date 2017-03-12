@@ -138,6 +138,8 @@ namespace Adom.Hhm.Web.Rest
             services.AddScoped<RoleActionResourceValidator>();
             services.AddScoped<PatientValidator>();
             services.AddScoped<ProfessionalValidator>();
+            services.AddScoped<CoordinatorValidator>();
+            services.AddScoped<EntityValidator>();
         }
     }
 }

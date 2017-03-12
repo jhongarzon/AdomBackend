@@ -16,5 +16,6 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string InvalidCredentials = "La credenciales son inválidas";
         public static string UserNotExist = "El usuario no existe o no está activo";
         public static string DocumentExists = "El documento ya existe.";
+        public static string NameEntityExists = "El nombre de la entidad ya existe.";
     }
 }

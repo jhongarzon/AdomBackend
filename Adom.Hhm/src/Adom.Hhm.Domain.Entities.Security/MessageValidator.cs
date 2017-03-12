@@ -26,5 +26,10 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string BankRequired { get; set; } = "El banco es requerido";
         public static string AccountRequired { get; set; } = "La cuenta es requerida";
         public static string AccountTypeRequired { get; set; } = "El tipo de cuenta es requerido";
+        public static string BirthDateRequired { get; set; } = "La fecha de nacimiento es requerido";
+        public static string NameEntityRequired { get; set; } = "El nombre de la entidad es requerido";
+        public static string BusinessEntityRequired { get; set; } = "La razón social es requerido";
+        public static string CodeEntityRequired { get; set; } = "El código es requerido";
+        public static string NitEntityRequired { get; set; } = "El nit es requerido";
     }
 }

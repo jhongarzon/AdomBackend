@@ -15,6 +15,8 @@ namespace Adom.Hhm.AppServices.IoC
             dic.Add(typeof(IProfessionalAppService), typeof(ProfessionalAppService));
             dic.Add(typeof(IPatientAppService), typeof(PatientAppService));
             dic.Add(typeof(IParameterAppService), typeof(ParameterAppService));
+            dic.Add(typeof(ICoordinatorAppService), typeof(CoordinatorAppService));
+            dic.Add(typeof(IEntityAppService), typeof(EntityAppService));
             return dic;
         }
     }
