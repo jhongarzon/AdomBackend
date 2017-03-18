@@ -103,5 +103,16 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             return result;
         }
+
+        [Authorize(Policy = "/Parameters/Get")]
+        [HttpPut("{id}")]
+        public ServiceResult<User> Put(int id, [FromBody]User model)
+        {
+            ServiceResult<User> result = new ServiceResult<User>();
+            result = new ServiceResult<User>();
+            result.Success = true;
+
+            return result;
+        }
     }
 }

@@ -19,6 +19,9 @@ namespace Adom.Hhm.AppServices.IoC
             dic.Add(typeof(IEntityAppService), typeof(EntityAppService));
             dic.Add(typeof(ISupplyAppService), typeof(SupplyAppService));
             dic.Add(typeof(IServiceAppService), typeof(ServiceAppService));
+            dic.Add(typeof(IServiceFrecuencyAppService), typeof(ServiceFrecuencyAppService));
+            dic.Add(typeof(ICoPaymentFrecuencyAppService), typeof(CoPaymentFrecuencyAppService));
+            dic.Add(typeof(IPlanRateAppService), typeof(PlanRateAppService));
             return dic;
         }
     }

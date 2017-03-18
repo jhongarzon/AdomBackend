@@ -19,5 +19,10 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string NameEntityExists = "El nombre de la entidad ya existe.";
         public static string NameSupplyExists = "El nombre del insumo ya existe.";
         public static string NameServiceExists = "El nombre del servicio ya existe.";
+        public static string NameCoPaymentFrecuencyExists = "La frecuencia del copago ya existe.";
+
+        public static string NameServiceFrecuencyExists = "La frecuencia del servicio ya existe.";
+
+        public static string NamePlanRateExists = "El plan y tarifa ya existe.";
     }
 }

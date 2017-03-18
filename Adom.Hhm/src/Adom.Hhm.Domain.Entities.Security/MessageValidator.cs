@@ -40,5 +40,12 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string CodeServiceRequired { get; set; } = "El código del s eervicios requerido";
         public static string ClassificationServiceRequired { get; set; } = "La clasificación del servicio es requerido";
         public static string ServiceTypeServiceRequired { get; set; } = "El tipo de servicio es requerido";
+        public static string NamePlanRateRequired { get; set; } = "El nombre del plan y tarifa es requerido";
+        public static string EntityIdEntityRequired { get; set; } = "La entidad del plan y tarifa es requerido";
+        public static string ServiceRequired { get; set; } = "El servicio del plan y tarifa es requerido";
+        public static string RateRequired { get; set; } = "La tarifa es requerida";
+        public static string ValidityRequired { get; set; } = "La vigencia es requerido";
+        public static string NameCoPaymentFrecuencyRequired { get; set; } = "El nombre es requerido";
+        public static string NameServiceFrecuencyRequired { get; set; } = "El nombre es requerido";
     }
 }
