@@ -19,6 +19,9 @@ namespace Adom.Hhm.Domain.Services.IoC
             dic.Add(typeof(IServiceFrecuencyDomainService), typeof(ServiceFrecuencyDomainServices));
             dic.Add(typeof(ICoPaymentFrecuencyDomainService), typeof(CoPaymentFrecuencyDomainServices));
             dic.Add(typeof(IPlanRateDomainService), typeof(PlanRateDomainServices));
+            dic.Add(typeof(IAssignServiceDomainService), typeof(AssignServiceDomainServices));
+            dic.Add(typeof(IAssignServiceDetailDomainService), typeof(AssignServiceDetailDomainServices));
+            dic.Add(typeof(IAssignServiceSupplyDomainService), typeof(AssignServiceSupplyDomainServices));
             return dic;
         }
     }

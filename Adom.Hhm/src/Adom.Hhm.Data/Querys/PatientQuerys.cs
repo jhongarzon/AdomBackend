@@ -63,6 +63,15 @@ namespace Adom.Hhm.Data.Querys
             FROM	    [cfg].[Patients] Pat
             WHERE       [Pat].[Document] = @Document";
 
+        public static string GetByNamesOrDocument =
+        @"  SELECT	    Pat.*
+            FROM	    [cfg].[Patients] Pat
+            WHERE       [Pat].[Document] like '%@DataFind%'
+            OR          [Pat].[FisrtName] like '%@DataFind%'
+            OR          [Pat].[SecondName] like '%@DataFind%'
+            OR          [Pat].[SurName] like '%@DataFind%'
+            OR          [Pat].[SecondSurname] like '%@DataFind%'";
+
         public static string GetByEmail =
         @"  SELECT	    Pat.*
             FROM	    [cfg].[Patients] Pat

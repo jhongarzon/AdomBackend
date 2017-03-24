@@ -47,5 +47,28 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string ValidityRequired { get; set; } = "La vigencia es requerido";
         public static string NameCoPaymentFrecuencyRequired { get; set; } = "El nombre es requerido";
         public static string NameServiceFrecuencyRequired { get; set; } = "El nombre es requerido";
+        public static string AuthorizationNumberAssignServiceRequired { get; set; } = "El número de autorización es requerido";
+        public static string ValidityAssignServiceRequired { get; set; } = "La vigencia es requerida";
+        public static string ApplicantNameAssignServiceRequired { get; set; } = "El nombre del solicitante es requerido";
+        public static string ServiceIdAssignServiceRequired { get; set; } = "El servicio es requerido";
+        public static string QuantityAssignServiceRequired { get; set; } = "La cantidad es requerida";
+        public static string InitialDateAssignServiceRequired { get; set; } = "La fecha de inicio es requerida";
+        public static string FinalDateAssignServiceRequired { get; set; } = "La fecha final es requerida";
+        public static string ServiceFrecuencyIdAssignServiceRequired { get; set; } = "La frecuencia del servicio es requerido";
+        public static string ProfessionalIdAssignServiceRequired { get; set; } = "El profesional es requerido";
+        public static string CoPaymentAmountAssignServiceRequired { get; set; } = "El valor de copago es requerido";
+        public static string ConsultationAssignServiceRequired { get; set; } = "La consulta es requerida";
+        public static string ExternalAssignServiceRequired { get; set; } = "El externo es requerido";
+        public static string IdDetailAssignServiceDetailRequired { get; set; } = "El id detalle es requerido";
+        public static string IdAssignServiceDetailRequired { get; set; } = "El id es requerido";
+        public static string ConsecutiveAssignServiceDetailRequired { get; set; } = "El consecutivo es requerido";
+        public static string DateVisitAssignServiceDetailRequired { get; set; } = "La fecha de vigencia es requerido";
+        public static string ProfessionalIdAssignServiceDetailRequired { get; set; } = "El profesional es requerido";
+        public static string IdSupplyAssignServiceSupplyRequired { get; set; } = "El id de insumo es requerido";
+        public static string IdAssignServiceSupplyRequired { get; set; } = "El insumo es requerido";
+        public static string BilledIdAssignServiceSupplyRequired { get; set; } = "El facturado a es requerido";
+        public static string QuantityAssignServiceSupplyRequired { get; set; } = "La cantidad es requerido";
+        public static string SupplyIdAssignServiceSupplyRequired { get; set; } = "El insumo es requerido";
+        public static string IdSuAssignServiceSupplyRequired { get; set; } = "El id es requerido";
     }
 }
