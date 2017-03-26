@@ -25,6 +25,11 @@ namespace Adom.Hhm.AppServices
             return this.service.GetPatients(pageNumber, pageSize);
         }
 
+        public ServiceResult<IEnumerable<Patient>> GetByNamesOrDocument(string dataFind)
+        {
+            return this.service.GetByNamesOrDocument(dataFind);
+        }
+
         public ServiceResult<IEnumerable<Patient>> GetPatients()
         {
             return this.service.GetPatients();

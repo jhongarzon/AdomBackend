@@ -9,6 +9,7 @@ namespace Adom.Hhm.AppServices.Interfaces
     {
         ServiceResult<IEnumerable<Patient>> GetPatients(int pageNumber, int pageSize);
         ServiceResult<IEnumerable<Patient>> GetPatients();
+        ServiceResult<IEnumerable<Patient>> GetByNamesOrDocument(string dataFind);
         ServiceResult<Patient> GetPatientById(int patientId);
         ServiceResult<Patient> Insert(Patient patient);
         ServiceResult<Patient> Update(Patient patient);

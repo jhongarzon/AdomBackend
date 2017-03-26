@@ -15,6 +15,7 @@ namespace Adom.Hhm.Domain.Entities
         public int ServiceId { get; set; }
         public string ServiceName { get; set; }
         public int Quantity { get; set; }
+        public int QuantityCompleted { get; set; }
         public DateTime InitialDate { get; set; }
         public DateTime FinalDate { get; set; }
         public int ServiceFrecuencyId { get; set; }

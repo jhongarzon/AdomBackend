@@ -10,15 +10,18 @@ namespace Adom.Hhm.Domain.Entities
         public int PatientId { get; set; }
         public string Document { get; set; }
         public int DocumentTypeId { get; set; }
+        public string DocumentTypeName { get; set; }
         public DateTime BirthDate { get; set; }
         public int Age { get; set; }
         public int UnitTimeId { get; set; }
+        public string UnitTimeName { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Surname { get; set; }
         public string SecondSurname { get; set; }
         public string Email { get; set; }
         public int GenderId { get; set; }
+        public string GenderName { get; set; }
         public string Occupation { get; set; }
         public string Address { get; set; }
         public string Telephone1 { get; set; }

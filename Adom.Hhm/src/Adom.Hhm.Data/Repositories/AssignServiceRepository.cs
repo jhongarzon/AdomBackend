@@ -24,9 +24,9 @@ namespace Adom.Hhm.Data.Repositories
             this.connection = connection;
         }
 
-        public AssignService GetAssignServiceByPatientId(int patientId)
+        public IEnumerable<AssignService> GetAssignServiceByPatientId(int patientId)
         {
-            return connection.Query<AssignService>(AssignServiceQuerys.GetByPateintId, new { @PatientId = patientId }).FirstOrDefault();
+            return connection.Query<AssignService>(AssignServiceQuerys.GetByPateintId, new { @PatientId = patientId });
         }
 
         public AssignService GetAssignServiceById(int AssignServiceId)

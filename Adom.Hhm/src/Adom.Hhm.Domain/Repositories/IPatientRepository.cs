@@ -12,6 +12,7 @@ namespace Adom.Hhm.Domain.Repositories
         Patient GetPatientByEmail(string email);
         Patient GetPatientByEmailWithoutId(int PatientId, string email);
         Patient GetPatientByDocument(string email);
+        IEnumerable<Patient> GetByNamesOrDocument(string dataFind);
         Patient GetPatientByDocumentWithoutId(int PatientId, string email);
         Patient Insert(Patient Patient);
         Patient Update(Patient Patient);

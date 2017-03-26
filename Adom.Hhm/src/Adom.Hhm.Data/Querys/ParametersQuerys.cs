@@ -46,5 +46,15 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT [Id]
                    ,[Name]
             FROM	    [cfg].[UnitTime]";
+
+        public static string GetStateAssignService =
+        @"  SELECT   [Id]
+                    ,[Name]
+            FROM	    [sas].[StateAssignService]";
+
+        public static string GetBilledTo =
+        @"  SELECT   [Id]
+                    ,[Name]
+            FROM	    [cfg].[BilledTo]";
     }
 }

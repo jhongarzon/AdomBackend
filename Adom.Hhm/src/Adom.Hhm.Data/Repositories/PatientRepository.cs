@@ -37,6 +37,11 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Patient>(PatientQuerys.GetByEmailWithoutId, new { Email = email, PatientId = PatientId }).FirstOrDefault();
         }
 
+        public IEnumerable<Patient> GetByNamesOrDocument(string dataFind)
+        {
+            return connection.Query<Patient>(PatientQuerys.GetByNamesOrDocument, new { DataFind = "%" + dataFind + "%" });
+        }
+
         public Patient GetPatientById(int PatientId)
         {
             return connection.Query<Patient>(PatientQuerys.GetById, new { PatientId = PatientId }).FirstOrDefault();

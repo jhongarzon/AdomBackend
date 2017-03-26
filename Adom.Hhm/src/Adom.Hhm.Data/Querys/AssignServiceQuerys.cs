@@ -16,6 +16,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
+                  ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,Ags.[InitialDate]
                   ,Ags.[FinalDate]
                   ,Ags.[ServiceFrecuencyId]
@@ -42,11 +43,9 @@ namespace Adom.Hhm.Data.Querys
             ON sef.ServiceFrecuencyId = Ags.ServiceFrecuencyId
 			INNER JOIN [cfg].[CoPaymentFrecuency] cpf
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
-			INNER JOIN [cfg].[BilledTo] bil
-            ON bil.Id = Ags.BilledToId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
-            ORDER BY    Ags.[AssignServiceId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
+            ORDER BY    Ags.[AssignServiceId] DESC OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetAllWithoutPagination =
         @"  SELECT Ags.[AssignServiceId]
@@ -57,6 +56,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
+                  ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,Ags.[InitialDate]
                   ,Ags.[FinalDate]
                   ,Ags.[ServiceFrecuencyId]
@@ -83,10 +83,9 @@ namespace Adom.Hhm.Data.Querys
             ON sef.ServiceFrecuencyId = Ags.ServiceFrecuencyId
 			INNER JOIN [cfg].[CoPaymentFrecuency] cpf
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
-			INNER JOIN [cfg].[BilledTo] bil
-            ON bil.Id = Ags.BilledToId
 			INNER JOIN [sas].[StateAssignService] sta
-            ON sta.Id = Ags.StateId";
+            ON sta.Id = Ags.StateId
+            ORDER BY    Ags.[AssignServiceId] DESC";
 
         public static string GetByPateintId =
         @"  SELECT Ags.[AssignServiceId]
@@ -97,6 +96,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
+                  ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,Ags.[InitialDate]
                   ,Ags.[FinalDate]
                   ,Ags.[ServiceFrecuencyId]
@@ -110,7 +110,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[External]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
-                  ,sta.Observation
+                  ,Ags.Observation
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -123,11 +123,10 @@ namespace Adom.Hhm.Data.Querys
             ON sef.ServiceFrecuencyId = Ags.ServiceFrecuencyId
 			INNER JOIN [cfg].[CoPaymentFrecuency] cpf
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
-			INNER JOIN [cfg].[BilledTo] bil
-            ON bil.Id = Ags.BilledToId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
-            WHERE       Ags.[PatientId] = @PatientId";
+            WHERE       Ags.[PatientId] = @PatientId
+            ORDER BY    Ags.[AssignServiceId] DESC";
 
         public static string GetById =
         @"  
@@ -139,6 +138,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
+                  ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,Ags.[InitialDate]
                   ,Ags.[FinalDate]
                   ,Ags.[ServiceFrecuencyId]
@@ -165,8 +165,6 @@ namespace Adom.Hhm.Data.Querys
             ON sef.ServiceFrecuencyId = Ags.ServiceFrecuencyId
 			INNER JOIN [cfg].[CoPaymentFrecuency] cpf
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
-			INNER JOIN [cfg].[BilledTo] bil
-            ON bil.Id = Ags.BilledToId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
             WHERE   [AssignServiceId] = @AssignServiceId";

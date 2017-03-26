@@ -10,7 +10,7 @@ namespace Adom.Hhm.Domain.Services.Interface
         ServiceResult<IEnumerable<AssignService>> GetAssignServices(int pageNumber, int pageSize);
         ServiceResult<IEnumerable<AssignService>> GetAssignServices();
         ServiceResult<AssignService> GetAssignServiceById(int assignServiceId);
-        ServiceResult<AssignService> GetAssignServiceByPatientId(int patientId);
+        ServiceResult<IEnumerable<AssignService>> GetAssignServiceByPatientId(int patientId);
         ServiceResult<AssignService> Insert(AssignService assignService);
         ServiceResult<AssignService> Update(AssignService assignService);
     }

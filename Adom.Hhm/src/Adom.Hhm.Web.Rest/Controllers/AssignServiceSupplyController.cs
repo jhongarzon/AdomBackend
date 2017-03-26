@@ -1,13 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
+using Adom.Hhm.AppServices.Security.Interfaces;
 using Microsoft.Extensions.Logging;
 using Adom.Hhm.Domain.Entities.Security;
 using Adom.Hhm.Web.Rest.Validators;
 using Adom.Hhm.Web.Rest.Extensions;
 using Microsoft.Extensions.Configuration;
 using Microsoft.AspNetCore.Cors;
+using System.IdentityModel.Tokens.Jwt;
+using Adom.Hhm.Utility;
 using Adom.Hhm.AppServices.Interfaces;
 using Adom.Hhm.Domain.Entities;
 
@@ -17,33 +22,33 @@ namespace Adom.Hhm.Web.Rest.Controllers
 {
     [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
-    public class PatientController : Controller
+    public class AssignServiceSupplyController : Controller
     {
         private readonly ILogger logger;
-        private readonly IPatientAppService appService;
-        private readonly PatientValidator validator;
+        private readonly IAssignServiceSupplyAppService appService;
+        private readonly AssignServiceSupplyValidator validator;
         private readonly IConfigurationRoot configuration;
 
-        public PatientController(IPatientAppService appService, PatientValidator validator, IConfigurationRoot configuration)
+        public AssignServiceSupplyController(IAssignServiceSupplyAppService appService, AssignServiceSupplyValidator validator, IConfigurationRoot configuration)
         {
             this.appService = appService;
             this.validator = validator;
             this.configuration = configuration;
         }
 
-        [Authorize(Policy = "/Patient/Get")]
+        [Authorize(Policy = "/AssignService/Get")]
         [HttpGet]
-        public ServiceResult<IEnumerable<Patient>> Get()
+        public ServiceResult<IEnumerable<AssignServiceSupply>> Get()
         {
-            ServiceResult<IEnumerable<Patient>> result = null;
+            ServiceResult<IEnumerable<AssignServiceSupply>> result = null;
 
             try
             {
-                result = this.appService.GetPatients();
+                result = this.appService.GetAssignServiceSupplies();
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<IEnumerable<Patient>>();
+                result = new ServiceResult<IEnumerable<AssignServiceSupply>>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }
@@ -51,19 +56,19 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
-        [Authorize(Policy = "/Patient/Get")]
-        [HttpGet("{dataFind}")]
-        public ServiceResult<IEnumerable<Patient>> Get(string dataFind)
+        [Authorize(Policy = "/AssignService/Get")]
+        [HttpGet("{id}")]
+        public ServiceResult<AssignServiceSupply> Get(int assignServiceId)
         {
-            ServiceResult<IEnumerable<Patient>> result = null;
+            ServiceResult<AssignServiceSupply> result = null;
 
             try
             {
-                result = this.appService.GetByNamesOrDocument(dataFind);
+                result = this.appService.GetAssignServiceSupplyByAssignServiceId(assignServiceId);
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<IEnumerable<Patient>>();
+                result = new ServiceResult<AssignServiceSupply>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }
@@ -71,11 +76,11 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
-        [Authorize(Policy = "/Patient/Create")]
+        [Authorize(Policy = "/AssignService/Create")]
         [HttpPost]
-        public ServiceResult<Patient> Post([FromBody]Patient model)
+        public ServiceResult<AssignServiceSupply> Post([FromBody]AssignServiceSupply model)
         {
-            ServiceResult<Patient> result = null;
+            ServiceResult<AssignServiceSupply> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
@@ -86,14 +91,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<Patient>();
+                    result = new ServiceResult<AssignServiceSupply>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<Patient>();
+                result = new ServiceResult<AssignServiceSupply>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }
@@ -101,11 +106,11 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
-        [Authorize(Policy = "/Patient/Edit")]
+        [Authorize(Policy = "/AssignService/Edit")]
         [HttpPut("{id}")]
-        public ServiceResult<Patient> Put(int id, [FromBody]Patient model)
+        public ServiceResult<AssignServiceSupply> Put(int id, [FromBody]AssignServiceSupply model)
         {
-            ServiceResult<Patient> result = null;
+            ServiceResult<AssignServiceSupply> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
@@ -116,14 +121,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<Patient>();
+                    result = new ServiceResult<AssignServiceSupply>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<Patient>();
+                result = new ServiceResult<AssignServiceSupply>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }

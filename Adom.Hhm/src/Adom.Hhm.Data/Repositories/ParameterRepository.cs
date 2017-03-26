@@ -57,5 +57,15 @@ namespace Adom.Hhm.Data.Repositories
         {
             return connection.Query<Parameter>(ParameterQuerys.GetUnitTime);
         }
+
+        public IEnumerable<Parameter> GetStateAssignService()
+        {
+            return connection.Query<Parameter>(ParameterQuerys.GetStateAssignService);
+        }
+
+        public IEnumerable<Parameter> GetBilledTo()
+        {
+            return connection.Query<Parameter>(ParameterQuerys.GetBilledTo);
+        }
     }
 }

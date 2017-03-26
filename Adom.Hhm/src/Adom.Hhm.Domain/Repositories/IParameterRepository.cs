@@ -14,5 +14,7 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<Parameter> GetServiceType();
         IEnumerable<Parameter> GetClassification();
         IEnumerable<Parameter> GetUnitTime();
+        IEnumerable<Parameter> GetStateAssignService();
+        IEnumerable<Parameter> GetBilledTo();
     }
 }

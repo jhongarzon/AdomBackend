@@ -50,6 +50,12 @@ namespace Adom.Hhm.Domain.Services
                 case "unitTime":
                     getParameter = this.repository.GetUnitTime();
                     break;
+                case "stateAssignService":
+                    getParameter = this.repository.GetStateAssignService();
+                    break;
+                case "billedTo":
+                    getParameter = this.repository.GetBilledTo();
+                    break;
             }
 
             return new ServiceResult<IEnumerable<Parameter>>

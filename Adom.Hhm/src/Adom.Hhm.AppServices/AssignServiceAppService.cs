@@ -20,7 +20,7 @@ namespace Adom.Hhm.AppServices
             return this.service.GetAssignServiceById(AssignServiceId);
         }
 
-        public ServiceResult<AssignService> GetAssignServiceByPatientId(int patientId)
+        public ServiceResult<IEnumerable<AssignService>> GetAssignServiceByPatientId(int patientId)
         {
             return this.service.GetAssignServiceByPatientId(patientId);
         }

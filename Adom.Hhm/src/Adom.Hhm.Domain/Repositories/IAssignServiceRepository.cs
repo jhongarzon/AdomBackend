@@ -9,7 +9,7 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<AssignService> GetAssignServices(int pageNumber, int pageSize);
         IEnumerable<AssignService> GetAssignServices();
         AssignService GetAssignServiceById(int assignServiceId);
-        AssignService GetAssignServiceByPatientId(int patientId);
+        IEnumerable<AssignService> GetAssignServiceByPatientId(int patientId);
         AssignService Insert(AssignService assignService);
         AssignService Update(AssignService assignService);
     }

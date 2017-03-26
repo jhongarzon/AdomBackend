@@ -32,11 +32,11 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
-        public ServiceResult<AssignService> GetAssignServiceByPatientId(int AssignServiceId)
+        public ServiceResult<IEnumerable<AssignService>> GetAssignServiceByPatientId(int patientId)
         {
-            var getAssignService = this.repository.GetAssignServiceByPatientId(AssignServiceId);
+            var getAssignService = this.repository.GetAssignServiceByPatientId(patientId);
 
-            return new ServiceResult<AssignService>
+            return new ServiceResult<IEnumerable<AssignService>>
             {
                 Success = true,
                 Errors = new string[] { string.Empty },
