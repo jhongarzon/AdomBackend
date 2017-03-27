@@ -46,7 +46,7 @@ namespace Adom.Hhm.Data.Repositories
 
         public AssignService Insert(AssignService assignService)
         {
-            var id = connection.Query<int>(AssignServiceQuerys.CreateAssignServiceAndDetails, assignService, commandType: CommandType.StoredProcedure).Single();
+            var id = connection.Query<int>(AssignServiceQuerys.CreateAssignServiceAndDetails, new { PatientId = assignService.PatientId, AuthorizationNumber = assignService.AuthorizationNumber, Validity = assignService.Validity, ApplicantName = assignService.ApplicantName, ServiceId = assignService.ServiceId, Quantity = assignService.Quantity, InitialDate = assignService.InitialDate, FinalDate = assignService.FinalDate, ServiceFrecuencyId = assignService.ServiceFrecuencyId, ProfessionalId = assignService.ProfessionalId, CoPaymentAmount = assignService.CoPaymentAmount, CoPaymentFrecuencyId = assignService.CoPaymentFrecuencyId, Consultation = assignService.Consultation, External = assignService.External, StateId  = 1, Observation = assignService.Observation }, commandType: CommandType.StoredProcedure).Single();
             assignService.AssignServiceId = id;
             return assignService;
         }

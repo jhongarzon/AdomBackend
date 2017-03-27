@@ -57,10 +57,10 @@ namespace Adom.Hhm.Web.Rest.Controllers
         }
 
         [Authorize(Policy = "/AssignService/Get")]
-        [HttpGet("{id}")]
-        public ServiceResult<AssignServiceDetail> Get(int assignServiceId)
+        [HttpGet("{assignServiceId}")]
+        public ServiceResult<IEnumerable<AssignServiceDetail>> Get(int assignServiceId)
         {
-            ServiceResult<AssignServiceDetail> result = null;
+            ServiceResult<IEnumerable<AssignServiceDetail>> result = null;
 
             try
             {
@@ -68,7 +68,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<AssignServiceDetail>();
+                result = new ServiceResult<IEnumerable<AssignServiceDetail>>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }

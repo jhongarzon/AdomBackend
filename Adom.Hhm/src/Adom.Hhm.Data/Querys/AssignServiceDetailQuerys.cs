@@ -11,18 +11,18 @@ namespace Adom.Hhm.Data.Querys
         @" SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[DateVisit]
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
 				  ,Count(*) Over() AS TotalRows
-            FROM	    [sas].[AssignServiceDetail] Ags
+            FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
             ON Ags.ProfessionalId = Pro.ProfessionalId
 			INNER JOIN  [sec].[Users] usr
             ON usr.UserId = Pro.UserId
-			INNER JOIN [sas].[StateAssignServiceDetail] sta
+			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
             ORDER BY    Ags.[AssignServiceDetailId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
@@ -30,59 +30,60 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[DateVisit]
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
-            FROM	    [sas].[AssignServiceDetail] Ags
+            FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
             ON Ags.ProfessionalId = Pro.ProfessionalId
 			INNER JOIN  [sec].[Users] usr
             ON usr.UserId = Pro.UserId
-			INNER JOIN [sas].[StateAssignServiceDetail] sta
+			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId";
 
         public static string GetByAssignServiceId =
         @"  SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[DateVisit]
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
 				  ,Count(*) Over() AS TotalRows
-            FROM	    [sas].[AssignServiceDetail] Ags
+            FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
             ON Ags.ProfessionalId = Pro.ProfessionalId
 			INNER JOIN  [sec].[Users] usr
             ON usr.UserId = Pro.UserId
-			INNER JOIN [sas].[StateAssignServiceDetail] sta
+			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
-            WHERE       Ags.[AssignServiceId] = @AssignServiceId";
+            WHERE       Ags.[AssignServiceId] = @AssignServiceId
+            ORDER BY    Ags.[Consecutive]";
 
         public static string GetById =
         @"  
             SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[DateVisit]
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
 				  ,Count(*) Over() AS TotalRows
-            FROM	    [sas].[AssignServiceDetail] Ags
+            FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
             ON Ags.ProfessionalId = Pro.ProfessionalId
 			INNER JOIN  [sec].[Users] usr
             ON usr.UserId = Pro.UserId
-			INNER JOIN [sas].[StateAssignServiceDetail] sta
+			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
             WHERE   [AssignServiceDetailId] = @AssignServiceDetailId";
 
         public static string Update =
-        @" [sas].[UpdateAssignServiceDetails] @AssignServiceId,@AssignServiceDetailId,@StateAssignServiceDetailId,@ProfessionalId,@DateVisit";
+        @"[sas].[UpdateAssignServiceDetails]";
     }
 }

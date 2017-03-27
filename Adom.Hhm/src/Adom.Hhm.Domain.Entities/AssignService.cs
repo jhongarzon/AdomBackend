@@ -10,14 +10,14 @@ namespace Adom.Hhm.Domain.Entities
         public int AssignServiceId { get; set; }
         public int PatientId { get; set; }
         public string AuthorizationNumber { get; set; }
-        public DateTime Validity { get; set; }
+        public string Validity { get; set; }
         public string ApplicantName { get; set; }
         public int ServiceId { get; set; }
         public string ServiceName { get; set; }
         public int Quantity { get; set; }
         public int QuantityCompleted { get; set; }
-        public DateTime InitialDate { get; set; }
-        public DateTime FinalDate { get; set; }
+        public string InitialDate { get; set; }
+        public string FinalDate { get; set; }
         public int ServiceFrecuencyId { get; set; }
         public string ServiceFrecuencyName { get; set; }
         public int ProfessionalId { get; set; }

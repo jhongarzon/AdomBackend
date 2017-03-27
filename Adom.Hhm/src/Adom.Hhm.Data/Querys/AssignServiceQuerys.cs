@@ -11,18 +11,18 @@ namespace Adom.Hhm.Data.Querys
         @" SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
                   ,Ags.[AuthorizationNumber]
-                  ,Ags.[Validity]
+                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,Ags.[InitialDate]
-                  ,Ags.[FinalDate]
+                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -30,7 +30,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[External]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
-                  ,sta.Observation
+                  ,Ags.Observation
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -48,21 +48,21 @@ namespace Adom.Hhm.Data.Querys
             ORDER BY    Ags.[AssignServiceId] DESC OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetAllWithoutPagination =
-        @"  SELECT Ags.[AssignServiceId]
+        @" SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
                   ,Ags.[AuthorizationNumber]
-                  ,Ags.[Validity]
+                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,Ags.[InitialDate]
-                  ,Ags.[FinalDate]
+                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -70,7 +70,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[External]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
-                  ,sta.Observation
+                  ,Ags.Observation
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -91,18 +91,18 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
                   ,Ags.[AuthorizationNumber]
-                  ,Ags.[Validity]
+                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,Ags.[InitialDate]
-                  ,Ags.[FinalDate]
+                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -129,22 +129,21 @@ namespace Adom.Hhm.Data.Querys
             ORDER BY    Ags.[AssignServiceId] DESC";
 
         public static string GetById =
-        @"  
-            SELECT Ags.[AssignServiceId]
+        @"  SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
                   ,Ags.[AuthorizationNumber]
-                  ,Ags.[Validity]
+                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,Ags.[Quantity]
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,Ags.[InitialDate]
-                  ,Ags.[FinalDate]
+                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(usr.FirstName + ' ' + usr.SecondName + ' ' + usr.SecondName + ' ' + usr.SecondSurname) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -152,7 +151,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[External]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
-                  ,sta.Observation
+                  ,Ags.Observation
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -170,8 +169,7 @@ namespace Adom.Hhm.Data.Querys
             WHERE   [AssignServiceId] = @AssignServiceId";
 
         public static string CreateAssignServiceAndDetails =
-        @"  [sas].[AssignServices] @PatientId,@AuthorizationNumber,@Validity,@ApplicantName,@ServiceId,@Quantity,@InitialDate,@FinalDate,
-            @ServiceFrecuencyId,@ProfessionalId,@CoPaymentAmount,@CoPaymentFrecuencyId,@Consultation,@External,@StateId, @Observation";
+        @"[sas].[CreateAssignServiceAndDetails]";
 
         public static string Update =
         @"  UPDATE [cfg].[AssignServices]

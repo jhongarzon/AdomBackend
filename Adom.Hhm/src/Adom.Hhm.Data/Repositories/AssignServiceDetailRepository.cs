@@ -24,9 +24,9 @@ namespace Adom.Hhm.Data.Repositories
             this.connection = connection;
         }
 
-        public AssignServiceDetail GetAssignServiceDetailByAssignServiceId(int assignServiceId)
+        public IEnumerable<AssignServiceDetail> GetAssignServiceDetailByAssignServiceId(int assignServiceId)
         {
-            return connection.Query<AssignServiceDetail>(AssignServiceDetailQuerys.GetByAssignServiceId, new { AssignServiceId = assignServiceId }).FirstOrDefault();
+            return connection.Query<AssignServiceDetail>(AssignServiceDetailQuerys.GetByAssignServiceId, new { AssignServiceId = assignServiceId });
         }
 
         public AssignServiceDetail GetAssignServiceDetailById(int assignServiceDetailId)
@@ -46,7 +46,7 @@ namespace Adom.Hhm.Data.Repositories
 
         public AssignServiceDetail Update(AssignServiceDetail assignServiceDetail)
         {
-            var id = connection.Query<int>(AssignServiceDetailQuerys.Update, assignServiceDetail, commandType: CommandType.StoredProcedure).Single();
+            var id = connection.Query<int>(AssignServiceDetailQuerys.Update, new { AssignServiceId = assignServiceDetail.AssignServiceId, ProfessionalId = assignServiceDetail.ProfessionalId, DateVisit = assignServiceDetail.DateVisit, Consecutive = assignServiceDetail.Consecutive, StateId = assignServiceDetail.StateId } , commandType: CommandType.StoredProcedure).Single();
             assignServiceDetail.AssignServiceDetailId = id;
             return assignServiceDetail;
         }
