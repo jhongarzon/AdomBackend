@@ -26,12 +26,13 @@ namespace Adom.Hhm.Data.Querys
             ,Pro.[FamilyRelationship]
             ,Pro.[FamilyPhone]
             ,Pro.[Coverage]
-            , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname
-            ,[DocumentTypeId],Count(*) Over() AS TotalRows
+            ,Pro.[AccountTypeId]
+            , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname,Urs.State
+            ,Pro.[DocumentTypeId],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Professionals] Pro
             INNER JOIN  [sec].[Users] Urs
             ON          [Urs].[UserId] = [Pro].[UserId]
-            ORDER BY    [ProfessionalId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
+            ORDER BY Urs.Firstname, Urs.Surname, Urs.State DESC OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetAllWithoutPagination =
         @"  SELECT Pro.[ProfessionalId]
@@ -52,21 +53,24 @@ namespace Adom.Hhm.Data.Querys
             ,Pro.[FamilyRelationship]
             ,Pro.[FamilyPhone]
             ,Pro.[Coverage]
-            , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname
-            ,[DocumentTypeId]
-            FROM	    [cfg].[Professionals] Pro
-            INNER JOIN  [sec].[Users] Urs
-            ON          [Urs].[UserId] = [Pro].[UserId]";
-
-        public static string GetByEmail =
-        @"  SELECT	    Pro.*
+            ,Pro.[AccountTypeId]
+            , Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname,Urs.State
+            ,Pro.[DocumentTypeId]
             FROM	    [cfg].[Professionals] Pro
             INNER JOIN  [sec].[Users] Urs
             ON          [Urs].[UserId] = [Pro].[UserId]
-            WHERE       [Urs].[Email] = @Email";
+            ORDER BY Urs.Firstname, Urs.Surname, Urs.State DESC";
+
+        public static string GetByEmail =
+        @"  SELECT	    Pro.*,Urs.State
+            FROM	    [cfg].[Professionals] Pro
+            INNER JOIN  [sec].[Users] Urs
+            ON          [Urs].[UserId] = [Pro].[UserId]
+            WHERE       [Urs].[Email] = @Email
+            ORDER BY Urs.Firstname, Urs.Surname, Urs.State DESC";
 
         public static string GetByEmailWithoutId =
-        @"  SELECT	    Pro.*
+        @"  SELECT	    Pro.*,Urs.State
             FROM	    [cfg].[Professionals] Pro
             INNER JOIN  [sec].[Users] Urs
             ON          [Urs].[UserId] = [Pro].[UserId]
@@ -98,7 +102,8 @@ namespace Adom.Hhm.Data.Querys
                ,[FamilyName]
                ,[FamilyRelationship]
                ,[FamilyPhone]
-               ,[Coverage])
+               ,[Coverage]
+               ,[AccountTypeId])
             VALUES
                (@UserId
                ,@Document
@@ -117,7 +122,8 @@ namespace Adom.Hhm.Data.Querys
                ,@FamilyName
                ,@FamilyRelationship
                ,@FamilyPhone
-               ,@Coverage);
+               ,@Coverage
+               ,@AccountTypeId);
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
@@ -140,6 +146,10 @@ namespace Adom.Hhm.Data.Querys
               ,[FamilyName] = @FamilyName
               ,[FamilyRelationship] = @FamilyRelationship
               ,[FamilyPhone] = @FamilyPhone
-            WHERE   [ProfessionalId] = @ProfessionalId";
+              ,[AccountTypeId] = @AccountTypeId
+            WHERE   [ProfessionalId] = @ProfessionalId;
+            UPDATE [sec].Users
+            SET    [State] = @State
+            WHERE  [UserId] = @UserId";
     }
 }

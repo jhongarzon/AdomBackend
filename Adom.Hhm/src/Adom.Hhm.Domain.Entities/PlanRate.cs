@@ -10,6 +10,8 @@ namespace Adom.Hhm.Domain.Entities
         public int PlanRateId { get; set; }
         public int EntityId { get; set; }
         public string PlanName { get; set; }
+        public string ServiceName { get; set; }
+        public string EntityName { get; set; }
         public int ServiceId { get; set; }
         public int Rate { get; set; }
         public string Validity { get; set; }

@@ -24,6 +24,7 @@ namespace Adom.Hhm.Domain.Entities
         public string GenderName { get; set; }
         public string Occupation { get; set; }
         public string Address { get; set; }
+        public string Neighborhood { get; set; }
         public string Telephone1 { get; set; }
         public string Telephone2 { get; set; }
         public string AttendantName { get; set; }

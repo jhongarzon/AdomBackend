@@ -8,38 +8,59 @@ namespace Adom.Hhm.Data.Querys
     public static class PlanRateQuerys
     {
         public static string GetAll =
-        @"  SELECT	    [PlanRateId],[EntityId],[PlanName],[ServiceId],[Rate],[Validity],Count(*) Over() AS TotalRows
-            FROM	    [cfg].[PlansRates]
-            ORDER BY    [PlanRateId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName,Count(*) Over() AS TotalRows
+            FROM	    [cfg].[PlansRates] pr
+            INNER JOIN  [cfg].[Services] ser
+            ON          pr.ServiceId = ser.ServiceId
+            INNER JOIN  [cfg].[Entities] ent
+            ON          pr.EntityId = ent.EntityId
+            ORDER BY    pr.[PlanRateId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetAllWithoutPagination =
-        @"  SELECT	    [PlanRateId],[EntityId],[PlanName],[ServiceId],[Rate],[Validity]
-            FROM	    [cfg].[PlansRates]";
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+            FROM	    [cfg].[PlansRates] pr
+            INNER JOIN  [cfg].[Services] ser
+            ON          pr.ServiceId = ser.ServiceId
+            INNER JOIN  [cfg].[Entities] ent
+            ON          pr.EntityId = ent.EntityId";
 
         public static string GetByName =
-        @"  SELECT	    [PlanRateId],[EntityId],[PlanName],[ServiceId],[Rate],[Validity]
-            FROM	    [cfg].[PlansRates]
-            WHERE       [Name] = @Name";
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+            FROM	    [cfg].[PlansRates] pr
+            INNER JOIN  [cfg].[Services] ser
+            ON          pr.ServiceId = ser.ServiceId
+            INNER JOIN  [cfg].[Entities] ent
+            ON          pr.EntityId = ent.EntityId
+            WHERE       pr.[PlanName] = @Name";
 
         public static string GetByNameWithoutId =
-        @"  SELECT	    [PlanRateId],[EntityId],[PlanName],[ServiceId],[Rate],[Validity]
-            FROM	    [cfg].[PlansRates]
-            WHERE       [PlanRateId] <> @PlanRateId
-            AND         [Name] = @Name";
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+            FROM	    [cfg].[PlansRates] pr
+            INNER JOIN  [cfg].[Services] ser
+            ON          pr.ServiceId = ser.ServiceId
+            INNER JOIN  [cfg].[Entities] ent
+            ON          pr.EntityId = ent.EntityId
+            WHERE       pr.[PlanRateId] <> @PlanRateId
+            AND         pr.[PlanName] = @Name";
 
         public static string GetById =
-        @"  SELECT	[PlanRateId],[EntityId],[PlanName],[ServiceId],[Rate],[Validity]
-            FROM	[cfg].[PlansRates]
-            WHERE   [PlanRateId] = @PlanRateId";
+        @"  SELECT  pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+            FROM	    [cfg].[PlansRates] pr
+            INNER JOIN  [cfg].[Services] ser
+            ON          pr.ServiceId = ser.ServiceId
+            INNER JOIN  [cfg].[Entities] ent
+            ON          pr.EntityId = ent.EntityId
+            WHERE       pr.[PlanRateId] = @PlanRateId";
 
         public static string Insert =
-        @"  INSERT INTO [cfg].[PlansRates]([PlanName],[ServiceId],[Rate],[Validity])
+        @"  INSERT INTO [cfg].[PlansRates]([EntityId],[PlanName],[ServiceId],[Rate],[Validity])
             VALUES(@EntityId,@PlanName,@ServiceId,@Rate,@Validity);
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
         @"  UPDATE [cfg].[PlansRates]
-            SET     [PlanName] = @PlanName, 
+            SET     [EntityId] = @EntityId
+                    [PlanName] = @PlanName, 
                     [ServiceId] = @ServiceId,
                     [Rate] = @Rate,
                     [Validity] = @Validity

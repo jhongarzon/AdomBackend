@@ -32,6 +32,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -67,6 +68,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -77,7 +79,7 @@ namespace Adom.Hhm.Data.Querys
             ON dt.Id = pat.DocumentTypeId";
 
         public static string GetByDocument =
-        @"  SELECT	    SELECT pat.[PatientId]
+        @"  SELECT pat.[PatientId]
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
@@ -101,6 +103,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -136,6 +139,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -175,6 +179,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -210,6 +215,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -246,6 +252,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -282,6 +289,7 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantPhone]
             ,pat.[AttendantEmail]
             ,pat.[Profile]
+            ,pat.[Neighborhood]
             ,pat.[CreatedOn],Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
@@ -308,6 +316,7 @@ namespace Adom.Hhm.Data.Querys
                ,[GenderId]
                ,[Occupation]
                ,[Address]
+               ,[Neighborhood]
                ,[Telephone1]
                ,[Telephone2]
                ,[AttendantName]
@@ -330,6 +339,7 @@ namespace Adom.Hhm.Data.Querys
                ,@GenderId
                ,@Occupation
                ,@Address
+               ,@Neighborhood
                ,@Telephone1
                ,@Telephone2
                ,@AttendantName
@@ -355,6 +365,7 @@ namespace Adom.Hhm.Data.Querys
                 ,[GenderId] = @GenderId
                 ,[Occupation] = @Occupation
                 ,[Address] = @Address
+                ,[Neighborhood] = @Neighborhood
                 ,[Telephone1] = @Telephone1
                 ,[Telephone2] = @Telephone2
                 ,[AttendantName] = @AttendantName
