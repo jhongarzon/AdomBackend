@@ -12,9 +12,10 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,Ags.[DateVisit]
+                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
+                  ,Ags.[Observation]
 				  ,sta.Name AS StateName
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
@@ -31,9 +32,10 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,Ags.[DateVisit]
+                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
+                  ,Ags.[Observation]
 				  ,sta.Name AS StateName
             FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -48,9 +50,10 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,Ags.[DateVisit]
+                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
+                  ,Ags.[Observation]
 				  ,sta.Name AS StateName
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
@@ -69,9 +72,10 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,Ags.[DateVisit]
+                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
+                  ,Ags.[Observation]
 				  ,sta.Name AS StateName
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
