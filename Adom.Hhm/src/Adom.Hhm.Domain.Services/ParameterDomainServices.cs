@@ -56,6 +56,9 @@ namespace Adom.Hhm.Domain.Services
                 case "billedTo":
                     getParameter = this.repository.GetBilledTo();
                     break;
+                case "patientType":
+                    getParameter = this.repository.GetPatientType();
+                    break;
             }
 
             return new ServiceResult<IEnumerable<Parameter>>

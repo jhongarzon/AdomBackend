@@ -12,10 +12,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -33,12 +35,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             ORDER BY    pat.[PatientId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
@@ -48,10 +52,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -69,12 +75,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId";
 
@@ -83,10 +91,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -104,12 +114,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             WHERE       [pat].[Document] = @Document";
@@ -119,10 +131,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -140,12 +154,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             WHERE       [pat].[Document] like @DataFind
@@ -159,10 +175,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -180,12 +198,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             WHERE       [pat].[Email] = @Email";
@@ -195,10 +215,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -216,12 +238,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             WHERE       [pat].[Email] = @Email
@@ -232,10 +256,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -253,12 +279,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             WHERE       [pat].[Document] = @Document
@@ -269,10 +297,12 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[Document]
             ,pat.[DocumentTypeId]
             ,dt.Name as DocumentTypeName
-            ,pat.[BirthDate]
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
             ,pat.[Age]
             ,pat.[UnitTimeId]
             ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -290,12 +320,14 @@ namespace Adom.Hhm.Data.Querys
             ,pat.[AttendantEmail]
             ,pat.[Profile]
             ,pat.[Neighborhood]
-            ,pat.[CreatedOn],Count(*) Over() AS TotalRows
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
             FROM	    [cfg].[Patients] pat
             INNER JOIN  [cfg].[Gender] gen
             ON gen.Id = pat.GenderId
             INNER JOIN  [cfg].[UnitTime] ut
             ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             WHERE       [pat].[PatientId] = @PatientId
@@ -324,7 +356,8 @@ namespace Adom.Hhm.Data.Querys
                ,[AttendantPhone]
                ,[AttendantEmail]
                ,[Profile]
-               ,[CreatedOn])
+               ,[CreatedOn]
+               ,[PatientTypeId])
          VALUES
                (@Document
                ,@DocumentTypeId
@@ -347,7 +380,8 @@ namespace Adom.Hhm.Data.Querys
                ,@AttendantPhone
                ,@AttendantEmail
                ,@Profile
-               ,getdate());
+               ,getdate()
+               ,@PatientTypeId);
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
@@ -373,6 +407,7 @@ namespace Adom.Hhm.Data.Querys
                 ,[AttendantPhone] = @AttendantPhone
                 ,[AttendantEmail] = @AttendantEmail
                 ,[Profile] = @Profile
+                ,[PatientTypeId] = @PatientTypeId
             WHERE   [PatientId] = @PatientId";
     }
 }

@@ -11,6 +11,8 @@ namespace Adom.Hhm.Domain.Entities
         public string Document { get; set; }
         public int DocumentTypeId { get; set; }
         public string DocumentTypeName { get; set; }
+        public int PatientTypeId { get; set; }
+        public string PatientTypeName { get; set; }
         public DateTime BirthDate { get; set; }
         public int Age { get; set; }
         public int UnitTimeId { get; set; }

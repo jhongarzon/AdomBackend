@@ -12,6 +12,11 @@ namespace Adom.Hhm.Data.Querys
             FROM	    [sec].[Users]
             ORDER BY    [UserId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
+        public static string GetAllWithouPagination =
+       @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],Count(*) Over() AS TotalRows
+            FROM	    [sec].[Users]
+            ORDER BY    [FirstName],[Surname],[State] DESC";
+
         public static string GetByEmail =
         @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State]
             FROM	    [sec].[Users]

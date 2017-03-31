@@ -56,5 +56,10 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT   [Id]
                     ,[Name]
             FROM	    [cfg].[BilledTo]";
+
+        public static string GetPatientType =
+        @"  SELECT   [Id]
+                    ,[Name]
+            FROM	    [cfg].[PatientType]";
     }
 }

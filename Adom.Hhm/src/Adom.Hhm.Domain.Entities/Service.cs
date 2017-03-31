@@ -12,7 +12,9 @@ namespace Adom.Hhm.Domain.Entities
         public string Code { get; set; }
         public string Name { get; set; }
         public int ClassificationId { get; set; }
+        public string ClassificationName { get; set; }
         public int ServiceTypeId { get; set; }
+        public string ServiceTypeName { get; set; }
         public int HoursToInvest { get; set; }
     }
 }
