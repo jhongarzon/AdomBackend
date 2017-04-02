@@ -13,6 +13,7 @@ namespace Adom.Hhm.AppServices.Security.Interfaces
     {
         ServiceResult<IEnumerable<User>> GetUsers(int pageNumber, int pageSize);
         ServiceResult<IEnumerable<User>> GetUsers();
+        ServiceResult<IEnumerable<User>> GetUsersActives();
         ServiceResult<User> GetUserById(int userId);
         ServiceResult<User> Insert(User user);
         ServiceResult<User> Update(User user);

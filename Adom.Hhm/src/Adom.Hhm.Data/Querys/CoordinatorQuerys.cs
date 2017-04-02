@@ -12,7 +12,7 @@ namespace Adom.Hhm.Data.Querys
             ,Pro.[UserId]
             ,Pro.[Document]
             ,Pro.[DocumentTypeId]
-            ,Pro.[BirthDate]
+            ,CONVERT(char(10), Pro.[BirthDate],126) AS BirthDate
             ,Pro.[Telephone1]
             ,Pro.[Telephone2]
             ,Pro.[GenderId]
@@ -28,7 +28,7 @@ namespace Adom.Hhm.Data.Querys
             ,Pro.[UserId]
             ,Pro.[Document]
             ,Pro.[DocumentTypeId]
-            ,Pro.[BirthDate]
+            ,CONVERT(char(10), Pro.[BirthDate],126) AS BirthDate
             ,Pro.[Telephone1]
             ,Pro.[Telephone2]
             ,Pro.[GenderId]

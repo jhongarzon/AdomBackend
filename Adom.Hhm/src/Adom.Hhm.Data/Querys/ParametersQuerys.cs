@@ -10,12 +10,14 @@ namespace Adom.Hhm.Data.Querys
         public static string GetDocumentType =
         @"  SELECT   [Id]
                     ,[Name]
-            FROM	    [cfg].[DocumentType]";
+            FROM	    [cfg].[DocumentType]
+            ORDER BY [Name]";
 
         public static string GetSpecialties =
         @"  SELECT [Id]
                    ,[Name]
-            FROM	    [cfg].[Specialty]";
+            FROM	    [cfg].[Specialty]
+            ORDER BY [Name]";
 
         public static string GetZones =
         @"  SELECT [Id]
@@ -30,17 +32,20 @@ namespace Adom.Hhm.Data.Querys
         public static string GetAccountType =
         @"  SELECT [Id]
                    ,[Name]
-            FROM	    [cfg].[AccountType]";
+            FROM	    [cfg].[AccountType]
+            ORDER BY [Name]";
 
         public static string GetServiceType =
         @"  SELECT [Id]
                    ,[Name]
-            FROM	    [cfg].[ServiceType]";
+            FROM	    [cfg].[ServiceType]
+            ORDER BY [Name]";
 
         public static string GetClassification =
         @"  SELECT [Id]
                    ,[Name]
-            FROM	    [cfg].[Classification]";
+            FROM	    [cfg].[Classification]
+            ORDER BY [Name]";
 
         public static string GetUnitTime =
         @"  SELECT [Id]
@@ -60,6 +65,7 @@ namespace Adom.Hhm.Data.Querys
         public static string GetPatientType =
         @"  SELECT   [Id]
                     ,[Name]
-            FROM	    [cfg].[PatientType]";
+            FROM	    [cfg].[PatientType]
+            ORDER BY [Name]";
     }
 }

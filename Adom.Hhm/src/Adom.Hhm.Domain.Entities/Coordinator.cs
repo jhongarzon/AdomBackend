@@ -10,7 +10,7 @@ namespace Adom.Hhm.Domain.Entities
         public int CoordinatorId { get; set; }
         public int UserId { get; set; }
         public string Document { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public string Telephone1 { get; set; }
         public string Telephone2 { get; set; }
         public int GenderId { get; set; }

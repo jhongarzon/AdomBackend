@@ -57,6 +57,17 @@ namespace Adom.Hhm.Domain.Services.Security
             };
         }
 
+        public ServiceResult<IEnumerable<User>> GetUsersActive()
+        {
+            var getUsers = this.repository.GetUsersActives();
+            return new ServiceResult<IEnumerable<User>>
+            {
+                Success = true,
+                Errors = new string[] { string.Empty },
+                Result = getUsers
+            };
+        }
+
         public ServiceResult<User> Insert(User user)
         {
             user.Password = Encrypt.EncryptString("12345", this.configuration["KeyEncription"]);

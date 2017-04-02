@@ -13,6 +13,7 @@ namespace Adom.Hhm.Domain.Entities.Security
         public string SecondName { get; set; }
         public string Surname { get; set; }
         public string SecondSurname { get; set; }
+        public string NamesComplete { get; set; }
         public string Email { get; set; }
         public string Password { get; set; }
         public bool State { get; set; }
