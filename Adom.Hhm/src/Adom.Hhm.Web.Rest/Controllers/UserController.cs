@@ -37,19 +37,20 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/Users/Get")]
         [HttpGet]
-        public ServiceResult<IEnumerable<User>> Get(int? pageNumber, int? pageSize)
+        public ServiceResult<IEnumerable<User>> Get(int? active) //active = 0 o null (todos) 1 sólo activos
         {
             ServiceResult<IEnumerable<User>> result = null;
 
             try
             {
-                if (pageNumber == null)
-                    pageNumber = 1;
-
-                if (pageSize == null)
-                    pageSize = int.Parse(this.configuration["RowsSize"]);
-
-                result = this.appService.GetUsers(pageNumber.Value, pageSize.Value);
+                if (active == null || active == 0)
+                {
+                    result = this.appService.GetUsers();
+                }
+                else
+                {
+                    result = this.appService.GetUsersActives();
+                }
             }
             catch (Exception ex)
             {

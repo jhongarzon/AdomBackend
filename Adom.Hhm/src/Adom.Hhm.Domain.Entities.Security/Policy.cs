@@ -14,6 +14,7 @@ namespace Adom.Hhm.Domain.Entities.Security
         public string ActionName { get; set; }
         public string Route { get; set; }
         public string RouteFrontEnd { get; set; }
+        public bool VisibleResource { get; set; }
 
     }
 }

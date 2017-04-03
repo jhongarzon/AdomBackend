@@ -17,6 +17,7 @@ namespace Adom.Hhm.Data.Querys
 			            ,Act.Name as ActionName
 			            ,ActRes.Route as Route
                         ,Res.RouteFrontEnd as RouteFrontEnd
+                        ,Res.[Visible] AS VisibleResource
             FROM		[sec].[ActionsResources] ActRes
             INNER JOIN  [sec].[Resources] Res
             ON          ActRes.[ResourceId] = Res.[ResourceId]
@@ -41,6 +42,9 @@ namespace Adom.Hhm.Data.Querys
 			            ,Act.Name as ActionName
 			            ,ActRes.Route as Route
                         ,Res.RouteFrontEnd as RouteFrontEnd
+						,Res.[Order] AS OrderResource
+						,Modu.[Order] AS Ordermodule
+                        ,Res.[Visible] AS VisibleResource
             FROM		[sec].[ActionsResources] ActRes
             INNER JOIN  [sec].[Resources] Res
             ON          ActRes.[ResourceId] = Res.[ResourceId]
@@ -53,9 +57,10 @@ namespace Adom.Hhm.Data.Querys
             INNER JOIN  [sec].[Roles] Rol
             ON          RolActSec.[RoleId] = Rol.[RoleId]	
             INNER JOIN  [sec].[UsersRoles] UserRol
-            ON          UserRol.[RoleId] = Rol.[RoleId]			
-            WHERE
-			            UserRol.[UserId] = @UserId";
+            ON          UserRol.[RoleId] = Rol.[RoleId]		
+            WHERE       UserRol.[UserId] = @UserId
+            GROUP BY	Res.ResourceId,Res.Name,Modu.ModuleId,Modu.Name,Act.Name,ActRes.Route,Res.RouteFrontEnd,Res.[Order],Modu.[Order],Res.[Visible]
+            ORDER BY    Modu.[Order], Res.[Order]";
 
         public static string IsAuthorized =
         @"  SELECT 

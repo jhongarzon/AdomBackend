@@ -11,6 +11,8 @@ namespace Adom.Hhm.Domain.Security.Repositories
     public interface IUserRepository
     {
         IEnumerable<User> GetUsers(int pageNumber, int pageSize);
+        IEnumerable<User> GetUsers();
+        IEnumerable<User> GetUsersActives();
         User GetUserById(int userId);
         User GetUserByEmail(string email);
         User GetUserByEmailWithoutId(int userId, string email);

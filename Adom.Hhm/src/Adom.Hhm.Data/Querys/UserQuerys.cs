@@ -8,23 +8,34 @@ namespace Adom.Hhm.Data.Querys
     public static class UserQuerys
     {
         public static string GetAll =
-        @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],Count(*) Over() AS TotalRows
+        @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],[FirstName] + ' ' + [Surname] AS NamesComplete,Count(*) Over() AS TotalRows
             FROM	    [sec].[Users]
             ORDER BY    [UserId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
+        public static string GetAllWithouPagination =
+       @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],[FirstName] + ' ' + [Surname] AS NamesComplete,Count(*) Over() AS TotalRows
+            FROM	    [sec].[Users]
+            ORDER BY    [FirstName],[Surname],[State] DESC";
+
+        public static string GetAllWithouPaginationActive =
+       @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],[FirstName] + ' ' + [Surname] AS NamesComplete,Count(*) Over() AS TotalRows
+            FROM	    [sec].[Users]
+            WHERE       [State] = 1
+            ORDER BY    [FirstName],[Surname],[State] DESC";
+
         public static string GetByEmail =
-        @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State]
+        @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],[FirstName] + ' ' + [Surname] AS NamesComplete
             FROM	    [sec].[Users]
             WHERE       [Email] = @Email";
 
         public static string GetByEmailWithoutId =
-        @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State]
+        @"  SELECT	    [UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],[FirstName] + ' ' + [Surname] AS NamesComplete
             FROM	    [sec].[Users]
             WHERE       [UserId] <> @UserId
             AND         [Email] = @Email";
 
         public static string GetById =
-        @"  SELECT	[UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State]
+        @"  SELECT	[UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State],[FirstName] + ' ' + [Surname] AS NamesComplete
             FROM	[sec].[Users]
             WHERE   [UserId] = @UserId
             AND     [State] = 1";

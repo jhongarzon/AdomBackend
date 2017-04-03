@@ -10,8 +10,8 @@ namespace Adom.Hhm.Domain.Entities
         public int ProfessionalId { get; set; }
         public int UserId { get; set; }
         public string Document { get; set; }
-        public DateTime BirthDate { get; set; }
-        public DateTime DateAdmission { get; set; }
+        public string BirthDate { get; set; }
+        public string DateAdmission { get; set; }
         public int Availability { get; set; }
         public string Neighborhood { get; set; }
         public string Address { get; set; }

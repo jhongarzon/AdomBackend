@@ -8,7 +8,7 @@ namespace Adom.Hhm.Data.Querys
     public static class PlanRateQuerys
     {
         public static string GetAll =
-        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName,Count(*) Over() AS TotalRows
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],CONVERT(char(10), pr.[Validity],126) AS Validity,ser.[Name] AS ServiceName,ent.[Name] AS EntityName,Count(*) Over() AS TotalRows
             FROM	    [cfg].[PlansRates] pr
             INNER JOIN  [cfg].[Services] ser
             ON          pr.ServiceId = ser.ServiceId
@@ -17,7 +17,7 @@ namespace Adom.Hhm.Data.Querys
             ORDER BY    pr.[PlanRateId] OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetAllWithoutPagination =
-        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],CONVERT(char(10), pr.[Validity],126) AS Validity,ser.[Name] AS ServiceName,ent.[Name] AS EntityName
             FROM	    [cfg].[PlansRates] pr
             INNER JOIN  [cfg].[Services] ser
             ON          pr.ServiceId = ser.ServiceId
@@ -25,7 +25,7 @@ namespace Adom.Hhm.Data.Querys
             ON          pr.EntityId = ent.EntityId";
 
         public static string GetByName =
-        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],CONVERT(char(10), pr.[Validity],126) AS Validity,ser.[Name] AS ServiceName,ent.[Name] AS EntityName
             FROM	    [cfg].[PlansRates] pr
             INNER JOIN  [cfg].[Services] ser
             ON          pr.ServiceId = ser.ServiceId
@@ -34,7 +34,7 @@ namespace Adom.Hhm.Data.Querys
             WHERE       pr.[PlanName] = @Name";
 
         public static string GetByNameWithoutId =
-        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+        @"  SELECT	    pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],CONVERT(char(10), pr.[Validity],126) AS Validity,ser.[Name] AS ServiceName,ent.[Name] AS EntityName
             FROM	    [cfg].[PlansRates] pr
             INNER JOIN  [cfg].[Services] ser
             ON          pr.ServiceId = ser.ServiceId
@@ -44,7 +44,7 @@ namespace Adom.Hhm.Data.Querys
             AND         pr.[PlanName] = @Name";
 
         public static string GetById =
-        @"  SELECT  pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],pr.[Validity],ser.[Name] AS ServiceName,ent.[Name] AS EntityName
+        @"  SELECT  pr.[PlanRateId],pr.[EntityId],pr.[PlanName],pr.[ServiceId],pr.[Rate],CONVERT(char(10), pr.[Validity],126) AS Validity,ser.[Name] AS ServiceName,ent.[Name] AS EntityName
             FROM	    [cfg].[PlansRates] pr
             INNER JOIN  [cfg].[Services] ser
             ON          pr.ServiceId = ser.ServiceId

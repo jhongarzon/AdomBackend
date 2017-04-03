@@ -33,6 +33,16 @@ namespace Adom.Hhm.AppServices.Security
             return this.service.GetUsers(pageNumber, pageSize);
         }
 
+        public ServiceResult<IEnumerable<User>> GetUsers()
+        {
+            return this.service.GetUsers();
+        }
+
+        public ServiceResult<IEnumerable<User>> GetUsersActives()
+        {
+            return this.service.GetUsersActive();
+        }
+
         public ServiceResult<User> Insert(User user)
         {
             return this.service.Insert(user);

@@ -14,7 +14,6 @@ namespace Adom.Hhm.Web.Rest.Validators
         {
             RuleFor(x => x.Email).NotNull().WithMessage(MessageValidator.EmailRequired);
             RuleFor(x => x.FirstName).NotNull().WithMessage(MessageValidator.FirstNameRequired);
-            RuleFor(x => x.BirthDate).NotNull().WithMessage(MessageValidator.BirthDateRequired);
             RuleFor(x => x.Surname).NotNull().WithMessage(MessageValidator.SurnameRequired);
             RuleFor(x => x.DocumentTypeId).NotEqual(-1).WithMessage(MessageValidator.DocumentTypeIdRequired);
             RuleFor(x => x.Document).NotNull().WithMessage(MessageValidator.DocumentRequired);

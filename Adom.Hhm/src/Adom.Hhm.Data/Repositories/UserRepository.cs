@@ -33,6 +33,16 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<User>(UserQuerys.GetByEmailWithoutId, new { Email = email, UserId = userId }).FirstOrDefault();
         }
 
+        public IEnumerable<User> GetUsers()
+        {
+            return connection.Query<User>(UserQuerys.GetAllWithouPagination);
+        }
+
+        public IEnumerable<User> GetUsersActives()
+        {
+            return connection.Query<User>(UserQuerys.GetAllWithouPaginationActive);
+        }
+
         public User GetUserById(int userId)
         {
             return connection.Query<User>(UserQuerys.GetById, new { UserId = userId }).FirstOrDefault();

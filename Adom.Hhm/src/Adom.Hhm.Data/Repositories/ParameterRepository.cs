@@ -67,5 +67,10 @@ namespace Adom.Hhm.Data.Repositories
         {
             return connection.Query<Parameter>(ParameterQuerys.GetBilledTo);
         }
+
+        public IEnumerable<Parameter> GetPatientType()
+        {
+            return connection.Query<Parameter>(ParameterQuerys.GetPatientType);
+        }
     }
 }
