@@ -55,5 +55,9 @@ namespace Adom.Hhm.Data.Querys
                     [Quantity] = @Quantity,
                     [BilledToId] = @BilledToId
             WHERE   [AssignServiceSupplyId] = @AssignServiceSupplyId";
+
+        public static string Delete =
+        @"  DELETE FROM [sas].[AssignServiceSupply]
+            WHERE   [AssignServiceSupplyId] = @AssignServiceSupplyId";
     }
 }

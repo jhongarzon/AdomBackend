@@ -85,5 +85,27 @@ namespace Adom.Hhm.Domain.Services
                 Result = updated
             };
         }
+
+        public ServiceResult<bool> Delete(int assignServiceSupplyId)
+        {
+            var deleted = this.repository.Delete(assignServiceSupplyId);
+
+            if (deleted)
+            {
+                return new ServiceResult<bool>
+                {
+                    Success = true,
+                    Result = true
+                };
+            }
+            else
+            {
+                return new ServiceResult<bool>
+                {
+                    Success = false,
+                    Result = false
+                };
+            }
+        }
     }
 }

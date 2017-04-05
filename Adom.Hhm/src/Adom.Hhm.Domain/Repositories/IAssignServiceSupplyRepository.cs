@@ -12,5 +12,6 @@ namespace Adom.Hhm.Domain.Repositories
         AssignServiceSupply GetAssignServiceSupplyByAssignServiceId(int assignServiceId);
         AssignServiceSupply Insert(AssignServiceSupply assignServiceSupply);
         AssignServiceSupply Update(AssignServiceSupply assignServiceSupply);
+        bool Delete(int assignServiceSupplyId);
     }
 }

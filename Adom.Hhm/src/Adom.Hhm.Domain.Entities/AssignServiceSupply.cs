@@ -12,7 +12,7 @@ namespace Adom.Hhm.Domain.Entities
         public int SupplyId { get; set; }
         public string SupplyName { get; set; }
         public int Quantity { get; set; }
-        public int BilledId { get; set; }
+        public int BilledToId { get; set; }
         public string BilledName { get; set; }
         public int TotalRows { get; set; }
     }

@@ -56,5 +56,11 @@ namespace Adom.Hhm.Data.Repositories
             var affectedRows = connection.Execute(AssignServiceSupplyQuerys.Update, assignServiceSupply);
             return assignServiceSupply;
         }
+
+        public bool Delete(int assignServiceSupplyId)
+        {
+            var affectedRows = connection.Execute(AssignServiceSupplyQuerys.Delete, new { AssignServiceSupplyId = assignServiceSupplyId });
+            return affectedRows > 0;
+        }
     }
 }

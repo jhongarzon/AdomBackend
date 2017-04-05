@@ -108,27 +108,27 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/AssignService/Edit")]
         [HttpPut("{id}")]
-        public ServiceResult<AssignServiceSupply> Put(int id, [FromBody]AssignServiceSupply model)
+        public ServiceResult<bool> Put(int id, [FromBody]AssignServiceSupply model)
         {
-            ServiceResult<AssignServiceSupply> result = null;
+            ServiceResult<bool> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
             {
                 try
                 {
-                    result = this.appService.Update(model);
+                    result = this.appService.Delete(id);
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<AssignServiceSupply>();
+                    result = new ServiceResult<bool>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<AssignServiceSupply>();
+                result = new ServiceResult<bool>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }

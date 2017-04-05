@@ -44,5 +44,10 @@ namespace Adom.Hhm.AppServices
         {
             return this.service.Update(AssignServiceSupply);
         }
+
+        public ServiceResult<bool> Delete(int AssignServiceSupplyId)
+        {
+            return this.service.Delete(AssignServiceSupplyId);
+        }
     }
 }

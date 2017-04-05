@@ -13,5 +13,6 @@ namespace Adom.Hhm.AppServices.Interfaces
         ServiceResult<AssignServiceSupply> GetAssignServiceSupplyByAssignServiceId(int assignServiceId);
         ServiceResult<AssignServiceSupply> Insert(AssignServiceSupply assignServiceSupply);
         ServiceResult<AssignServiceSupply> Update(AssignServiceSupply assignServiceSupply);
+        ServiceResult<bool> Delete(int assignServiceSupplyId);
     }
 }

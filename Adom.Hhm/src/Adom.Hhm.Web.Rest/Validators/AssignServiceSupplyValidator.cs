@@ -14,9 +14,9 @@ namespace Adom.Hhm.Web.Rest.Validators
         {
             RuleFor(x => x.AssignServiceSupplyId).NotNull().WithMessage(MessageValidator.IdSuAssignServiceSupplyRequired);
             RuleFor(x => x.AssignServiceId).NotNull().WithMessage(MessageValidator.IdAssignServiceSupplyRequired);
-            RuleFor(x => x.BilledId).NotNull().WithMessage(MessageValidator.BilledIdAssignServiceSupplyRequired);
+            RuleFor(x => x.BilledToId).NotEmpty().WithMessage(MessageValidator.BilledIdAssignServiceSupplyRequired);
             RuleFor(x => x.Quantity).NotNull().WithMessage(MessageValidator.QuantityAssignServiceSupplyRequired);
-            RuleFor(x => x.SupplyId).NotNull().WithMessage(MessageValidator.SupplyIdAssignServiceSupplyRequired);
+            RuleFor(x => x.SupplyId).NotEmpty().WithMessage(MessageValidator.SupplyIdAssignServiceSupplyRequired);
         }
     }
 }
