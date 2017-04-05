@@ -172,7 +172,7 @@ namespace Adom.Hhm.Data.Querys
         @"[sas].[CreateAssignServiceAndDetails]";
 
         public static string Update =
-        @"  UPDATE [cfg].[AssignServices]
+        @"  UPDATE [sas].[AssignService]
                SET [AuthorizationNumber] = @AuthorizationNumber
               ,[CoPaymentAmount] = @CoPaymentAmount
               ,[CoPaymentFrecuencyId] = @CoPaymentFrecuencyId
