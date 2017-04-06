@@ -20,14 +20,9 @@ namespace Adom.Hhm.AppServices
             return this.service.GetPlanRateById(PlanRateId);
         }
 
-        public ServiceResult<IEnumerable<PlanRate>> GetPlanRate(int pageNumber, int pageSize)
+        public ServiceResult<IEnumerable<PlanRate>> GetPlanRate(int entityId)
         {
-            return this.service.GetPlanRate(pageNumber, pageSize);
-        }
-
-        public ServiceResult<IEnumerable<PlanRate>> GetPlanRate()
-        {
-            return this.service.GetPlanRate();
+            return this.service.GetPlanRate(entityId);
         }
 
         public ServiceResult<PlanRate> Insert(PlanRate planRate)

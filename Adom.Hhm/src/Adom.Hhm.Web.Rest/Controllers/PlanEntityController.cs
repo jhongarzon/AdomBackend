@@ -20,14 +20,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
 {
     [EnableCors("CorsPolicy")]
     [Route("api/[controller]")]
-    public class PlanRateController : Controller
+    public class PlanEntityController : Controller
     {
         private readonly ILogger logger;
-        private readonly IPlanRateAppService appService;
-        private readonly PlanRateValidator validator;
+        private readonly IPlanEntityAppService appService;
+        private readonly PlanEntityValidator validator;
         private readonly IConfigurationRoot configuration;
 
-        public PlanRateController(IPlanRateAppService appService, PlanRateValidator validator, IConfigurationRoot configuration)
+        public PlanEntityController(IPlanEntityAppService appService, PlanEntityValidator validator, IConfigurationRoot configuration)
         {
             this.appService = appService;
             this.validator = validator;
@@ -36,17 +36,17 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/PlanRate/Get")]
         [HttpGet("{id}")]
-        public ServiceResult<PlanRate> Get(int id)
+        public ServiceResult<PlanEntity> Get(int id)
         {
-            ServiceResult<PlanRate> result = null;
+            ServiceResult<PlanEntity> result = null;
 
             try
             {
-                result = this.appService.GetPlanRateById(id);
+                result = this.appService.GetPlanEntityById(id);
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<PlanRate>();
+                result = new ServiceResult<PlanEntity>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }
@@ -56,9 +56,9 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/PlanRate/Create")]
         [HttpPost]
-        public ServiceResult<PlanRate> Post([FromBody]PlanRate model)
+        public ServiceResult<PlanEntity> Post([FromBody]PlanEntity model)
         {
-            ServiceResult<PlanRate> result = null;
+            ServiceResult<PlanEntity> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
@@ -69,14 +69,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<PlanRate>();
+                    result = new ServiceResult<PlanEntity>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<PlanRate>();
+                result = new ServiceResult<PlanEntity>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }
@@ -86,9 +86,9 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/PlanRate/Edit")]
         [HttpPut("{id}")]
-        public ServiceResult<PlanRate> Put(int id, [FromBody]PlanRate model)
+        public ServiceResult<PlanEntity> Put(int id, [FromBody]PlanEntity model)
         {
-            ServiceResult<PlanRate> result = null;
+            ServiceResult<PlanEntity> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
@@ -99,14 +99,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<PlanRate>();
+                    result = new ServiceResult<PlanEntity>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<PlanRate>();
+                result = new ServiceResult<PlanEntity>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }

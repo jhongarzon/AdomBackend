@@ -24,29 +24,14 @@ namespace Adom.Hhm.Data.Repositories
             this.connection = connection;
         }
 
-        public PlanRate GetPlanRateByName(string name)
-        {
-            return connection.Query<PlanRate>(PlanRateQuerys.GetByName, new { Name = name }).FirstOrDefault();
-        }
-
-        public PlanRate GetPlanRateByNameWithoutId(int PlanRateId, string name)
-        {
-            return connection.Query<PlanRate>(PlanRateQuerys.GetByNameWithoutId, new { Name = name, PlanRateId = PlanRateId }).FirstOrDefault();
-        }
-
         public PlanRate GetPlanRateById(int PlanRateId)
         {
             return connection.Query<PlanRate>(PlanRateQuerys.GetById, new { PlanRateId = PlanRateId }).FirstOrDefault();
         }
 
-        public IEnumerable<PlanRate> GetPlanRate(int pageNumber, int pageSize)
+        public IEnumerable<PlanRate> GetPlanRate(int entityId)
         {
-            return connection.Query<PlanRate>(PlanRateQuerys.GetAll, new { PageNumber = pageNumber, PageSize = pageSize });
-        }
-
-        public IEnumerable<PlanRate> GetPlanRate()
-        {
-            return connection.Query<PlanRate>(PlanRateQuerys.GetAllWithoutPagination);
+            return connection.Query<PlanRate>(PlanRateQuerys.GetAllWithoutPagination, new { EntityId = entityId });
         }
 
         public PlanRate Insert(PlanRate planRate)

@@ -22,6 +22,7 @@ namespace Adom.Hhm.Domain.Services.IoC
             dic.Add(typeof(IAssignServiceDomainService), typeof(AssignServiceDomainServices));
             dic.Add(typeof(IAssignServiceDetailDomainService), typeof(AssignServiceDetailDomainServices));
             dic.Add(typeof(IAssignServiceSupplyDomainService), typeof(AssignServiceSupplyDomainServices));
+            dic.Add(typeof(IPlanEntityDomainService), typeof(PlanEntityDomainServices));
             return dic;
         }
     }

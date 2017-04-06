@@ -148,6 +148,7 @@ namespace Adom.Hhm.Web.Rest
             services.AddScoped<AssignServiceValidator>();
             services.AddScoped<AssignServiceDetailValidator>();
             services.AddScoped<AssignServiceSupplyValidator>();
+            services.AddScoped<PlanEntityValidator>();
         }
     }
 }

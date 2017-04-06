@@ -32,21 +32,9 @@ namespace Adom.Hhm.Domain.Services
                 Result = getPlanRate
             };
         }
-
-        public ServiceResult<IEnumerable<PlanRate>> GetPlanRate(int pageNumber, int pageSize)
+        public ServiceResult<IEnumerable<PlanRate>> GetPlanRate(int entityId)
         {
-            var getPlanRates = this.repository.GetPlanRate(pageNumber, pageSize);
-            return new ServiceResult<IEnumerable<PlanRate>>
-            {
-                Success = true,
-                Errors = new string[] { string.Empty },
-                Result = getPlanRates
-            };
-        }
-
-        public ServiceResult<IEnumerable<PlanRate>> GetPlanRate()
-        {
-            var getPlanRates = this.repository.GetPlanRate();
+            var getPlanRates = this.repository.GetPlanRate(entityId);
             return new ServiceResult<IEnumerable<PlanRate>>
             {
                 Success = true,
@@ -57,43 +45,21 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<PlanRate> Insert(PlanRate planRate)
         {
-            PlanRate PlanRateExist = this.repository.GetPlanRateByName(planRate.PlanName);
-
-            if (PlanRateExist == null)
-            {
-                var PlanRateInserted = this.repository.Insert(planRate);
-                return new ServiceResult<PlanRate>
-                {
-                    Success = true,
-                    Result = PlanRateInserted
-                };
-            }
-
+            var PlanRateInserted = this.repository.Insert(planRate);
             return new ServiceResult<PlanRate>
             {
-                Success = false,
-                Errors = new string[] { MessageError.NamePlanRateExists }
+                Success = true,
+                Result = PlanRateInserted
             };
         }
 
         public ServiceResult<PlanRate> Update(PlanRate planRate)
         {
-            PlanRate PlanRateExist = this.repository.GetPlanRateByNameWithoutId(planRate.PlanRateId, planRate.PlanName);
-
-            if (PlanRateExist == null)
-            {
-                var updated = this.repository.Update(planRate);
-                return new ServiceResult<PlanRate>
-                {
-                    Success = true,
-                    Result = updated
-                };
-            }
-
+            var updated = this.repository.Update(planRate);
             return new ServiceResult<PlanRate>
             {
-                Success = false,
-                Errors = new string[] { MessageError.NamePlanRateExists }
+                Success = true,
+                Result = updated
             };
         }
     }

@@ -6,11 +6,8 @@ namespace Adom.Hhm.Domain.Repositories
 {
     public interface IPlanRateRepository
     {
-        IEnumerable<PlanRate> GetPlanRate(int pageNumber, int pageSize);
-        IEnumerable<PlanRate> GetPlanRate();
+        IEnumerable<PlanRate> GetPlanRate(int entityId);
         PlanRate GetPlanRateById(int planRateId);
-        PlanRate GetPlanRateByName(string name);
-        PlanRate GetPlanRateByNameWithoutId(int planRateId, string name);
         PlanRate Insert(PlanRate planRate);
         PlanRate Update(PlanRate planRate);
     }
