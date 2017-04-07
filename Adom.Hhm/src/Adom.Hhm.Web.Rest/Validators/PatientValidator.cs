@@ -18,6 +18,7 @@ namespace Adom.Hhm.Web.Rest.Validators
             RuleFor(x => x.Document).NotNull().WithMessage(MessageValidator.DocumentRequired);
             RuleFor(x => x.GenderId).NotEqual(-1).WithMessage(MessageValidator.GenderRequired);
             RuleFor(x => x.Telephone1).NotNull().WithMessage(MessageValidator.Telephone1Required);
+            RuleFor(x => x.PatientTypeId).NotEqual(0).WithMessage(MessageValidator.typePatientRequired);
         }
     }
 }

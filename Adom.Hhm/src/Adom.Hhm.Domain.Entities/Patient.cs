@@ -13,7 +13,7 @@ namespace Adom.Hhm.Domain.Entities
         public string DocumentTypeName { get; set; }
         public int PatientTypeId { get; set; }
         public string PatientTypeName { get; set; }
-        public DateTime BirthDate { get; set; }
+        public string BirthDate { get; set; }
         public int Age { get; set; }
         public int UnitTimeId { get; set; }
         public string UnitTimeName { get; set; }

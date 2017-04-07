@@ -7,6 +7,8 @@ namespace Adom.Hhm.Domain.Entities.Security
 {
     public class MessageValidator
     {
+        public static string typePatientRequired { get; set; } = "El tipo de paciente es requerido";
+
         public static string GenderRequired { get; set; } = "El género es requerido";
 
         public static string EmailRequired { get; set; } = "El email es requerido";
