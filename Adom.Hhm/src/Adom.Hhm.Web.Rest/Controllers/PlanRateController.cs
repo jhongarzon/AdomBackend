@@ -36,17 +36,17 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/PlanRate/Get")]
         [HttpGet("{id}")]
-        public ServiceResult<PlanRate> Get(int id)
+        public ServiceResult<IEnumerable<PlanRate>> Get(int id)
         {
-            ServiceResult<PlanRate> result = null;
+            ServiceResult<IEnumerable<PlanRate>> result = null;
 
             try
             {
-                result = this.appService.GetPlanRateById(id);
+                result = this.appService.GetPlanRate(id);
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<PlanRate>();
+                result = new ServiceResult<IEnumerable<PlanRate>>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }
@@ -86,27 +86,27 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/PlanRate/Edit")]
         [HttpPut("{id}")]
-        public ServiceResult<PlanRate> Put(int id, [FromBody]PlanRate model)
+        public ServiceResult<bool> Put(int id, [FromBody]PlanRate model)
         {
-            ServiceResult<PlanRate> result = null;
+            ServiceResult<bool> result = null;
             var validatorResult = validator.Validate(model);
 
             if (validatorResult.IsValid)
             {
                 try
                 {
-                    result = this.appService.Update(model);
+                    result = this.appService.Delete(model);
                 }
                 catch (Exception ex)
                 {
-                    result = new ServiceResult<PlanRate>();
+                    result = new ServiceResult<bool>();
                     result.Errors = new string[] { ex.Message };
                     result.Success = false;
                 }
             }
             else
             {
-                result = new ServiceResult<PlanRate>();
+                result = new ServiceResult<bool>();
                 result.Errors = validatorResult.GetErrors();
                 result.Success = false;
             }

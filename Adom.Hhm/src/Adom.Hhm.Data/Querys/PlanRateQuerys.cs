@@ -14,7 +14,7 @@ namespace Adom.Hhm.Data.Querys
             ON          pr.ServiceId = ser.ServiceId
             INNER JOIN  [cfg].[PlansEntity] pe
             ON          pe.PlanEntityId = pr.PlanEntityId
-            WHERE       pe.State = 1 AND pe.EntityId = @EntityId
+            WHERE       pe.PlanEntityId = @PlanEntityId
             ORDER BY    pr.[PlanRateId]";
 
         public static string GetById =
@@ -31,12 +31,8 @@ namespace Adom.Hhm.Data.Querys
             VALUES(@PlanEntityId,@ServiceId,@Rate,@Validity);
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
-        public static string Update =
-        @"  UPDATE [cfg].[PlansRates]
-            SET     [PlanEntityId] = @PlanEntityId
-                    [ServiceId] = @ServiceId,
-                    [Rate] = @Rate,
-                    [Validity] = @Validity
+        public static string Delete =
+        @"  DELETE FROM [cfg].[PlansRates]
             WHERE   [PlanRateId] = @PlanRateId";
     }
 }

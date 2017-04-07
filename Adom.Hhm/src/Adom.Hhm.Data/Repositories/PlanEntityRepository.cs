@@ -18,19 +18,19 @@ namespace Adom.Hhm.Data.Repositories
             this.connection = connection;
         }
 
-        public PlanEntity GetPlanEntityByName(string name)
+        public PlanEntity GetPlanEntityByName(string name, int entityId)
         {
-            return connection.Query<PlanEntity>(PlanEntityQuerys.GetByName, new { Name = name }).FirstOrDefault();
+            return connection.Query<PlanEntity>(PlanEntityQuerys.GetByName, new { Name = name, EntityId = entityId }).FirstOrDefault();
         }
 
-        public PlanEntity GetPlanEntityByNameWithoutId(int planEntityId, string name)
+        public PlanEntity GetPlanEntityByNameWithoutId(PlanEntity PlanEntity)
         {
-            return connection.Query<PlanEntity>(PlanEntityQuerys.GetByNameWithoutId, new { Name = name, PlanEntityId = planEntityId }).FirstOrDefault();
+            return connection.Query<PlanEntity>(PlanEntityQuerys.GetByNameWithoutId, PlanEntity).FirstOrDefault();
         }
 
-        public PlanEntity GetPlanEntityById(int planEntityId)
+        public PlanEntity GetPlanEntityById(int entityId)
         {
-            return connection.Query<PlanEntity>(PlanEntityQuerys.GetById, new { PlanEntityId = planEntityId }).FirstOrDefault();
+            return connection.Query<PlanEntity>(PlanEntityQuerys.GetById, new { EntityId = entityId }).FirstOrDefault();
         }
 
         public PlanEntity Insert(PlanEntity planEntity)

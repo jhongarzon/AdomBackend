@@ -9,6 +9,6 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<PlanRate> GetPlanRate(int entityId);
         PlanRate GetPlanRateById(int planRateId);
         PlanRate Insert(PlanRate planRate);
-        PlanRate Update(PlanRate planRate);
+        bool Delete(PlanRate planRate);
     }
 }

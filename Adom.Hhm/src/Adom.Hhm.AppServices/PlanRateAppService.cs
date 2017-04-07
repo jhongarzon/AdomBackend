@@ -30,9 +30,9 @@ namespace Adom.Hhm.AppServices
             return this.service.Insert(planRate);
         }
 
-        public ServiceResult<PlanRate> Update(PlanRate planRate)
+        public ServiceResult<bool> Delete(PlanRate planRate)
         {
-            return this.service.Update(planRate);
+            return this.service.Delete(planRate);
         }
     }
 }

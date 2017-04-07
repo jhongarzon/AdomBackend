@@ -8,8 +8,8 @@ namespace Adom.Hhm.Domain.Repositories
     {
         IEnumerable<PlanEntity> GetPlanEntity(int entityId);
         PlanEntity GetPlanEntityById(int planEntityId);
-        PlanEntity GetPlanEntityByName(string name);
-        PlanEntity GetPlanEntityByNameWithoutId(int PlanEntityId, string name);
+        PlanEntity GetPlanEntityByName(string name, int entityId);
+        PlanEntity GetPlanEntityByNameWithoutId(PlanEntity PlanEntity);
         PlanEntity Insert(PlanEntity PlanEntity);
         PlanEntity Update(PlanEntity PlanEntity);
     }

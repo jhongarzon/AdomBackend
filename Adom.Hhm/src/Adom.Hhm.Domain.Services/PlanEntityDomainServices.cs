@@ -47,7 +47,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<PlanEntity> Insert(PlanEntity planEntity)
         {
-            PlanEntity planEntityExist = this.repository.GetPlanEntityByName(planEntity.Name);
+            PlanEntity planEntityExist = this.repository.GetPlanEntityByName(planEntity.Name, planEntity.EntityId);
 
             if (planEntityExist == null)
             {
@@ -69,7 +69,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<PlanEntity> Update(PlanEntity planEntity)
         {
-            PlanEntity planEntityExist = this.repository.GetPlanEntityByNameWithoutId(planEntity.PlanEntityId, planEntity.Name);
+            PlanEntity planEntityExist = this.repository.GetPlanEntityByNameWithoutId(planEntity);
 
             if (planEntityExist == null)
             {

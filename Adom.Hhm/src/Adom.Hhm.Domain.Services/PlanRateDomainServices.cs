@@ -53,13 +53,13 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
-        public ServiceResult<PlanRate> Update(PlanRate planRate)
+        public ServiceResult<bool> Delete(PlanRate planRate)
         {
-            var updated = this.repository.Update(planRate);
-            return new ServiceResult<PlanRate>
+            var deleted = this.repository.Delete(planRate);
+            return new ServiceResult<bool>
             {
                 Success = true,
-                Result = updated
+                Result = deleted
             };
         }
     }

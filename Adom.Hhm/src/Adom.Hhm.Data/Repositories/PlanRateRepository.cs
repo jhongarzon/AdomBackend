@@ -29,9 +29,9 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<PlanRate>(PlanRateQuerys.GetById, new { PlanRateId = PlanRateId }).FirstOrDefault();
         }
 
-        public IEnumerable<PlanRate> GetPlanRate(int entityId)
+        public IEnumerable<PlanRate> GetPlanRate(int planEntityId)
         {
-            return connection.Query<PlanRate>(PlanRateQuerys.GetAllWithoutPagination, new { EntityId = entityId });
+            return connection.Query<PlanRate>(PlanRateQuerys.GetAllWithoutPagination, new { PlanEntityId = planEntityId });
         }
 
         public PlanRate Insert(PlanRate planRate)
@@ -41,10 +41,10 @@ namespace Adom.Hhm.Data.Repositories
             return planRate;
         }
 
-        public PlanRate Update(PlanRate planRate)
+        public bool Delete(PlanRate planRate)
         {
-            var affectedRows = connection.Execute(PlanRateQuerys.Update, planRate);
-            return planRate;
+            var affectedRows = connection.Execute(PlanRateQuerys.Delete, planRate);
+            return affectedRows > 0;
         }
     }
 }

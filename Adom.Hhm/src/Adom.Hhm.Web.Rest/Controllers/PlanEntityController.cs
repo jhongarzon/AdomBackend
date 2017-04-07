@@ -36,17 +36,17 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/PlanRate/Get")]
         [HttpGet("{id}")]
-        public ServiceResult<PlanEntity> Get(int id)
+        public ServiceResult<IEnumerable<PlanEntity>> Get(int id)
         {
-            ServiceResult<PlanEntity> result = null;
+            ServiceResult<IEnumerable<PlanEntity>> result = null;
 
             try
             {
-                result = this.appService.GetPlanEntityById(id);
+                result = this.appService.GetPlanEntity(id);
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<PlanEntity>();
+                result = new ServiceResult<IEnumerable<PlanEntity>>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }

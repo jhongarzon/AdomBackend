@@ -12,7 +12,7 @@ namespace Adom.Hhm.Web.Rest.Validators
     {
         public PlanEntityValidator()
         {
-            RuleFor(x => x.PlanEntityId).NotEmpty().WithMessage(MessageValidator.EntityIdEntityRequired);
+            RuleFor(x => x.EntityId).NotEmpty().WithMessage(MessageValidator.EntityIdEntityRequired);
             RuleFor(x => x.Name).NotNull().WithMessage(MessageValidator.ServiceRequired);
         }
     }
