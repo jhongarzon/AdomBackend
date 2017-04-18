@@ -29,9 +29,9 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<AssignServiceSupply>(AssignServiceSupplyQuerys.GetById, new { AssignServiceSupplyId = assignServiceSupplyId }).FirstOrDefault();
         }
 
-        public AssignServiceSupply GetAssignServiceSupplyByAssignServiceId(int assignServiceId)
+        public IEnumerable<AssignServiceSupply> GetAssignServiceSupplyByAssignServiceId(int assignServiceId)
         {
-            return connection.Query<AssignServiceSupply>(AssignServiceSupplyQuerys.GetByAssignServiceId, new { AssignServiceId = assignServiceId }).FirstOrDefault();
+            return connection.Query<AssignServiceSupply>(AssignServiceSupplyQuerys.GetByAssignServiceId, new { AssignServiceId = assignServiceId });
         }
 
         public IEnumerable<AssignServiceSupply> GetAssignServiceSupplies(int pageNumber, int pageSize)

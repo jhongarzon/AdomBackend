@@ -58,17 +58,17 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         [Authorize(Policy = "/AssignService/Get")]
         [HttpGet("{id}")]
-        public ServiceResult<AssignServiceSupply> Get(int assignServiceId)
+        public ServiceResult<IEnumerable<AssignServiceSupply>> Get(int id)
         {
-            ServiceResult<AssignServiceSupply> result = null;
+            ServiceResult<IEnumerable<AssignServiceSupply>> result = null;
 
             try
             {
-                result = this.appService.GetAssignServiceSupplyByAssignServiceId(assignServiceId);
+                result = this.appService.GetAssignServiceSupplyByAssignServiceId(id);
             }
             catch (Exception ex)
             {
-                result = new ServiceResult<AssignServiceSupply>();
+                result = new ServiceResult<IEnumerable<AssignServiceSupply>>();
                 result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }

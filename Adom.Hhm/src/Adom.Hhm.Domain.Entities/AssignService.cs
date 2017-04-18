@@ -9,7 +9,12 @@ namespace Adom.Hhm.Domain.Entities
     {
         public int AssignServiceId { get; set; }
         public int PatientId { get; set; }
+        public string ContractNumber { get; set; }
+        public int EntityId { get; set; }
+        public int PlanEntityId { get; set; }
         public string AuthorizationNumber { get; set; }
+        public string Cie10 { get; set; }
+        public string DescriptionCie10 { get; set; }
         public string Validity { get; set; }
         public string ApplicantName { get; set; }
         public int ServiceId { get; set; }

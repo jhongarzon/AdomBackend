@@ -1,0 +1,38 @@
+1. Se agrega nueva columna a resources
+2. La clase policiy se agrega una propierdad
+3. La clase AuthorizationQuery, IAuthorizationDomainServices, IAuthorizationRepository, IAuthorizationDomainServices, AuthorizationDomainServices,IAuthorizationAppService
+
+
+/role
+
+usuario
+jhongarzon
+pwd
+l4h3rm0s405
+
+Usuario: tecnologia@adomsaluddomiciliaria.com
+Pass: YZPX0J0
+https://www.adomsalud.com/web/
+
+1. Cargar roles y perfiles y cargar todos 
+2. Modulos y recursos ya listos
+3. Organizar lo de session y menu
+ng build 
+
+
+radicado hd claro 579680613
+
+sendgrid avg
+jacollazos
+PruebA01*
+info@tecnologiasavg.com
+
+C0l0mb142016!
+
+1. Anadir agregarlo de la entidad y paciemte
+2. EL calculo de fecha final respecto a la catbtidad y frecuencia de servicio y fecha inicial
+3. El link a paciente(crud)
+4. Se filtra los servicios por plan seleccion (asignar servicios)
+5. Para servicios de enfermerìa pasar los detalles que pasen del dia actual pasan a completado autometicamente
+6. Cuando el tipo de servicio es terapia se deja en blanco la fecha en el detalle 
+

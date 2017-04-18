@@ -12,7 +12,7 @@ namespace Adom.Hhm.Domain.Entities
         public string Document { get; set; }
         public string BirthDate { get; set; }
         public string DateAdmission { get; set; }
-        public int Availability { get; set; }
+        public string Availability { get; set; }
         public string Neighborhood { get; set; }
         public string Address { get; set; }
         public string Telephone1 { get; set; }
