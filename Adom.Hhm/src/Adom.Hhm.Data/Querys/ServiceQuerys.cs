@@ -52,6 +52,17 @@ namespace Adom.Hhm.Data.Querys
             ON st.Id = ser.ServiceTypeId
             WHERE   ser.[ServiceId] = @ServiceId";
 
+        public static string GetByPlanEntityId =
+        @"  SELECT	    ser.[ServiceId],ser.[Value],ser.[Code],ser.[Name],ser.[ClassificationId],cla.name AS ClassificationName,ser.[ServiceTypeId],st.Name as ServiceTypeName,ser.[HoursToInvest],Count(*) Over() AS TotalRows
+            FROM	    [cfg].[PlansRates] pr
+            INNER JOIN	    [cfg].[Services] ser
+            ON pr.ServiceId = ser.ServiceId
+            INNER JOIN  [cfg].[Classification] cla
+            ON cla.Id = ser.ClassificationId
+            INNER JOIN  [cfg].[ServiceType] st
+            ON st.Id = ser.ServiceTypeId
+            WHERE   pr.[PlanEntityId] = @PlanEntityId";
+
         public static string Insert =
         @"  INSERT INTO [cfg].[Services]([Value],[Code],[Name],[ClassificationId],[ServiceTypeId],[HoursToInvest])
             VALUES(@Value,@Code,@Name,@ClassificationId,@ServiceTypeId,@HoursToInvest);

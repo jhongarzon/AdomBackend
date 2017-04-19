@@ -71,6 +71,26 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
+        [Authorize(Policy = "/Service/Get")]
+        [HttpGet("{planEntityId}/{id2}")]
+        public ServiceResult<IEnumerable<Service>> GetServicesByPlanEntityid(int planEntityId, int id2)
+        {
+            ServiceResult<IEnumerable<Service>> result = null;
+
+            try
+            {
+                result = this.appService.GetServicesByPlanEntityId(planEntityId);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<IEnumerable<Service>>();
+                result.Errors = new string[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
+
         [Authorize(Policy = "/Service/Create")]
         [HttpPost]
         public ServiceResult<Service> Post([FromBody]Service model)

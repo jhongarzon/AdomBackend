@@ -9,6 +9,7 @@ namespace Adom.Hhm.AppServices.Interfaces
     {
         ServiceResult<IEnumerable<Service>> GetServices(int pageNumber, int pageSize);
         ServiceResult<IEnumerable<Service>> GetServices();
+        ServiceResult<IEnumerable<Service>> GetServicesByPlanEntityId(int planEntityId);
         ServiceResult<Service> GetServiceById(int ServiceId);
         ServiceResult<Service> Insert(Service Service);
         ServiceResult<Service> Update(Service Service);

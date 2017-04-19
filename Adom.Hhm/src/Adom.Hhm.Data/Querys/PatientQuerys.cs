@@ -330,8 +330,7 @@ namespace Adom.Hhm.Data.Querys
             ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
-            WHERE       [pat].[PatientId] = @PatientId
-            AND         [pat].[State] = 1";
+            WHERE       [pat].[PatientId] = @PatientId";
 
         public static string Insert =
         @"  INSERT INTO [cfg].[Patients]

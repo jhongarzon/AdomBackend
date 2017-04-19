@@ -12,5 +12,6 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<AssignService> GetAssignServiceByPatientId(int patientId);
         AssignService Insert(AssignService assignService);
         AssignService Update(AssignService assignService);
+        string CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate);
     }
 }

@@ -6,6 +6,7 @@ using Adom.Hhm.Domain.Repositories;
 using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Security.Repositories;
 using Adom.Hhm.Utility;
+using System;
 
 namespace Adom.Hhm.Domain.Services
 {
@@ -83,6 +84,16 @@ namespace Adom.Hhm.Domain.Services
             {
                 Success = true,
                 Result = updated
+            };
+        }
+
+        public ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)
+        {
+            var finalDateAssignService = this.repository.CalculateFinalDateAssignService(quantity, serviceFrecuencyId, initialDate);
+            return new ServiceResult<string>
+            {
+                Success = true,
+                Result = finalDateAssignService
             };
         }
     }

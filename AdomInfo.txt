@@ -29,10 +29,16 @@ info@tecnologiasavg.com
 
 C0l0mb142016!
 
-1. Anadir agregarlo de la entidad y paciemte
-2. EL calculo de fecha final respecto a la catbtidad y frecuencia de servicio y fecha inicial
-3. El link a paciente(crud)
-4. Se filtra los servicios por plan seleccion (asignar servicios)
-5. Para servicios de enfermerìa pasar los detalles que pasen del dia actual pasan a completado autometicamente
-6. Cuando el tipo de servicio es terapia se deja en blanco la fecha en el detalle 
-
+1. Anadir agregarlo de la entidad y paciemte(ok)
+2. EL calculo de fecha final respecto a la catbtidad y frecuencia de servicio y fecha inicial(ok)
+3. El link a paciente(crud)(ok)
+4. Se filtra los servicios por plan seleccion (asignar servicios)(ok)
+5. Para servicios de enfermerìa pasar los detalles que pasen del dia actual pasan a completado autometicamente(ok)
+6. Cuando el tipo de servicio es terapia se deja en blanco la fecha en el detalle(ok) 
+7. DDR1(ok)
+8. DDr2(ok)
+9. DDr3(ok)
+10. DDr4(ok)
+11. DDr5(ok)
+12. DDr6(ok)
+13. DDr8(Cancelaron control de cambios)

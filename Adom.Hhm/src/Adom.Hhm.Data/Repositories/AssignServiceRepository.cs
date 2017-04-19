@@ -56,5 +56,10 @@ namespace Adom.Hhm.Data.Repositories
             var affectedRows = connection.Execute(AssignServiceQuerys.Update, assignService);
             return assignService;
         }
+
+        public string CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)
+        {
+            return connection.Query<string>(AssignServiceQuerys.CalculateFinalDateAssignService, new { Quantity = quantity, ServiceFrecuencyId = serviceFrecuencyId, InitialDate = initialDate }, commandType: CommandType.StoredProcedure).Single();
+        }
     }
 }

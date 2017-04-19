@@ -6,6 +6,7 @@ using Adom.Hhm.Domain.Repositories;
 using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Security.Repositories;
 using Adom.Hhm.Utility;
+using System;
 
 namespace Adom.Hhm.Domain.Services
 {
@@ -95,6 +96,17 @@ namespace Adom.Hhm.Domain.Services
             {
                 Success = false,
                 Errors = new string[] { MessageError.NameServiceExists }
+            };
+        }
+
+        public ServiceResult<IEnumerable<Service>> GetServicesByPlanEntityId(int planEntityId)
+        {
+            var getServices = this.repository.GetServicesByPlanEntityId(planEntityId);
+            return new ServiceResult<IEnumerable<Service>>
+            {
+                Success = true,
+                Errors = new string[] { string.Empty },
+                Result = getServices
             };
         }
     }

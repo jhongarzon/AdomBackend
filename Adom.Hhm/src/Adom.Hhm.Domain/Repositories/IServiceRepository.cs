@@ -8,6 +8,7 @@ namespace Adom.Hhm.Domain.Repositories
     {
         IEnumerable<Service> GetServices(int pageNumber, int pageSize);
         IEnumerable<Service> GetServices();
+        IEnumerable<Service> GetServicesByPlanEntityId(int planEntityId);
         Service GetServiceById(int ServiceId);
         Service GetServiceByName(string name);
         Service GetServiceByNameWithoutId(int ServiceId, string name);

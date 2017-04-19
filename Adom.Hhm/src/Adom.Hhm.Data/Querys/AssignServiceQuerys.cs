@@ -13,7 +13,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AuthorizationNumber]
                   ,Ags.[ContractNumber]
                   ,Ags.[EntityId]
+                  ,ent.[Name] AS EntityName
                   ,Ags.[PlanEntityId]
+                  ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
                   ,CONVERT(char(10), Ags.[Validity],126) AS Validity
@@ -50,7 +52,11 @@ namespace Adom.Hhm.Data.Querys
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
-            ORDER BY    Ags.[AssignServiceId] DESC OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
+            INNER JOIN [cfg].[Entities] ent
+            ON ent.EntityId = Ags.EntityId
+            INNER JOIN [cfg].[PlansEntity] pe
+            ON pe.PlanEntityId = Ags.PlanEntityId
+            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
 
         public static string GetAllWithoutPagination =
         @" SELECT Ags.[AssignServiceId]
@@ -58,7 +64,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AuthorizationNumber]
                   ,Ags.[ContractNumber]
                   ,Ags.[EntityId]
+                  ,ent.[Name] AS EntityName
                   ,Ags.[PlanEntityId]
+                  ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
                   ,CONVERT(char(10), Ags.[Validity],126) AS Validity
@@ -95,7 +103,11 @@ namespace Adom.Hhm.Data.Querys
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
-            ORDER BY    Ags.[AssignServiceId] DESC";
+            INNER JOIN [cfg].[Entities] ent
+            ON ent.EntityId = Ags.EntityId
+            INNER JOIN [cfg].[PlansEntity] pe
+            ON pe.PlanEntityId = Ags.PlanEntityId
+            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
 
         public static string GetByPateintId =
         @"  SELECT Ags.[AssignServiceId]
@@ -103,7 +115,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AuthorizationNumber]
                   ,Ags.[ContractNumber]
                   ,Ags.[EntityId]
+                  ,ent.[Name] AS EntityName
                   ,Ags.[PlanEntityId]
+                  ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
                   ,CONVERT(char(10), Ags.[Validity],126) AS Validity
@@ -140,8 +154,12 @@ namespace Adom.Hhm.Data.Querys
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
+            INNER JOIN [cfg].[Entities] ent
+            ON ent.EntityId = Ags.EntityId
+            INNER JOIN [cfg].[PlansEntity] pe
+            ON pe.PlanEntityId = Ags.PlanEntityId
             WHERE       Ags.[PatientId] = @PatientId
-            ORDER BY    Ags.[AssignServiceId] DESC";
+            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
 
         public static string GetById =
         @"  SELECT Ags.[AssignServiceId]
@@ -149,7 +167,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AuthorizationNumber]
                   ,Ags.[ContractNumber]
                   ,Ags.[EntityId]
+                  ,ent.[Name] AS EntityName
                   ,Ags.[PlanEntityId]
+                  ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
                   ,CONVERT(char(10), Ags.[Validity],126) AS Validity
@@ -186,10 +206,17 @@ namespace Adom.Hhm.Data.Querys
             ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
+            INNER JOIN [cfg].[Entities] ent
+            ON ent.EntityId = Ags.EntityId
+            INNER JOIN [cfg].[PlansEntity] pe
+            ON pe.PlanEntityId = Ags.PlanEntityId
             WHERE   [AssignServiceId] = @AssignServiceId";
 
         public static string CreateAssignServiceAndDetails =
         @"[sas].[CreateAssignServiceAndDetails]";
+
+        public static string CalculateFinalDateAssignService =
+        @"[sas].[CalculateFinalDateAssignService]";
 
         public static string Update =
         @"  UPDATE [sas].[AssignService]

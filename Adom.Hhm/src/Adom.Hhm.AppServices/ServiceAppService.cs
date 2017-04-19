@@ -3,6 +3,7 @@ using Adom.Hhm.Domain.Entities.Security;
 using Adom.Hhm.Domain.Services.Interface;
 using Adom.Hhm.AppServices.Interfaces;
 using Adom.Hhm.Domain.Entities;
+using System;
 
 namespace Adom.Hhm.AppServices
 {
@@ -38,6 +39,11 @@ namespace Adom.Hhm.AppServices
         public ServiceResult<Service> Update(Service Service)
         {
             return this.service.Update(Service);
+        }
+
+        public ServiceResult<IEnumerable<Service>> GetServicesByPlanEntityId(int planEntityId)
+        {
+            return this.service.GetServicesByPlanEntityId(planEntityId);
         }
     }
 }

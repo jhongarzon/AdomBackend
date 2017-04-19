@@ -61,5 +61,10 @@ namespace Adom.Hhm.Data.Repositories
             var affectedRows = connection.Execute(ServiceQuerys.Update, Service);
             return Service;
         }
+
+        public IEnumerable<Service> GetServicesByPlanEntityId(int planEntityId)
+        {
+            return connection.Query<Service>(ServiceQuerys.GetByPlanEntityId, new { PlanEntityId = planEntityId });
+        }
     }
 }

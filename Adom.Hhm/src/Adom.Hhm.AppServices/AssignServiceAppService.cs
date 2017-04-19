@@ -3,6 +3,7 @@ using Adom.Hhm.Domain.Entities.Security;
 using Adom.Hhm.Domain.Services.Interface;
 using Adom.Hhm.AppServices.Interfaces;
 using Adom.Hhm.Domain.Entities;
+using System;
 
 namespace Adom.Hhm.AppServices
 {
@@ -43,6 +44,11 @@ namespace Adom.Hhm.AppServices
         public ServiceResult<AssignService> Update(AssignService assignService)
         {
             return this.service.Update(assignService);
+        }
+
+        public ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)
+        {
+            return this.service.CalculateFinalDateAssignService(quantity, serviceFrecuencyId, initialDate);
         }
     }
 }

@@ -13,5 +13,6 @@ namespace Adom.Hhm.AppServices.Interfaces
         ServiceResult<IEnumerable<AssignService>> GetAssignServiceByPatientId(int patientId);
         ServiceResult<AssignService> Insert(AssignService assignService);
         ServiceResult<AssignService> Update(AssignService assignService);
+        ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate);
     }
 }

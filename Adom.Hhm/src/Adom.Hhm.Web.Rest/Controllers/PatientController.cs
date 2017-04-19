@@ -52,6 +52,26 @@ namespace Adom.Hhm.Web.Rest.Controllers
         }
 
         [Authorize(Policy = "/Patient/Get")]
+        [HttpGet("{id}/{id2}")]
+        public ServiceResult<Patient> Get(int id, int id2)
+        {
+            ServiceResult<Patient> result = null;
+
+            try
+            {
+                result = this.appService.GetPatientById(id);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<Patient>();
+                result.Errors = new string[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
+
+        [Authorize(Policy = "/Patient/Get")]
         [HttpGet("{dataFind}")]
         public ServiceResult<IEnumerable<Patient>> Get(string dataFind)
         {

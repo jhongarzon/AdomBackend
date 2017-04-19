@@ -76,6 +76,26 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
+        [Authorize(Policy = "/AssignService/Get")]
+        [HttpGet("{quantity}/{serviceFrecuencyId}/{initialDate}")]
+        public ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)
+        {
+            ServiceResult<string> result = null;
+
+            try
+            {
+                result = this.appService.CalculateFinalDateAssignService(quantity, serviceFrecuencyId, initialDate);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<string>();
+                result.Errors = new string[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
+
         [Authorize(Policy = "/AssignService/Create")]
         [HttpPost]
         public ServiceResult<AssignService> Post([FromBody]AssignService model)
