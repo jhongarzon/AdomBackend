@@ -18,6 +18,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -58,6 +59,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -97,6 +99,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -137,6 +140,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -168,7 +172,8 @@ namespace Adom.Hhm.Data.Querys
             OR          [pat].[FirstName] like @DataFind
             OR          [pat].[SecondName] like @DataFind
             OR          [pat].[SurName] like @DataFind
-            OR          [pat].[SecondSurname] like @DataFind";
+            OR          [pat].[SecondSurname] like @DataFind
+            OR          [pat].[NameCompleted] like @DataFind";
 
         public static string GetByEmail =
         @"  SELECT pat.[PatientId]
@@ -181,6 +186,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -221,6 +227,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -262,6 +269,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -303,6 +311,7 @@ namespace Adom.Hhm.Data.Querys
             ,ut.Name as UnitTimeName
             ,pat.[PatientTypeId] as PatientTypeId
             ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
             ,pat.[FirstName]
             ,pat.[SecondName]
             ,pat.[Surname]
@@ -356,7 +365,8 @@ namespace Adom.Hhm.Data.Querys
                ,[AttendantEmail]
                ,[Profile]
                ,[CreatedOn]
-               ,[PatientTypeId])
+               ,[PatientTypeId]
+               ,[NameCompleted])
          VALUES
                (@Document
                ,@DocumentTypeId
@@ -380,7 +390,8 @@ namespace Adom.Hhm.Data.Querys
                ,@AttendantEmail
                ,@Profile
                ,getdate()
-               ,@PatientTypeId);
+               ,@PatientTypeId
+               ,@NameCompleted;
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
@@ -407,6 +418,7 @@ namespace Adom.Hhm.Data.Querys
                 ,[AttendantEmail] = @AttendantEmail
                 ,[Profile] = @Profile
                 ,[PatientTypeId] = @PatientTypeId
+                ,[NameCompleted] = @NameCompleted
             WHERE   [PatientId] = @PatientId";
     }
 }

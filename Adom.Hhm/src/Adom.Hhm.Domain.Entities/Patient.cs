@@ -21,6 +21,7 @@ namespace Adom.Hhm.Domain.Entities
         public string SecondName { get; set; }
         public string Surname { get; set; }
         public string SecondSurname { get; set; }
+        public string NameCompleted { get; set; }
         public string Email { get; set; }
         public int GenderId { get; set; }
         public string GenderName { get; set; }

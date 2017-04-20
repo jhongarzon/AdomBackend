@@ -57,9 +57,9 @@ namespace Adom.Hhm.Data.Querys
 				  ,sta.Name AS StateName
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
-			INNER JOIN  [cfg].[Professionals] Pro
-            ON Ags.ProfessionalId = Pro.ProfessionalId
-			INNER JOIN  [sec].[Users] usr
+			LEFT JOIN  [cfg].[Professionals] Pro
+            ON Pro.ProfessionalId = Ags.ProfessionalId
+			LEFT JOIN  [sec].[Users] usr
             ON usr.UserId = Pro.UserId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId

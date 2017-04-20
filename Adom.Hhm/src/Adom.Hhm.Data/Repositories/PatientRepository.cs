@@ -59,6 +59,7 @@ namespace Adom.Hhm.Data.Repositories
 
         public Patient Insert(Patient Patient)
         {
+            Patient.NameCompleted = Patient.FirstName  + (Patient.SecondName == null ? " " : " " + Patient.SecondName + " ") + Patient.Surname + (Patient.SecondSurname == null ? "" : " " + Patient.SecondSurname);
             var id = connection.Query<int>(PatientQuerys.Insert, Patient).Single();
             Patient.PatientId = id;
             return Patient;
@@ -66,6 +67,7 @@ namespace Adom.Hhm.Data.Repositories
 
         public Patient Update(Patient Patient)
         {
+            Patient.NameCompleted = Patient.FirstName + (Patient.SecondName == null ? " " : " " + Patient.SecondName + " ") + Patient.Surname + (Patient.SecondSurname == null ? "" : " " + Patient.SecondSurname);
             var affectedRows = connection.Execute(PatientQuerys.Update, Patient);
             return Patient;
         }

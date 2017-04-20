@@ -142,9 +142,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.Observation
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
-			INNER JOIN  [cfg].[Professionals] Pro
-            ON Ags.ProfessionalId = Pro.ProfessionalId
-			INNER JOIN  [sec].[Users] usr
+			LEFT JOIN  [cfg].[Professionals] Pro
+            ON Pro.ProfessionalId = Ags.ProfessionalId
+			LEFT JOIN  [sec].[Users] usr
             ON usr.UserId = Pro.UserId
             INNER JOIN  [cfg].[Services] Ser
             ON Ser.ServiceId = Ags.ServiceId
@@ -223,6 +223,7 @@ namespace Adom.Hhm.Data.Querys
                SET [AuthorizationNumber] = @AuthorizationNumber
               ,[CoPaymentAmount] = @CoPaymentAmount
               ,[CoPaymentFrecuencyId] = @CoPaymentFrecuencyId
+              ,[Observation] = @Observation
             WHERE   [AssignServiceId] = @AssignServiceId";
     }
 }
