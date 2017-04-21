@@ -61,6 +61,11 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string CoPaymentAmountAssignServiceRequired { get; set; } = "El valor de copago es requerido";
         public static string ConsultationAssignServiceRequired { get; set; } = "La consulta es requerida";
         public static string ExternalAssignServiceRequired { get; set; } = "El externo es requerido";
+        public static string ContractAssignServiceRequired { get; set; } = "El numero de contrato es requerido";
+        public static string Cie10AssignServiceRequired { get; set; } = "El cie10 es requerido";
+        public static string EntityAssignServiceRequired { get; set; } = "La entidad es requerida";
+        public static string PlanAssignServiceRequired { get; set; } = "El plan es requerido";
+        public static string ServiceAssignServiceRequired { get; set; } = "El servicio es requerido";
         public static string IdDetailAssignServiceDetailRequired { get; set; } = "El id detalle es requerido";
         public static string IdAssignServiceDetailRequired { get; set; } = "El id es requerido";
         public static string ConsecutiveAssignServiceDetailRequired { get; set; } = "El consecutivo es requerido";

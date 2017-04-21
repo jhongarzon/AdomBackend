@@ -20,10 +20,15 @@ namespace Adom.Hhm.Web.Rest.Validators
             RuleFor(x => x.InitialDate).NotNull().WithMessage(MessageValidator.InitialDateAssignServiceRequired);
             RuleFor(x => x.FinalDate).NotNull().WithMessage(MessageValidator.FinalDateAssignServiceRequired);
             RuleFor(x => x.ServiceFrecuencyId).NotEqual(-1).WithMessage(MessageValidator.ServiceFrecuencyIdAssignServiceRequired);
-            RuleFor(x => x.ProfessionalId).NotNull().WithMessage(MessageValidator.ProfessionalIdAssignServiceRequired);
+            RuleFor(x => x.ProfessionalId).NotEqual(0).WithMessage(MessageValidator.ProfessionalIdAssignServiceRequired);
             RuleFor(x => x.CoPaymentAmount).NotNull().WithMessage(MessageValidator.CoPaymentAmountAssignServiceRequired);
             RuleFor(x => x.Consultation).NotNull().WithMessage(MessageValidator.ConsultationAssignServiceRequired);
             RuleFor(x => x.External).NotNull().WithMessage(MessageValidator.ExternalAssignServiceRequired);
+            RuleFor(x => x.ContractNumber).NotNull().WithMessage(MessageValidator.ContractAssignServiceRequired);
+            RuleFor(x => x.Cie10).NotNull().WithMessage(MessageValidator.Cie10AssignServiceRequired);
+            RuleFor(x => x.EntityId).NotEqual(0).WithMessage(MessageValidator.EntityAssignServiceRequired);
+            RuleFor(x => x.PlanEntityId).NotEqual(0).WithMessage(MessageValidator.PlanAssignServiceRequired);
+            RuleFor(x => x.ServiceId).NotEqual(0).WithMessage(MessageValidator.ServiceAssignServiceRequired);
         }
     }
 }

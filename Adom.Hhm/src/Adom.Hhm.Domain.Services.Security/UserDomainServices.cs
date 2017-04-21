@@ -53,7 +53,7 @@ namespace Adom.Hhm.Domain.Services.Security
             {
                 Success = true,
                 Errors = new string[] { string.Empty },
-                Result = getUsers
+                Result = getUsers.OrderBy(x=>x.UserId)
             };
         }
 
