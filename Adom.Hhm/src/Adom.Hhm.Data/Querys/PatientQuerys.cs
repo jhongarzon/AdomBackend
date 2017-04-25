@@ -391,7 +391,7 @@ namespace Adom.Hhm.Data.Querys
                ,@Profile
                ,getdate()
                ,@PatientTypeId
-               ,@NameCompleted;
+               ,@NameCompleted) 
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
