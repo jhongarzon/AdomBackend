@@ -15,7 +15,6 @@ namespace Adom.Hhm.Web.Rest.Validators
             RuleFor(x => x.AssignServiceDetailId).NotNull().WithMessage(MessageValidator.IdDetailAssignServiceDetailRequired);
             RuleFor(x => x.AssignServiceId).NotNull().WithMessage(MessageValidator.IdAssignServiceDetailRequired);
             RuleFor(x => x.Consecutive).NotNull().WithMessage(MessageValidator.ConsecutiveAssignServiceDetailRequired);
-            RuleFor(x => x.DateVisit).NotNull().WithMessage(MessageValidator.DateVisitAssignServiceDetailRequired);
             RuleFor(x => x.ProfessionalId).NotNull().WithMessage(MessageValidator.ProfessionalIdAssignServiceDetailRequired);
         }
     }
