@@ -77,5 +77,8 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string QuantityAssignServiceSupplyRequired { get; set; } = "La cantidad es requerido";
         public static string SupplyIdAssignServiceSupplyRequired { get; set; } = "El insumo es requerido";
         public static string IdSuAssignServiceSupplyRequired { get; set; } = "El id es requerido";
+
+        public static string NoticeTittleRequired { get; set; } = "El titulo del anuncio es requerido";
+        public static string NoticeTextRequired { get; set; } = "El cuerpo del anuncio es requerido";
     }
 }
