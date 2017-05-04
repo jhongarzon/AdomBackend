@@ -10,5 +10,7 @@ namespace Adom.Hhm.Domain.Services.Interface
         ServiceResult<IEnumerable<Notice>> GetNotices();
         ServiceResult<Notice> Insert(Notice entity);
 
+        void Delete(long NoticeId);
+
     }
 }

@@ -6,9 +6,10 @@ namespace Adom.Hhm.Domain.Repositories
 {
     public interface INoticeRepository
     {
-      
+
         IEnumerable<Notice> GetNotices();
         Notice Insert(Notice entity);
+        void Delete(long NoticeId);
 
     }
 }

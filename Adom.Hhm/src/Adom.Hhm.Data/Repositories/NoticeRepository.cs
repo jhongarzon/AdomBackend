@@ -23,7 +23,7 @@ namespace Adom.Hhm.Data.Repositories
         {
             this.connection = connection;
         }
-        
+
 
         public IEnumerable<Notice> GetNotices()
         {
@@ -35,6 +35,11 @@ namespace Adom.Hhm.Data.Repositories
             var id = connection.Query<int>(NoticeQuerys.Insert, entity).Single();
             entity.NoticeId = id;
             return entity;
+        }
+
+        public void Delete(long NoticeId)
+        {
+            var id = connection.Query<int>(NoticeQuerys.Delete, new Notice() { NoticeId = NoticeId }).SingleOrDefault();
         }
     }
 }

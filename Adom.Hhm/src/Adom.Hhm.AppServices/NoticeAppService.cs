@@ -25,5 +25,10 @@ namespace Adom.Hhm.AppServices
         {
             return this.service.Insert(entity);
         }
+
+        public void Delete(long NoticeId)
+        {
+            this.service.Delete(NoticeId);
+        }
     }
 }

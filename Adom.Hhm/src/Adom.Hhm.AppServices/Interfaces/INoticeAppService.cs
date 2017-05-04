@@ -9,5 +9,6 @@ namespace Adom.Hhm.AppServices.Interfaces
     {
         ServiceResult<IEnumerable<Notice>> GetNotices();
         ServiceResult<Notice> Insert(Notice entity);
+        void Delete(long NoticeId);
     }
 }

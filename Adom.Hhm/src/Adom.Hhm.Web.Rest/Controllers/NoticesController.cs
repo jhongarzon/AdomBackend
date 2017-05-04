@@ -88,6 +88,30 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
+        [Authorize(Policy = "/Notices/Delete")]
+        [HttpPut("{id}")]
+        public ServiceResult<Notice> Put(long id)
+        {
+            ServiceResult<Notice> result = null;
+
+
+            try
+            {
+                this.appService.Delete(id);
+                result = new ServiceResult<Notice>();
+                result.Errors = new string[] { "ok" };
+                result.Success = true;
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<Notice>();
+                result.Errors = new string[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
+
 
     }
 }

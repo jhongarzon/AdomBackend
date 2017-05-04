@@ -46,5 +46,11 @@ namespace Adom.Hhm.Domain.Services
                 Result = insert
             };
         }
+
+        public void Delete(long NoticeId)
+        {
+            this.repository.Delete(NoticeId);
+
+        }
     }
 }
