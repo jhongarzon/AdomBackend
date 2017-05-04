@@ -22,7 +22,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
-                  ,Ags.[Quantity]
+                  ,(Ags.[Quantity] -(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2)- (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) AS Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
                   ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
@@ -73,7 +73,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
-                  ,Ags.[Quantity]
+                  ,(Ags.[Quantity] -(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2)- (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3) AS Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
                   ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
@@ -124,7 +124,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
-                  ,Ags.[Quantity]
+                  ,(Ags.[Quantity] -(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2)- (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) AS Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
                   ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
@@ -176,7 +176,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
-                  ,Ags.[Quantity]
+                  ,(Ags.[Quantity] -(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2)- (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) as Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
                   ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
