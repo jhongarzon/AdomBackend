@@ -46,7 +46,19 @@ namespace Adom.Hhm.Data.Repositories
 
         public AssignServiceDetail Update(AssignServiceDetail assignServiceDetail)
         {
-            var id = connection.Query<int>(AssignServiceDetailQuerys.Update, new { AssignServiceId = assignServiceDetail.AssignServiceId, AssignServiceDetailId = assignServiceDetail.AssignServiceDetailId, StateAssignServiceDetailId = assignServiceDetail.StateId , ProfessionalId = assignServiceDetail.ProfessionalId,  DateVisit = assignServiceDetail.DateVisit, Observation = assignServiceDetail.Observation } , commandType: CommandType.StoredProcedure).Single();
+            var id = connection.Query<int>(AssignServiceDetailQuerys.Update,
+                new
+                {
+                    assignServiceDetail.AssignServiceId,
+                    assignServiceDetail.AssignServiceDetailId,
+                    StateAssignServiceDetailId = assignServiceDetail.StateId,
+                    assignServiceDetail.ProfessionalId,
+                    assignServiceDetail.DateVisit,
+                    assignServiceDetail.Observation,
+                    assignServiceDetail.PaymentType,
+                    assignServiceDetail.ReceivedAmount,
+                    assignServiceDetail.OtherAmount
+                }, commandType: CommandType.StoredProcedure).Single();
             assignServiceDetail.AssignServiceDetailId = id;
             return assignServiceDetail;
         }

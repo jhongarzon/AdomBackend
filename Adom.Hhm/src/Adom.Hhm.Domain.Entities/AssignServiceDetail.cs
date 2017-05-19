@@ -9,6 +9,7 @@ namespace Adom.Hhm.Domain.Entities
     {
         public int AssignServiceDetailId { get; set; }
         public int AssignServiceId { get; set; }
+        public string ServiceName { get; set; }
         public int ProfessionalId { get; set; }
         public string ProfessionalName { get; set; }
         public string DateVisit { get; set; }
@@ -16,6 +17,10 @@ namespace Adom.Hhm.Domain.Entities
         public string Observation { get; set; }
         public int StateId { get; set; }
         public string StateName { get; set; }
+        public string PaymentName { get; set; }
+        public int PaymentType { get; set; }
+        public int ReceivedAmount { get; set; }
+        public int OtherAmount { get; set; }
         public int TotalRows { get; set; }
     }
 }

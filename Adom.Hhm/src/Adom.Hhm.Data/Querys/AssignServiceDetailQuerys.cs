@@ -48,6 +48,8 @@ namespace Adom.Hhm.Data.Querys
         public static string GetByAssignServiceId =
         @"  SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
+                  ,ser.Name ServiceName
+                  ,Asig.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
@@ -55,8 +57,16 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
                   ,Ags.[Observation]
 				  ,sta.Name AS StateName
+				  ,Ags.PaymentType
+				  ,Ags.ReceivedAmount
+				  ,OtherAmount
+				  ,CASE PaymentType WHEN 1 THEN 'Efectivo' WHEN 2 THEN 'PIN' WHEN 3 THEN 'OTRO' ELSE NULL END PaymentName
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
+            LEFT JOIN  [sas].[AssignService]  Asig
+            ON Asig.AssignServiceId = ags.AssignServiceId
+            LEFT JOIN  [cfg].[Services]  ser
+            ON Asig.ServiceId = ser.ServiceId
 			LEFT JOIN  [cfg].[Professionals] Pro
             ON Pro.ProfessionalId = Ags.ProfessionalId
 			LEFT JOIN  [sec].[Users] usr
