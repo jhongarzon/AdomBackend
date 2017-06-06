@@ -1,6 +1,6 @@
 ﻿namespace Adom.Hhm.Domain.Entities
 {
-    public class AfFile
+    public class RipsAfFile
     {
         public long ProviderCode { get; set; }
         public string BusinessName { get; set; }

@@ -82,5 +82,18 @@
 		    ON doc.Id = pat.DocumentTypeId
 		    LEFT JOIN [cfg].[PlansRates] pr 
 		    ON pr.PlanEntityId = Ags.PlanEntityId AND pr.ServiceId = Ags.ServiceId ";
+
+        public static string GetServiceSupplies =
+            @"SELECT    [AssignServiceSupplyId]
+                        ,[AssignServiceId]
+                        ,asp.[SupplyId]
+                        ,sup.Code SupplyCode
+                        ,sup.Name SupplyName
+                        ,[Quantity]
+                        ,[BilledToId]
+                        ,[Observation]
+                        FROM [AdomServices].[sas].[AssignServiceSupply] asp
+            INNER JOIN cfg.[Supplies] sup ON asp.[SupplyId] = sup.SupplyId
+            WHERE AssignServiceId = @assignServiceId";
     }
 }

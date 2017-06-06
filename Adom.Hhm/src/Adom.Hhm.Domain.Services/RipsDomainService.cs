@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Entities.Security;
 using Adom.Hhm.Domain.Repositories;
@@ -36,12 +37,17 @@ namespace Adom.Hhm.Domain.Services
         {
             var basePath = @"D:\Jhon\Projects\Adom\Hhm\Backend\Adom.Hhm";
             const int consecutive = 1;
-            basePath = string.Format(@"{0}\{1}",basePath, consecutive);
+            basePath = string.Format(@"{0}\{1}", basePath, consecutive);
             if (!Directory.Exists(basePath))
             {
                 Directory.CreateDirectory(basePath);
             }
             _ripsGenerator.GenerateAfFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var groups =ripsGenerationData.Rips.GroupBy(x=> x.PatientDocument).Select(group => group.First());
+            _ripsGenerator.GenerateUsFile(basePath, groups);
+            _ripsGenerator.GenerateApFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            _ripsGenerator.GenerateAcFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            _ripsGenerator.GenerateAtFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
             return basePath;
         }
 

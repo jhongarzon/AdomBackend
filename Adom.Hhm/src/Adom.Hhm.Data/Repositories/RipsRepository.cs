@@ -43,5 +43,10 @@ namespace Adom.Hhm.Data.Repositories
             var finalQuery = string.Format("{0} {1}", RipsQuerys.GetServiceRips, whereClause);
             return _dbConnection.Query<Rips>(finalQuery, ripsFilter);
         }
+
+        public IEnumerable<AssignServiceSupply> GetServiceSupplies(int assignServiceId)
+        {
+            return _dbConnection.Query<AssignServiceSupply>(RipsQuerys.GetServiceSupplies, new { assignServiceId });
+        }
     }
 }

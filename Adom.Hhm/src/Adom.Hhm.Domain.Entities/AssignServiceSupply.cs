@@ -15,5 +15,6 @@ namespace Adom.Hhm.Domain.Entities
         public int BilledToId { get; set; }
         public string BilledName { get; set; }
         public int TotalRows { get; set; }
+        public string SupplyCode { get; set; }
     }
 }

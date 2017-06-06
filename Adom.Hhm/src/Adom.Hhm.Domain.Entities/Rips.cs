@@ -5,6 +5,7 @@
         public int AssignServiceId { get; set; }
         public int PatientId { get; set; }
         public string DocumentTypeName { get; set; }
+        public string DocumentTypeAbbreviation { get; set; }
         public string FirstName { get; set; }
         public string SecondName { get; set; }
         public string Surname { get; set; }
