@@ -7,6 +7,7 @@
     "Adom.Hhm.Domain.Entities.Security": "1.0.0-*",
     "Adom.Hhm.Domain.Security": "1.0.0-*",
     "Adom.Hhm.Utility": "1.0.0-*",
+    "CsvHelper": "2.16.3",
     "NETStandard.Library": "1.6.0"
   },
 

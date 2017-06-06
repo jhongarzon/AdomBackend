@@ -36,7 +36,9 @@ namespace Adom.Hhm.Data.IoC
                 {typeof (IServiceRepository), typeof (ServiceRepository)},
                 {typeof (IPlanEntityRepository), typeof (PlanEntityRepository)},
                 {typeof (INoticeRepository), typeof (NoticeRepository)},
-                {typeof (IProfessionalAssignedRepository), typeof (ProfessionalAssignedRepository)}
+                {typeof (IProfessionalAssignedRepository), typeof (ProfessionalAssignedRepository)},
+                {typeof (ICopaymentRepository), typeof (CopaymentRepository)},
+                {typeof (IRipsRepository), typeof (RipsRepository)}
             };
             return dic;
         }
