@@ -7,5 +7,7 @@ namespace Adom.Hhm.Domain.Repositories
     {
         IEnumerable<Rips> GetServiceRips(RipsFilter ripsFilter);
         IEnumerable<AssignServiceSupply> GetServiceSupplies(int assignServiceId);
+        int InsertRipsControl(string invoiceNumber);
+        void UpdateServiceInvoice(int assignServiceId, string invoiceNumber);
     }
 }

@@ -6,6 +6,7 @@
             @"SELECT Ags.[AssignServiceId]
                     ,Ags.[PatientId]					
 				    ,doc.Name DocumentTypeName
+                    ,doc.Abbreviation DocumentTypeAbbreviation
 				    ,pat.[Document] PatientDocument
 				    ,pat.FirstName
 				    ,ISNULL(pat.SecondName,'') SecondName
@@ -58,6 +59,7 @@
 				    ,Ags.Cie10
 				    ,Ags.Consultation			
 				    ,Ags.[External]
+                    ,Ags.[InvoiceNumber]
 		            ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 		    INNER JOIN  [cfg].[Professionals] Pro
@@ -95,5 +97,16 @@
                         FROM [AdomServices].[sas].[AssignServiceSupply] asp
             INNER JOIN cfg.[Supplies] sup ON asp.[SupplyId] = sup.SupplyId
             WHERE AssignServiceId = @assignServiceId";
+
+        public static string InsertGeneratedRips =
+            @"INSERT INTO [sas].[GeneratedRips]
+                   ([InvoiceNumber],[RecordDate])
+             VALUES (@invoiceNumber,GETDATE())
+                SELECT CAST(SCOPE_IDENTITY() as int)";
+
+        public static string UpdateServiceInvoice =
+            @"UPDATE [sas].[AssignService]
+                SET [InvoiceNumber] = @invoiceNumber
+              WHERE AssignServiceId = @assignServiceId";
     }
 }

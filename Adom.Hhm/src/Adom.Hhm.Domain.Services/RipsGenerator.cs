@@ -11,7 +11,7 @@ namespace Adom.Hhm.Domain.Services
 {
     public class RipsGenerator : IRipsGenerator
     {
-        private IRipsRepository _ripsRepository;
+        private readonly IRipsRepository _ripsRepository;
         public RipsGenerator(IRipsRepository ripsRepository)
         {
             _ripsRepository = ripsRepository;
@@ -55,7 +55,7 @@ namespace Adom.Hhm.Domain.Services
                 AgeUnit = rip.AgeUnit,
                 CityCode = rip.CityCode,
                 DeparmentCode = rip.DepartmentCode,
-                DocumentTypeName = rip.DocumentTypeName,
+                DocumentTypeName = rip.DocumentTypeAbbreviation,
                 FirstName = rip.FirstName,
                 Surname = rip.Surname,
                 Gender = rip.Gender,
@@ -84,7 +84,7 @@ namespace Adom.Hhm.Domain.Services
             {
 
                 ProviderCode = rip.ProviderCode,
-                DocumentTypeName = rip.DocumentTypeName,
+                DocumentTypeName = rip.DocumentTypeAbbreviation,
                 PatientDocument = rip.PatientDocument,
                 InvoiceNumber = ripsFilter.InvoiceNumber,
                 FinalDate = ripsFilter.FinalDate,
@@ -110,7 +110,7 @@ namespace Adom.Hhm.Domain.Services
             var apFiles = rips.Select(rip => new RipsAcFile
             {
                 ProviderCode = rip.ProviderCode,
-                DocumentTypeName = rip.DocumentTypeName,
+                DocumentTypeName = rip.DocumentTypeAbbreviation,
                 PatientDocument = rip.PatientDocument,
                 InvoiceNumber = ripsFilter.InvoiceNumber,
                 FinalDate = ripsFilter.FinalDate,

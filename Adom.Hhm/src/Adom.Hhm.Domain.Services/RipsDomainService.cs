@@ -36,24 +36,28 @@ namespace Adom.Hhm.Domain.Services
         public string GenerateRips(RipsGenerationData ripsGenerationData)
         {
             var basePath = @"D:\Jhon\Projects\Adom\Hhm\Backend\Adom.Hhm";
-            const int consecutive = 1;
+            var consecutive = _ripsRepository.InsertRipsControl(ripsGenerationData.RipsFilter.InvoiceNumber);
             basePath = string.Format(@"{0}\{1}", basePath, consecutive);
             if (!Directory.Exists(basePath))
             {
                 Directory.CreateDirectory(basePath);
             }
             _ripsGenerator.GenerateAfFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            var groups =ripsGenerationData.Rips.GroupBy(x=> x.PatientDocument).Select(group => group.First());
+            var groups = ripsGenerationData.Rips.GroupBy(x => x.PatientDocument).Select(group => group.First());
             _ripsGenerator.GenerateUsFile(basePath, groups);
             _ripsGenerator.GenerateApFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
             _ripsGenerator.GenerateAcFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
             _ripsGenerator.GenerateAtFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            UpdateServiceInvoices(ripsGenerationData.Rips, ripsGenerationData.RipsFilter.InvoiceNumber);
             return basePath;
         }
 
-        public ServiceResult<int> UpdateServiceInvoices()
+        public void UpdateServiceInvoices(IEnumerable<Rips> rips, string invoiceNumber)
         {
-            throw new System.NotImplementedException();
+            foreach (var rip in rips)
+            {
+                _ripsRepository.UpdateServiceInvoice(rip.AssignServiceId, invoiceNumber);
+            }
         }
     }
 }

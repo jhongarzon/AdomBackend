@@ -11,5 +11,6 @@ namespace Adom.Hhm.Domain.Services.Interface
     {
         ServiceResult<IEnumerable<Rips>> GetRipsServices(RipsFilter ripsFilter);
         string GenerateRips(RipsGenerationData ripsGenerationData);
+        void UpdateServiceInvoices(IEnumerable<Rips> rips, string invoiceNumber);
     }
 }

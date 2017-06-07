@@ -58,6 +58,7 @@
         public int DeliveredCopayments { get; set; }
         public int EntityPlanId { get; set; }
         public string PlanEntityName { get; set; }
+        public string InvoiceNumber { get; set; }
 
     }
 }

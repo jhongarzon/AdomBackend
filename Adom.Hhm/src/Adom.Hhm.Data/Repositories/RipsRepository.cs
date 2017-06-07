@@ -5,6 +5,7 @@ using Adom.Hhm.Data.Querys;
 using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Repositories;
 using Dapper;
+using System.Linq;
 
 namespace Adom.Hhm.Data.Repositories
 {
@@ -34,11 +35,11 @@ namespace Adom.Hhm.Data.Repositories
             }
             if (!string.IsNullOrEmpty(ripsFilter.InitialDate))
             {
-                whereClause.Append("AND ags.InitialDate = @InitialDate ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) > CONVERT(DATETIME,@InitialDate) ");
             }
             if (!string.IsNullOrEmpty(ripsFilter.FinalDate))
             {
-                whereClause.Append("AND ags.FinalDate = @FinalDate ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) < CONVERT(DATETIME,@FinalDate) ");
             }
             var finalQuery = string.Format("{0} {1}", RipsQuerys.GetServiceRips, whereClause);
             return _dbConnection.Query<Rips>(finalQuery, ripsFilter);
@@ -47,6 +48,20 @@ namespace Adom.Hhm.Data.Repositories
         public IEnumerable<AssignServiceSupply> GetServiceSupplies(int assignServiceId)
         {
             return _dbConnection.Query<AssignServiceSupply>(RipsQuerys.GetServiceSupplies, new { assignServiceId });
+        }
+
+        public int InsertRipsControl(string invoiceNumber)
+        {
+            return _dbConnection.Query<int>(RipsQuerys.InsertGeneratedRips, new { @InvoiceNumber = invoiceNumber }).Single();
+        }
+
+        public void UpdateServiceInvoice(int assignServiceId, string invoiceNumber)
+        {
+            _dbConnection.Execute(RipsQuerys.UpdateServiceInvoice, new
+            {
+                @AssignServiceId = assignServiceId,
+                @InvoiceNumber = invoiceNumber
+            });
         }
     }
 }
