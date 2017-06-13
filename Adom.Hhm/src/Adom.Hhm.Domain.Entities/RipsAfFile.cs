@@ -10,6 +10,11 @@
         public string InvoiceDate { get; set; }
         public string InitialDate { get; set; }
         public string FinalDate { get; set; }
+        public string EntityCode { get; set; }
+        public string EntityName { get; set; }
+        public string ContractNumber { get; set; }
+        public string BenefitPlan { get; set; }
+        public string PolicyNumber { get; set; }
         public int TotalCopaymentReceived { get; set; }
         public string Comission { get; set; }
         public int OtherValuesReceived { get; set; }

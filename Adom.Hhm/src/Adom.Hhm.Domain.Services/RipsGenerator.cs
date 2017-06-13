@@ -23,16 +23,19 @@ namespace Adom.Hhm.Domain.Services
             {
                 ProviderCode = rip.ProviderCode,
                 BusinessName = rip.BusinessName,
-                InitialDate = rip.InitialDate,
-                FinalDate = rip.FinalDate,
+                InitialDate = rip.InitialDate.Replace("-", "/"),
+                FinalDate = rip.FinalDate.Replace("-", "/"),
                 AdomIdentiticationNumber = rip.AdomIdentificationNumber,
-                AdomIdentiticationTypeId = rip.AdomIdentificationNumber,
+                AdomIdentiticationTypeId = rip.AdomIdentificationType,
                 Comission = "",
-                InvoiceDate = ripsFilter.InvoiceDate,
+                EntityCode = rip.EntityCode,
+                EntityName = rip.EntityName,
+                InvoiceDate = ripsFilter.InvoiceDate.Replace("-","/"),
                 InvoiceNumber = ripsFilter.InvoiceNumber,
                 NetValue = ripsFilter.NetValue,
                 OtherValuesReceived = rip.OtherValuesReceived,
                 TotalCopaymentReceived = rip.TotalCopaymentReceived
+                
             }).ToList();
             var filePath = string.Format(@"{0}\AF{1}.txt", basePath, consecutive);
             using (var streamWriter = File.CreateText(filePath))
@@ -87,10 +90,9 @@ namespace Adom.Hhm.Domain.Services
                 DocumentTypeName = rip.DocumentTypeAbbreviation,
                 PatientDocument = rip.PatientDocument,
                 InvoiceNumber = ripsFilter.InvoiceNumber,
-                FinalDate = ripsFilter.FinalDate,
+                FinalDate = ripsFilter.FinalDate.Replace("-", "/"),
                 AuthorizationNumber = rip.AuthorizationNumber,
                 Cie10 = rip.Cie10,
-                DescCie10 = string.Format("{0}", rip.Cie10),
                 Cups = rip.Cups,
                 Rate = rip.Rate
             }).ToList();
@@ -113,7 +115,7 @@ namespace Adom.Hhm.Domain.Services
                 DocumentTypeName = rip.DocumentTypeAbbreviation,
                 PatientDocument = rip.PatientDocument,
                 InvoiceNumber = ripsFilter.InvoiceNumber,
-                FinalDate = ripsFilter.FinalDate,
+                FinalDate = ripsFilter.FinalDate.Replace("-", "/"),
                 AuthorizationNumber = rip.AuthorizationNumber,
                 Cie10 = rip.Cie10,
                 Cups = rip.Cups,
