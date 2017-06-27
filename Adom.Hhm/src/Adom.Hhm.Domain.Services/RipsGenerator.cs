@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Repositories;
 using Adom.Hhm.Domain.Services.Interface;
@@ -16,7 +16,7 @@ namespace Adom.Hhm.Domain.Services
         {
             _ripsRepository = ripsRepository;
         }
-        public string GenerateAfFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
+        public int GenerateAfFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
         {
             var consecutive = Path.GetFileName(basePath);
             var afFiles = rips.Select(rip => new RipsAfFile
@@ -30,12 +30,12 @@ namespace Adom.Hhm.Domain.Services
                 Comission = "",
                 EntityCode = rip.EntityCode,
                 EntityName = rip.EntityName,
-                InvoiceDate = ripsFilter.InvoiceDate.Replace("-","/"),
+                InvoiceDate = ripsFilter.InvoiceDate.Replace("-", "/"),
                 InvoiceNumber = ripsFilter.InvoiceNumber,
                 NetValue = ripsFilter.NetValue,
                 OtherValuesReceived = rip.OtherValuesReceived,
                 TotalCopaymentReceived = rip.TotalCopaymentReceived
-                
+
             }).ToList();
             var filePath = string.Format(@"{0}\AF{1}.txt", basePath, consecutive);
             using (var streamWriter = File.CreateText(filePath))
@@ -44,10 +44,10 @@ namespace Adom.Hhm.Domain.Services
                 writer.Configuration.HasHeaderRecord = false;
                 writer.WriteRecords(afFiles);
             }
-            return filePath;
+            return afFiles.Count;
         }
 
-        public string GenerateUsFile(string basePath, IEnumerable<Rips> rips)
+        public int GenerateUsFile(string basePath, IEnumerable<Rips> rips)
         {
             var consecutive = Path.GetFileName(basePath);
             var usFiles = rips.Select(rip => new RipsUsFile
@@ -76,26 +76,29 @@ namespace Adom.Hhm.Domain.Services
                 writer.Configuration.HasHeaderRecord = false;
                 writer.WriteRecords(usFiles);
             }
-            return filePath;
+            return usFiles.Count;
         }
 
-        public string GenerateApFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
+        public int GenerateApFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
         {
             var consecutive = Path.GetFileName(basePath);
+            var apFiles = (
+                from rip in rips
+                where rip.ClassificationId == 2
+                select new RipsApFile
+                {
+                    ProviderCode = rip.ProviderCode,
+                    DocumentTypeName = rip.DocumentTypeAbbreviation,
+                    PatientDocument = rip.PatientDocument,
+                    InvoiceNumber = ripsFilter.InvoiceNumber,
+                    FinalDate = ripsFilter.FinalDate.Replace("-", "/"),
+                    AuthorizationNumber = rip.AuthorizationNumber,
+                    Cie10 = rip.Cie10,
+                    Cups = rip.Cups,
+                    Rate = rip.Rate,
 
-            var apFiles = rips.Select(rip => new RipsApFile
-            {
+                }).ToList();
 
-                ProviderCode = rip.ProviderCode,
-                DocumentTypeName = rip.DocumentTypeAbbreviation,
-                PatientDocument = rip.PatientDocument,
-                InvoiceNumber = ripsFilter.InvoiceNumber,
-                FinalDate = ripsFilter.FinalDate.Replace("-", "/"),
-                AuthorizationNumber = rip.AuthorizationNumber,
-                Cie10 = rip.Cie10,
-                Cups = rip.Cups,
-                Rate = rip.Rate
-            }).ToList();
             var filePath = string.Format(@"{0}\AP{1}.txt", basePath, consecutive);
             using (var streamWriter = File.CreateText(filePath))
             {
@@ -103,38 +106,46 @@ namespace Adom.Hhm.Domain.Services
                 writer.Configuration.HasHeaderRecord = false;
                 writer.WriteRecords(apFiles);
             }
-            return filePath;
+            return apFiles.Count;
         }
 
-        public string GenerateAcFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
+        public int GenerateAcFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
         {
             var consecutive = Path.GetFileName(basePath);
-            var apFiles = rips.Select(rip => new RipsAcFile
+            var acFiles = new List<RipsAcFile>();
+            foreach (var rip in rips)
             {
-                ProviderCode = rip.ProviderCode,
-                DocumentTypeName = rip.DocumentTypeAbbreviation,
-                PatientDocument = rip.PatientDocument,
-                InvoiceNumber = ripsFilter.InvoiceNumber,
-                FinalDate = ripsFilter.FinalDate.Replace("-", "/"),
-                AuthorizationNumber = rip.AuthorizationNumber,
-                Cie10 = rip.Cie10,
-                Cups = rip.Cups,
-                Rate = rip.Rate,
-                Consultation = rip.Consultation,
-                DiagnosticType = "2",
-                External = rip.External
-            }).ToList();
+                var details = _ripsRepository.GetServiceDetail(rip.AssignServiceId);
+                acFiles.AddRange(details.Select(item => new RipsAcFile
+                {
+                    ProviderCode = rip.ProviderCode,
+                    DocumentTypeName = rip.DocumentTypeAbbreviation,
+                    PatientDocument = rip.PatientDocument,
+                    InvoiceNumber = ripsFilter.InvoiceNumber,
+                    FinalDate = ripsFilter.FinalDate.Replace("-", "/"),
+                    AuthorizationNumber = rip.AuthorizationNumber,
+                    Cie10 = rip.Cie10,
+                    Cups = rip.Cups,
+                    Rate = rip.Rate,
+                    Consultation = rip.Consultation,
+                    DiagnosticType = "2",
+                    External = rip.External,
+                    CopaymentPerSession = rip.CoPaymentAmount,
+                    NetValuePerSession = rip.Rate - rip.CoPaymentAmount
+                }));
+
+            }
             var filePath = string.Format(@"{0}\AC{1}.txt", basePath, consecutive);
             using (var streamWriter = File.CreateText(filePath))
             {
                 var writer = new CsvWriter(streamWriter);
                 writer.Configuration.HasHeaderRecord = false;
-                writer.WriteRecords(apFiles);
+                writer.WriteRecords(acFiles);
             }
-            return filePath;
+            return acFiles.Count;
         }
 
-        public string GenerateAtFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
+        public int GenerateAtFile(string basePath, RipsFilter ripsFilter, IEnumerable<Rips> rips)
         {
             var consecutive = Path.GetFileName(basePath);
             var atFiles = new List<RipsAtFile>();
@@ -163,12 +174,30 @@ namespace Adom.Hhm.Domain.Services
                 writer.Configuration.HasHeaderRecord = false;
                 writer.WriteRecords(atFiles);
             }
-            return filePath;
+            return atFiles.Count;
         }
 
-        public string GenerateCtFile(string basePath, IEnumerable<Rips> rips)
+        public int GenerateCtFile(string basePath, long providerCode, int afCount, int usCount, int apCount, int acCount, int atCount)
         {
-            throw new System.NotImplementedException();
+            var consecutive = Path.GetFileName(basePath);
+            var currentDate = new DateTime();
+            var formattedDate = currentDate.ToString("dd/MM/yyyy");
+            var ctFiles = new List<CtFile>
+            {
+                new CtFile { ProviderCode = providerCode, FileName = string.Format("AF{0}", consecutive),FileRecordCount = afCount, RipsDate = formattedDate},
+                new CtFile { ProviderCode = providerCode, FileName = string.Format("US{0}", consecutive),FileRecordCount = usCount, RipsDate = formattedDate},
+                new CtFile { ProviderCode = providerCode, FileName = string.Format("AP{0}", consecutive),FileRecordCount = apCount, RipsDate = formattedDate},
+                new CtFile { ProviderCode = providerCode, FileName = string.Format("AC{0}", consecutive),FileRecordCount = acCount, RipsDate = formattedDate},
+                new CtFile { ProviderCode = providerCode, FileName = string.Format("AT{0}", consecutive),FileRecordCount = atCount, RipsDate = formattedDate},
+            };
+            var filePath = string.Format(@"{0}\CT{1}.txt", basePath, consecutive);
+            using (var streamWriter = File.CreateText(filePath))
+            {
+                var writer = new CsvWriter(streamWriter);
+                writer.Configuration.HasHeaderRecord = false;
+                writer.WriteRecords(ctFiles);
+            }
+            return ctFiles.Count;
         }
     }
 }

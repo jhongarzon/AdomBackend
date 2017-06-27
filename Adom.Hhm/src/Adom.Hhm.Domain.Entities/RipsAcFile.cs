@@ -16,7 +16,7 @@ namespace Adom.Hhm.Domain.Entities
         public int Cie10 { get; set; }
         public string DiagnosticType { get; set; }
         public int Rate { get; set; }
-        public string CopaymentPerSession { get; set; }
-        public string NetValuePerSession { get; set; }
+        public decimal CopaymentPerSession { get; set; }
+        public decimal NetValuePerSession { get; set; }
     }
 }

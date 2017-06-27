@@ -42,13 +42,18 @@ namespace Adom.Hhm.Domain.Services
             {
                 Directory.CreateDirectory(basePath);
             }
-            _ripsGenerator.GenerateAfFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            var groups = ripsGenerationData.Rips.GroupBy(x => x.PatientDocument).Select(group => group.First());
-            _ripsGenerator.GenerateUsFile(basePath, groups);
-            _ripsGenerator.GenerateApFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            _ripsGenerator.GenerateAcFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            _ripsGenerator.GenerateAtFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var firstRip = ripsGenerationData.Rips.FirstOrDefault();
+            if (firstRip == null) return basePath;
+            var groups = ripsGenerationData.Rips.GroupBy(x => x.PatientDocument).Select(group => @group.First());
+            var afCount = _ripsGenerator.GenerateAfFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var usCount = _ripsGenerator.GenerateUsFile(basePath, groups);
+            var apCount = _ripsGenerator.GenerateApFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var acCount = _ripsGenerator.GenerateAcFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var atCount = _ripsGenerator.GenerateAtFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var ctCount = _ripsGenerator.GenerateCtFile(basePath, firstRip.ProviderCode, afCount, usCount, apCount,
+                acCount, atCount);
             UpdateServiceInvoices(ripsGenerationData.Rips, ripsGenerationData.RipsFilter.InvoiceNumber);
+
             return basePath;
         }
 

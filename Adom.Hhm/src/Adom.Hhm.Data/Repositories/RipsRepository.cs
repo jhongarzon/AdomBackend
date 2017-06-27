@@ -35,11 +35,11 @@ namespace Adom.Hhm.Data.Repositories
             }
             if (!string.IsNullOrEmpty(ripsFilter.InitialDate))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) > CONVERT(DATETIME,@InitialDate) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) > CONVERT(DATETIME,@InitialDate, 105) ");
             }
             if (!string.IsNullOrEmpty(ripsFilter.FinalDate))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) < CONVERT(DATETIME,@FinalDate) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) < CONVERT(DATETIME,@FinalDate, 105) ");
             }
             var finalQuery = string.Format("{0} {1}", RipsQuerys.GetServiceRips, whereClause);
             return _dbConnection.Query<Rips>(finalQuery, ripsFilter);
@@ -48,6 +48,11 @@ namespace Adom.Hhm.Data.Repositories
         public IEnumerable<AssignServiceSupply> GetServiceSupplies(int assignServiceId)
         {
             return _dbConnection.Query<AssignServiceSupply>(RipsQuerys.GetServiceSupplies, new { assignServiceId });
+        }
+
+        public IEnumerable<AssignServiceDetail> GetServiceDetail(int assignServiceId)
+        {
+            return _dbConnection.Query<AssignServiceDetail>(RipsQuerys.GetServiceDetail, new { assignServiceId });
         }
 
         public int InsertRipsControl(string invoiceNumber)

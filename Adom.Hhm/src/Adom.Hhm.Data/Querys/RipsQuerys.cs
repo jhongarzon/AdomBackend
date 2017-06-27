@@ -60,6 +60,7 @@
 				    ,Ags.Consultation			
 				    ,Ags.[External]
                     ,Ags.[InvoiceNumber]
+                    ,Ser.ClassificationId
 		            ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 		    INNER JOIN  [cfg].[Professionals] Pro
@@ -108,5 +109,19 @@
             @"UPDATE [sas].[AssignService]
                 SET [InvoiceNumber] = @invoiceNumber
               WHERE AssignServiceId = @assignServiceId";
+
+        public static string GetServiceDetail =
+            @"SELECT   [AssignServiceDetailId]
+                      ,[AssignServiceId]
+                      ,[ProfessionalId]
+                      ,[DateVisit]
+                      ,[Consecutive]
+                      ,[StateId]
+                      ,[Observation]
+                      ,[PaymentType]
+                      ,[ReceivedAmount]
+                      ,[OtherAmount]
+                  FROM [sas].[AssignServiceDetails]
+                  WHERE [AssignServiceId] = @AssignServiceId";
     }
 }

@@ -57,7 +57,8 @@ namespace Adom.Hhm.Data.Repositories
                     assignServiceDetail.Observation,
                     assignServiceDetail.PaymentType,
                     assignServiceDetail.ReceivedAmount,
-                    assignServiceDetail.OtherAmount
+                    assignServiceDetail.OtherAmount,
+                    assignServiceDetail.Pin
                 }, commandType: CommandType.StoredProcedure).Single();
             assignServiceDetail.AssignServiceDetailId = id;
             return assignServiceDetail;

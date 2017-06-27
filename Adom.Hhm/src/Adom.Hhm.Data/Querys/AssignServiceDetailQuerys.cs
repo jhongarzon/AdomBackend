@@ -17,6 +17,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
                   ,Ags.[Observation]
 				  ,sta.Name AS StateName
+                  ,Pin
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -36,6 +37,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
                   ,Ags.[Observation]
+                  ,Pin
 				  ,sta.Name AS StateName
             FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -61,6 +63,7 @@ namespace Adom.Hhm.Data.Querys
 				  ,Ags.ReceivedAmount
 				  ,OtherAmount
 				  ,CASE PaymentType WHEN 1 THEN 'Efectivo' WHEN 2 THEN 'PIN' WHEN 3 THEN 'OTRO' ELSE NULL END PaymentName
+                  ,Pin
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
             LEFT JOIN  [sas].[AssignService]  Asig
@@ -87,6 +90,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
                   ,Ags.[Observation]
 				  ,sta.Name AS StateName
+                  ,Pin
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
