@@ -22,7 +22,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<AssignServiceDetail> GetAssignServiceDetailById(int assignServiceDetailId)
         {
-            var getAssignServiceDetail = this.repository.GetAssignServiceDetailById(assignServiceDetailId);
+            var getAssignServiceDetail = repository.GetAssignServiceDetailById(assignServiceDetailId);
 
             return new ServiceResult<AssignServiceDetail>
             {
@@ -34,7 +34,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<AssignServiceDetail>> GetAssignServiceDetailByAssignServiceId(int assignServiceId)
         {
-            var getAssignServiceDetail = this.repository.GetAssignServiceDetailByAssignServiceId(assignServiceId);
+            var getAssignServiceDetail = repository.GetAssignServiceDetailByAssignServiceId(assignServiceId);
 
             return new ServiceResult<IEnumerable<AssignServiceDetail>>
             {
@@ -46,7 +46,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<AssignServiceDetail>> GetAssignServiceDetails(int pageNumber, int pageSize)
         {
-            var getAssignServiceDetails = this.repository.GetAssignServiceDetails(pageNumber, pageSize);
+            var getAssignServiceDetails = repository.GetAssignServiceDetails(pageNumber, pageSize);
             return new ServiceResult<IEnumerable<AssignServiceDetail>>
             {
                 Success = true,
@@ -57,7 +57,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<AssignServiceDetail>> GetAssignServiceDetails()
         {
-            var getAssignServiceDetails = this.repository.GetAssignServiceDetails();
+            var getAssignServiceDetails = repository.GetAssignServiceDetails();
             return new ServiceResult<IEnumerable<AssignServiceDetail>>
             {
                 Success = true,
@@ -68,8 +68,28 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<AssignServiceDetail> Update(AssignServiceDetail assignServiceDetail)
         {
-            var updated = this.repository.Update(assignServiceDetail);
+            var updated = repository.Update(assignServiceDetail);
             return new ServiceResult<AssignServiceDetail>
+            {
+                Success = true,
+                Result = updated
+            };
+        }
+
+        public ServiceResult<IEnumerable<QualityQuestion>> GetQuestions(int serviceId)
+        {
+            var updated = repository.GetQuestions(serviceId);
+            return new ServiceResult<IEnumerable<QualityQuestion>>
+            {
+                Success = true,
+                Result = updated
+            };
+        }
+
+        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, IEnumerable<QualityQuestion> answers)
+        {
+            var updated = repository.SaveAnswers(assignServiceDetailId, answers);
+            return new ServiceResult<string>
             {
                 Success = true,
                 Result = updated

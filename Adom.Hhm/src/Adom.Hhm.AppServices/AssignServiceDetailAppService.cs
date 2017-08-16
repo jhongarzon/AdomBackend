@@ -17,27 +17,37 @@ namespace Adom.Hhm.AppServices
 
         public ServiceResult<AssignServiceDetail> GetAssignServiceDetailById(int assignServiceDetailId)
         {
-            return this.service.GetAssignServiceDetailById(assignServiceDetailId);
+            return service.GetAssignServiceDetailById(assignServiceDetailId);
         }
 
         public ServiceResult<IEnumerable<AssignServiceDetail>> GetAssignServiceDetailByAssignServiceId(int assignServiceId)
         {
-            return this.service.GetAssignServiceDetailByAssignServiceId(assignServiceId);
+            return service.GetAssignServiceDetailByAssignServiceId(assignServiceId);
         }
 
         public ServiceResult<IEnumerable<AssignServiceDetail>> GetAssignServiceDetails(int pageNumber, int pageSize)
         {
-            return this.service.GetAssignServiceDetails(pageNumber, pageSize);
+            return service.GetAssignServiceDetails(pageNumber, pageSize);
         }
 
         public ServiceResult<IEnumerable<AssignServiceDetail>> GetAssignServiceDetails()
         {
-            return this.service.GetAssignServiceDetails();
+            return service.GetAssignServiceDetails();
         }
 
         public ServiceResult<AssignServiceDetail> Update(AssignServiceDetail assignServiceDetail)
         {
-            return this.service.Update(assignServiceDetail);
+            return service.Update(assignServiceDetail);
+        }
+
+        public ServiceResult<IEnumerable<QualityQuestion>> GetQuestions(int serviceId)
+        {
+            return service.GetQuestions(serviceId);
+        }
+
+        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, IEnumerable<QualityQuestion> answers)
+        {
+            return service.SaveAnswers(assignServiceDetailId, answers);
         }
     }
 }

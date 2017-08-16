@@ -18,6 +18,8 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[Observation]
 				  ,sta.Name AS StateName
                   ,Pin
+                  ,Verified
+                  ,VerifiedBy
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -38,6 +40,8 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
                   ,Ags.[Observation]
                   ,Pin
+                  ,Verified
+                  ,VerifiedBy
 				  ,sta.Name AS StateName
             FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -64,6 +68,9 @@ namespace Adom.Hhm.Data.Querys
 				  ,OtherAmount
 				  ,CASE PaymentType WHEN 1 THEN 'Efectivo' WHEN 2 THEN 'PIN' WHEN 3 THEN 'OTRO' ELSE NULL END PaymentName
                   ,Pin
+                  ,Verified
+                  ,VerifiedBy
+                  ,(SELECT TOP 1 ISNULL(1,0) FROM [sas].[DetailAnswers] WHERE AssignServiceDetailId = Ags.AssignServiceDetailId) [IsQualityTestDone]
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
             LEFT JOIN  [sas].[AssignService]  Asig
@@ -91,6 +98,8 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[Observation]
 				  ,sta.Name AS StateName
                   ,Pin
+                  ,Verified
+                  ,VerifiedBy
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -103,5 +112,14 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Update =
         @"[sas].[UpdateAssignServiceDetails]";
+
+        public static string GetQuestions =
+            @"SELECT [QuestionId],[IdServiceType],[QuestionText],[RecordDate], -1 AS[AnswerId]
+                  FROM [AdomServices].[cfg].[QualityQuestions] 
+                  WHERE [IdServiceType] = (SELECT ServiceTypeId FROM [cfg].[Services] WHERE ServiceId = @ServiceId)";
+
+        public static string SaveQuestion =
+            @"INSERT INTO [sas].[DetailAnswers] ([QuestionId],[AnswerId],[AssignServiceDetailId]) 
+                VALUES	(@AnswerId, @AssignServiceDetailId)";
     }
 }

@@ -38,5 +38,6 @@ namespace Adom.Hhm.Domain.Entities
         public string StateName { get; set; }
         public string Observation { get; set; }
         public int TotalRows { get; set; }
+        public bool AllowsUpdate { get; set; }
     }
 }

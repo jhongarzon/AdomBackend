@@ -58,10 +58,30 @@ namespace Adom.Hhm.Data.Repositories
                     assignServiceDetail.PaymentType,
                     assignServiceDetail.ReceivedAmount,
                     assignServiceDetail.OtherAmount,
-                    assignServiceDetail.Pin
+                    assignServiceDetail.Pin,
+                    assignServiceDetail.Verified,
+                    assignServiceDetail.VerifiedBy
                 }, commandType: CommandType.StoredProcedure).Single();
             assignServiceDetail.AssignServiceDetailId = id;
             return assignServiceDetail;
+        }
+
+        public IEnumerable<QualityQuestion> GetQuestions(int serviceId)
+        {
+            return connection.Query<QualityQuestion>(AssignServiceDetailQuerys.GetQuestions, new { @ServiceId = serviceId });
+        }
+
+        public string SaveAnswers(int assignServiceDetailId, IEnumerable<QualityQuestion> answers)
+        {
+            var result = "";
+            foreach (var answer in answers)
+            {
+                var count = connection.Execute(AssignServiceDetailQuerys.SaveQuestion, new { answer.AnswerId, @AssignServiceDetailId = assignServiceDetailId });
+                if (count != 0) continue;
+                result = "No se guardó la respuesta";
+                break;
+            }
+            return result;
         }
     }
 }

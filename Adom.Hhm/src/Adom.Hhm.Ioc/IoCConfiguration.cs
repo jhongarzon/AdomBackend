@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
+using Adom.Hhm.Domain.Entities;
 using DomainServicesSecurity = Adom.Hhm.Domain.Services.Security;
 using AppServicesSecurity = Adom.Hhm.AppServices.Security;
 using DomainServices = Adom.Hhm.Domain.Services;
@@ -21,8 +22,25 @@ namespace Adom.Hhm.Ioc
 
         private static void Configure(IServiceCollection services, Dictionary<Type, Type> types)
         {
+            var mailServerConfig = new MailServerConfig
+            {
+                From = new MailAccount("BLUE ADOM SERVICES", "serviciosadom@adomsaluddomiciliaria.com", "7818141dd"),
+                Port = 80,
+                Server = "smtpout.secureserver.net"
+            };
+            services.AddSingleton(typeof(MailServerConfig), mailServerConfig);
+            //services.Configure<MailServerConfig>(mailServerConfig =>
+            //{
+            //    mailServerConfig.From = new
+            //    MailAccount("BLUE ADOM SERVICES", "servicios.adomsalud@gmail.com", "830001237-4blue");
+            //    mailServerConfig.Port = 25;
+            //    mailServerConfig.Server = "smtp.gmail.com";
+            //});
             foreach (var type in types)
+            {
                 services.AddScoped(type.Key, type.Value);
+            }
+
         }
 
     }

@@ -24,16 +24,16 @@ namespace Adom.Hhm.Web.Rest.Controllers
     [Route("api/[controller]")]
     public class AssignServiceDetailController : Controller
     {
-        private readonly ILogger logger;
-        private readonly IAssignServiceDetailAppService appService;
-        private readonly AssignServiceDetailValidator validator;
-        private readonly IConfigurationRoot configuration;
+        private readonly ILogger _logger;
+        private readonly IAssignServiceDetailAppService _appService;
+        private readonly AssignServiceDetailValidator _validator;
+        private readonly IConfigurationRoot _configuration;
 
         public AssignServiceDetailController(IAssignServiceDetailAppService appService, AssignServiceDetailValidator validator, IConfigurationRoot configuration)
         {
-            this.appService = appService;
-            this.validator = validator;
-            this.configuration = configuration;
+            this._appService = appService;
+            this._validator = validator;
+            this._configuration = configuration;
         }
 
         [Authorize(Policy = "/AssignService/Get")]
@@ -44,7 +44,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             try
             {
-                result = this.appService.GetAssignServiceDetails();
+                result = this._appService.GetAssignServiceDetails();
             }
             catch (Exception ex)
             {
@@ -64,7 +64,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             try
             {
-                result = this.appService.GetAssignServiceDetailByAssignServiceId(assignServiceId);
+                result = this._appService.GetAssignServiceDetailByAssignServiceId(assignServiceId);
             }
             catch (Exception ex)
             {
@@ -84,13 +84,13 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             foreach (var model in models)
             {
-                var validatorResult = validator.Validate(model);
+                var validatorResult = _validator.Validate(model);
 
                 if (validatorResult.IsValid)
                 {
                     try
                     {
-                        result = this.appService.Update(model);
+                        result = this._appService.Update(model);
                     }
                     catch (Exception ex)
                     {

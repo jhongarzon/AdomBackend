@@ -1,6 +1,7 @@
 ﻿using Adom.Hhm.Domain.Services.Interface;
 using System;
 using System.Collections.Generic;
+using Adom.Hhm.Domain.Entities;
 
 namespace Adom.Hhm.Domain.Services.IoC
 {
@@ -10,6 +11,7 @@ namespace Adom.Hhm.Domain.Services.IoC
         {
             var dic = new Dictionary<Type, Type>
             {
+                {typeof (IHomeDomainService), typeof (HomeDomainService)},
                 {typeof (IProfessionalDomainService), typeof (ProfessionalDomainServices)},
                 {typeof (IPatientDomainService), typeof (PatientDomainServices)},
                 {typeof (IParameterDomainService), typeof (ParameterDomainServices)},
@@ -28,7 +30,14 @@ namespace Adom.Hhm.Domain.Services.IoC
                 {typeof (IProfessionalAssignedDomainService), typeof (ProfessionalAssignedDomainService)},
                 {typeof (ICopaymentDomainService), typeof (CopaymentDomainService)},
                 {typeof (IRipsDomainService), typeof (RipsDomainService)},
-                {typeof (IRipsGenerator), typeof (RipsGenerator)}
+                {typeof (IRipsGenerator), typeof (RipsGenerator)},
+                {typeof (IExcelReportService), typeof (ExcelReportService)},
+                {typeof (ISpecialReportService), typeof (SpecialReportService)},
+                {typeof (IPaymentReportService), typeof (PaymentReportService)},
+                {typeof (ICopaymentReportService), typeof (CopaymentReportService)},
+                {typeof (IMailService), typeof (MailService)},
+                {typeof (ILockDateDomainService), typeof (LockDateDomainService)}
+
             };
             return dic;
         }

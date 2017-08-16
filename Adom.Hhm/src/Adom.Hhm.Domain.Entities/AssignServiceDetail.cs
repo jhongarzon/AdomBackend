@@ -23,5 +23,8 @@ namespace Adom.Hhm.Domain.Entities
         public int OtherAmount { get; set; }
         public int TotalRows { get; set; }
         public int Pin { get; set; }
+        public bool Verified { get; set; }
+        public int VerifiedBy { get; set; }
+        public bool IsQualityTestDone { get; set; }
     }
 }

@@ -8,6 +8,8 @@
     "Adom.Hhm.Domain.Security": "1.0.0-*",
     "Adom.Hhm.Utility": "1.0.0-*",
     "CsvHelper": "2.16.3",
+    "DocumentFormat.OpenXml": "2.7.2",
+    "MailKit": "1.16.2",
     "NETStandard.Library": "1.6.0"
   },
 

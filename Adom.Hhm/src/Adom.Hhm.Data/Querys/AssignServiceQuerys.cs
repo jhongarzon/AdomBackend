@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Adom.Hhm.Data.Querys
+﻿namespace Adom.Hhm.Data.Querys
 {
     public static class AssignServiceQuerys
     {
@@ -38,6 +33,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
                   ,Ags.Observation
+                  ,(SELECT COUNT([ServicesLockDate]) 
+					FROM [AdomServices].[cfg].[AdomInfo]  
+					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -89,6 +87,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
                   ,Ags.Observation
+                  ,(SELECT COUNT([ServicesLockDate]) 
+					FROM [AdomServices].[cfg].[AdomInfo]  
+					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -141,6 +142,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
                   ,Ags.Observation
+                  ,(SELECT COUNT([ServicesLockDate]) 
+					FROM [AdomServices].[cfg].[AdomInfo]  
+					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			LEFT JOIN  [cfg].[Professionals] Pro
@@ -193,6 +197,9 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
                   ,Ags.Observation
+                  ,(SELECT COUNT([ServicesLockDate]) 
+					FROM [AdomServices].[cfg].[AdomInfo]  
+					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -211,7 +218,7 @@ namespace Adom.Hhm.Data.Querys
             ON ent.EntityId = Ags.EntityId
             INNER JOIN [cfg].[PlansEntity] pe
             ON pe.PlanEntityId = Ags.PlanEntityId
-            WHERE   [AssignServiceId] = @AssignServiceId";
+            WHERE   [AssignServiceId] = @AssignServiceId ";
 
         public static string CreateAssignServiceAndDetails =
         @"[sas].[CreateAssignServiceAndDetails]";

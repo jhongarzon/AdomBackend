@@ -37,7 +37,7 @@ namespace Adom.Hhm.Data.Querys
                     ,CASE Ags.CopaymentStatus WHEN 0 THEN 'SE' ELSE 'E' END CopaymentStatus
                     ,(select sum(det.ReceivedAmount) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId)  TotalCopaymentReported
 		            ,(select sum(det.OtherAmount) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId)  OtherValuesReported
-                    ,Ser.Value ValueToPayToProfessional
+                    ,Ser.Value xValueToPayToProfessional
                     ,Ags.[TotalCopaymentReceived]
                     ,Ags.[OtherValuesReceived]
                     ,Ags.[OtherValuesReceived]

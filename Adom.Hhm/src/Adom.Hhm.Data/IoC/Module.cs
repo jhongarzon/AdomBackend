@@ -15,6 +15,7 @@ namespace Adom.Hhm.Data.IoC
         {
             var dic = new Dictionary<Type, Type>
             {
+                {typeof (IHomeRepository), typeof (HomeRepository)},
                 {typeof (IAuthenticationRepository), typeof (AuthenticationRepository)},
                 {typeof (IAuthorizationRepository), typeof (AuthorizationRepository)},
                 {typeof (IUserRepository), typeof (UserRepository)},
@@ -38,7 +39,11 @@ namespace Adom.Hhm.Data.IoC
                 {typeof (INoticeRepository), typeof (NoticeRepository)},
                 {typeof (IProfessionalAssignedRepository), typeof (ProfessionalAssignedRepository)},
                 {typeof (ICopaymentRepository), typeof (CopaymentRepository)},
-                {typeof (IRipsRepository), typeof (RipsRepository)}
+                {typeof (IRipsRepository), typeof (RipsRepository)},
+                {typeof (ISpecialReportRepository), typeof (SpecialReportRepository)},
+                {typeof (IPaymentReportRepository), typeof (PaymentReportRepository)},
+                {typeof (ICopaymentReportRepository), typeof (CopaymentReportRepository)},
+                {typeof (ILockDateRepository), typeof (LockDateRepository)}
             };
             return dic;
         }
