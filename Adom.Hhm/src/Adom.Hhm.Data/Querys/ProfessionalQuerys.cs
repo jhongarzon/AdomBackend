@@ -38,8 +38,8 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT Pro.[ProfessionalId]
             ,Pro.[UserId]
             ,Pro.[Document]
-            ,Pro.[BirthDate]
-            ,Pro.[DateAdmission]
+            ,CONVERT(VARCHAR(10),Pro.[BirthDate],105) [BirthDate]
+            ,CONVERT(VARCHAR(10),Pro.[DateAdmission],105) DateAdmission
             ,Pro.[Neighborhood]
             ,Pro.[Availability]
             ,Pro.[Address]
@@ -78,10 +78,12 @@ namespace Adom.Hhm.Data.Querys
             AND         [Pro].[ProfessionalId] <> @ProfessionalId";
 
         public static string GetById =
-        @"  SELECT	    Pro.*
+        @"  SELECT	    Pro.*, Urs.Email, Urs.Firstname,Urs.SecondName,Urs.Surname,Urs.SecondSurname,Urs.State
             FROM	    [cfg].[Professionals] Pro
+            INNER JOIN  [sec].[Users] Urs
+            ON          [Urs].[UserId] = [Pro].[UserId]
             WHERE       [Pro].[ProfessionalId] = @ProfessionalId
-            AND         [Pro].[State] = 1";
+            AND         [Urs].[State] = 1";
 
         public static string Insert =
         @"  INSERT INTO [cfg].[Professionals]
@@ -107,8 +109,8 @@ namespace Adom.Hhm.Data.Querys
             VALUES
                (@UserId
                ,@Document
-               ,@BirthDate
-               ,@DateAdmission
+               ,CONVERT(DATETIME,@BirthDate,105)
+               ,CONVERT(DATETIME,@DateAdmission,105)
                ,@Availability
                ,@Neighborhood
                ,@Address
@@ -130,8 +132,8 @@ namespace Adom.Hhm.Data.Querys
         @"  UPDATE [cfg].[Professionals]
             SET [UserId] = @UserId
               ,[Document] = @Document
-              ,[BirthDate] = @BirthDate
-              ,[DateAdmission] = @DateAdmission
+              ,[BirthDate] = CONVERT(DATETIME,@BirthDate,105)
+              ,[DateAdmission] = CONVERT(DATETIME,@DateAdmission,105)
               ,[Availability] = @Availability
               ,[Neighborhood] = @Neighborhood
               ,[Address] = @Address

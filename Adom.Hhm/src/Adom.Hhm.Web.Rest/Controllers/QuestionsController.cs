@@ -19,11 +19,9 @@ namespace Adom.Hhm.Web.Rest.Controllers
     public class QuestionsController : Controller
     {
         private readonly IAssignServiceDetailAppService _appService;
-        private readonly IMailService _mailService;
-        public QuestionsController(IAssignServiceDetailAppService appService, IMailService mailService)
+        public QuestionsController(IAssignServiceDetailAppService appService)
         {
             this._appService = appService;
-            _mailService = mailService;
         }
         [Authorize(Policy = "/Questions/Get")]
         [HttpGet("{serviceId}")]
@@ -33,11 +31,6 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             try
             {
-                var mailMessage = new MailMessage();
-                mailMessage.To = new MailAccount("Jhon", "johngarzon86@gmail.com");
-                mailMessage.Body = "Prueba Body ADOM";
-                mailMessage.Subject = "Mensaje prueba ADOM";
-                _mailService.SendMail(mailMessage);
                 result = this._appService.GetQuestions(serviceId);
             }
             catch (Exception ex)

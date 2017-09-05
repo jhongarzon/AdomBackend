@@ -88,29 +88,18 @@ namespace Adom.Hhm.Web.Rest.Controllers
         [HttpPut("{id}")]
         public ServiceResult<bool> Put(int id, [FromBody]PlanRate model)
         {
-            ServiceResult<bool> result = null;
-            var validatorResult = validator.Validate(model);
+            ServiceResult<bool> result;
 
-            if (validatorResult.IsValid)
+            try
             {
-                try
-                {
-                    result = this.appService.Delete(model);
-                }
-                catch (Exception ex)
-                {
-                    result = new ServiceResult<bool>();
-                    result.Errors = new string[] { ex.Message };
-                    result.Success = false;
-                }
+                result = this.appService.Delete(model);
             }
-            else
+            catch (Exception ex)
             {
                 result = new ServiceResult<bool>();
-                result.Errors = validatorResult.GetErrors();
+                result.Errors = new string[] { ex.Message };
                 result.Success = false;
             }
-
             return result;
         }
     }

@@ -24,10 +24,13 @@ namespace Adom.Hhm.AppServices
         {
             return this.service.GetPatients(pageNumber, pageSize);
         }
-
-        public ServiceResult<IEnumerable<Patient>> GetByNamesOrDocument(string dataFind)
+        public ServiceResult<IEnumerable<Patient>> GetByNames(string dataFind)
         {
-            return this.service.GetByNamesOrDocument(dataFind);
+            return this.service.GetByNames(dataFind);
+        }
+        public ServiceResult<IEnumerable<Patient>> GetByDocument(int documentTypeId, string dataFind)
+        {
+            return this.service.GetByDocument(documentTypeId, dataFind);
         }
 
         public ServiceResult<IEnumerable<Patient>> GetPatients()

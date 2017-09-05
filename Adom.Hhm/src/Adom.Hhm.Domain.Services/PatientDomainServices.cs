@@ -45,9 +45,20 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
-        public ServiceResult<IEnumerable<Patient>> GetByNamesOrDocument(string dataFind)
+        public ServiceResult<IEnumerable<Patient>> GetByDocument(int documentTypeId, string dataFind)
         {
-            var getPatients = this.repository.GetByNamesOrDocument(dataFind);
+            var getPatients = this.repository.GetByDocument(documentTypeId, dataFind);
+
+            return new ServiceResult<IEnumerable<Patient>>
+            {
+                Success = true,
+                Errors = new string[] { string.Empty },
+                Result = getPatients
+            };
+        }
+        public ServiceResult<IEnumerable<Patient>> GetByNames(string dataFind)
+        {
+            var getPatients = this.repository.GetByNames(dataFind);
 
             return new ServiceResult<IEnumerable<Patient>>
             {

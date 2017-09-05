@@ -46,7 +46,7 @@ namespace Adom.Hhm.Data.Repositories
 
         public AssignService Insert(AssignService assignService)
         {
-            var id = connection.Query<int>(AssignServiceQuerys.CreateAssignServiceAndDetails, new { PatientId = assignService.PatientId, AuthorizationNumber = assignService.AuthorizationNumber, Validity = assignService.Validity, ApplicantName = assignService.ApplicantName, ServiceId = assignService.ServiceId, Quantity = assignService.Quantity, InitialDate = assignService.InitialDate, FinalDate = assignService.FinalDate, ServiceFrecuencyId = assignService.ServiceFrecuencyId, ProfessionalId = assignService.ProfessionalId, CoPaymentAmount = assignService.CoPaymentAmount, CoPaymentFrecuencyId = assignService.CoPaymentFrecuencyId, Consultation = assignService.Consultation, External = assignService.External, StateId  = 1, Observation = assignService.Observation, ContractNumber = assignService.ContractNumber, Cie10 = assignService.Cie10, DescriptionCie10 = assignService.DescriptionCie10, PlanEntityId = assignService.PlanEntityId, EntityId = assignService.EntityId }, commandType: CommandType.StoredProcedure).Single();
+            var id = connection.Query<int>(AssignServiceQuerys.CreateAssignServiceAndDetails, new { PatientId = assignService.PatientId, AuthorizationNumber = assignService.AuthorizationNumber, ValidityStr = assignService.Validity, ApplicantName = assignService.ApplicantName, ServiceId = assignService.ServiceId, Quantity = assignService.Quantity, InitialDateStr = assignService.InitialDate, FinalDateStr = assignService.FinalDate, ServiceFrecuencyId = assignService.ServiceFrecuencyId, ProfessionalId = assignService.ProfessionalId, CoPaymentAmount = assignService.CoPaymentAmount, CoPaymentFrecuencyId = assignService.CoPaymentFrecuencyId, Consultation = assignService.Consultation, External = assignService.External, StateId  = 1, Observation = assignService.Observation, ContractNumber = assignService.ContractNumber, Cie10 = assignService.Cie10, DescriptionCie10 = assignService.DescriptionCie10, PlanEntityId = assignService.PlanEntityId, EntityId = assignService.EntityId }, commandType: CommandType.StoredProcedure).Single();
             assignService.AssignServiceId = id;
             return assignService;
         }
@@ -59,7 +59,7 @@ namespace Adom.Hhm.Data.Repositories
 
         public string CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)
         {
-            return connection.Query<string>(AssignServiceQuerys.CalculateFinalDateAssignService, new { Quantity = quantity, ServiceFrecuencyId = serviceFrecuencyId, InitialDate = initialDate }, commandType: CommandType.StoredProcedure).Single();
+            return connection.Query<string>(AssignServiceQuerys.CalculateFinalDateAssignService, new { Quantity = quantity, ServiceFrecuencyId = serviceFrecuencyId, InitialDateStr = initialDate }, commandType: CommandType.StoredProcedure).Single();
         }
     }
 }

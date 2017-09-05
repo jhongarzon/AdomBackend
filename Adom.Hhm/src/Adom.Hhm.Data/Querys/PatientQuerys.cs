@@ -168,12 +168,53 @@ namespace Adom.Hhm.Data.Querys
             ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
-            WHERE       [pat].[Document] like @DataFind
-            OR          [pat].[FirstName] like @DataFind
+            WHERE       [pat].[FirstName] like @DataFind
             OR          [pat].[SecondName] like @DataFind
             OR          [pat].[SurName] like @DataFind
             OR          [pat].[SecondSurname] like @DataFind
             OR          [pat].[NameCompleted] like @DataFind";
+
+        public static string GetByDocumentType =
+        @"  SELECT pat.[PatientId]
+            ,pat.[Document]
+            ,pat.[DocumentTypeId]
+            ,dt.Name as DocumentTypeName
+            ,CONVERT(char(10), pat.[BirthDate],126) AS BirthDate
+            ,pat.[Age]
+            ,pat.[UnitTimeId]
+            ,ut.Name as UnitTimeName
+            ,pat.[PatientTypeId] as PatientTypeId
+            ,pt.Name as PatientTypeName
+            ,pat.[NameCompleted]
+            ,pat.[FirstName]
+            ,pat.[SecondName]
+            ,pat.[Surname]
+            ,pat.[SecondSurname]
+            ,pat.[Email]
+            ,pat.[GenderId]
+            ,gen.Name as GenderName
+            ,pat.[Occupation]
+            ,pat.[Address]
+            ,pat.[Telephone1]
+            ,pat.[Telephone2]
+            ,pat.[AttendantName]
+            ,pat.[AttendantRelationship]
+            ,pat.[AttendantPhone]
+            ,pat.[AttendantEmail]
+            ,pat.[Profile]
+            ,pat.[Neighborhood]
+            ,CONVERT(char(10), pat.[CreatedOn],126) AS CreatedOn,Count(*) Over() AS TotalRows
+            FROM	    [cfg].[Patients] pat
+            INNER JOIN  [cfg].[Gender] gen
+            ON gen.Id = pat.GenderId
+            INNER JOIN  [cfg].[UnitTime] ut
+            ON ut.Id = pat.UnitTimeId
+            INNER JOIN  [cfg].[PatientType] pt
+            ON pt.Id = pat.PatientTypeId
+            INNER JOIN  [cfg].[DocumentType] dt
+            ON dt.Id = pat.DocumentTypeId
+            WHERE       [pat].[Document] like @DataFind
+            AND         [pat].[DocumentTypeId] = @DocumentTypeId";
 
         public static string GetByEmail =
         @"  SELECT pat.[PatientId]

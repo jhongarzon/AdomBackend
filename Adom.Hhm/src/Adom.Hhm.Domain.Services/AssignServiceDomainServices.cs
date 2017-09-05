@@ -12,18 +12,23 @@ namespace Adom.Hhm.Domain.Services
 {
     public class AssignServiceDomainServices : IAssignServiceDomainService
     {
-        private readonly IAssignServiceRepository repository;
-        private readonly IConfigurationRoot configuration;
+        private readonly IAssignServiceRepository _repository;
+        private readonly IMailService _mailService;
+        private readonly IProfessionalRepository _professionalRepository;
+        private readonly IServiceRepository _serviceRepository;
 
-        public AssignServiceDomainServices(IConfigurationRoot configuration, IAssignServiceRepository repository)
+        public AssignServiceDomainServices(IAssignServiceRepository repository, IMailService mailService,
+            IProfessionalRepository professionalRepository, IServiceRepository serviceRepository)
         {
-            this.repository = repository;
-            this.configuration = configuration;
+            _repository = repository;
+            _mailService = mailService;
+            _professionalRepository = professionalRepository;
+            _serviceRepository = serviceRepository;
         }
 
-        public ServiceResult<AssignService> GetAssignServiceById(int AssignServiceId)
+        public ServiceResult<AssignService> GetAssignServiceById(int assignServiceId)
         {
-            var getAssignService = this.repository.GetAssignServiceById(AssignServiceId);
+            var getAssignService = _repository.GetAssignServiceById(assignServiceId);
 
             return new ServiceResult<AssignService>
             {
@@ -35,7 +40,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<AssignService>> GetAssignServiceByPatientId(int patientId)
         {
-            var getAssignService = this.repository.GetAssignServiceByPatientId(patientId);
+            var getAssignService = _repository.GetAssignServiceByPatientId(patientId);
 
             return new ServiceResult<IEnumerable<AssignService>>
             {
@@ -47,7 +52,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<AssignService>> GetAssignServices(int pageNumber, int pageSize)
         {
-            var getAssignServices = this.repository.GetAssignServices(pageNumber, pageSize);
+            var getAssignServices = _repository.GetAssignServices(pageNumber, pageSize);
             return new ServiceResult<IEnumerable<AssignService>>
             {
                 Success = true,
@@ -58,7 +63,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<AssignService>> GetAssignServices()
         {
-            var getAssignServices = this.repository.GetAssignServices();
+            var getAssignServices = _repository.GetAssignServices();
             return new ServiceResult<IEnumerable<AssignService>>
             {
                 Success = true,
@@ -69,17 +74,37 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<AssignService> Insert(AssignService assignService)
         {
-            var AssignServiceInserted = this.repository.Insert(assignService);
+            var assignServiceInserted = _repository.Insert(assignService);
+            if (assignServiceInserted.AssignServiceId > 0)
+            {
+                if (assignService.ProfessionalId > 0)
+                {
+                    var professional = _professionalRepository.GetProfessionalById(assignService.ProfessionalId);
+                    var service = _serviceRepository.GetServiceById(assignService.ServiceId);
+                    var mailMessage = new MailMessage
+                    {
+
+                        Body =
+                            $"Buen día Sr(a): {professional.FirstName} <br/><br/>" +
+                            $"Se le ha asignado el servicio {service.Name}, con fecha de inicio {assignService.InitialDate} y fecha final {assignService.FinalDate} ",
+                        Subject = "Asignación de servicio",
+                        To = new MailAccount(professional.FirstName, professional.Email)
+
+                    };
+                    _mailService.SendMail(mailMessage);
+                }
+                
+            }
             return new ServiceResult<AssignService>
             {
                 Success = true,
-                Result = AssignServiceInserted
+                Result = assignServiceInserted
             };
         }
 
         public ServiceResult<AssignService> Update(AssignService assignService)
         {
-            var updated = this.repository.Update(assignService);
+            var updated = _repository.Update(assignService);
             return new ServiceResult<AssignService>
             {
                 Success = true,
@@ -89,7 +114,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)
         {
-            var finalDateAssignService = this.repository.CalculateFinalDateAssignService(quantity, serviceFrecuencyId, initialDate);
+            var finalDateAssignService = _repository.CalculateFinalDateAssignService(quantity, serviceFrecuencyId, initialDate);
             return new ServiceResult<string>
             {
                 Success = true,

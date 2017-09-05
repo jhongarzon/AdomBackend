@@ -11,20 +11,22 @@ namespace Adom.Hhm.Domain.Services
 {
     public class CoordinatorDomainServices : ICoordinatorDomainService
     {
-        private readonly ICoordinatorRepository repository;
-        private readonly IUserRepository userRepository;
-        private readonly IConfigurationRoot configuration;
+        private readonly ICoordinatorRepository _repository;
+        private readonly IUserRepository _userRepository;
+        private readonly IConfigurationRoot _configuration;
+        private readonly IMailService _mailService;
 
-        public CoordinatorDomainServices(IConfigurationRoot configuration, ICoordinatorRepository repository, IUserRepository userRepository)
+        public CoordinatorDomainServices(IConfigurationRoot configuration, ICoordinatorRepository repository, IMailService mailService, IUserRepository userRepository)
         {
-            this.repository = repository;
-            this.userRepository = userRepository;
-            this.configuration = configuration;
+            _repository = repository;
+            _userRepository = userRepository;
+            _mailService = mailService;
+            _configuration = configuration;
         }
 
         public ServiceResult<Coordinator> GetCoordinatorById(int coordinatorId)
         {
-            var getCoordinator = this.repository.GetCoordinatorById(coordinatorId);
+            var getCoordinator = _repository.GetCoordinatorById(coordinatorId);
 
             return new ServiceResult<Coordinator>
             {
@@ -36,7 +38,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<Coordinator>> GetCoordinators(int pageNumber, int pageSize)
         {
-            var getCoordinators = this.repository.GetCoordinators(pageNumber, pageSize);
+            var getCoordinators = _repository.GetCoordinators(pageNumber, pageSize);
             return new ServiceResult<IEnumerable<Coordinator>>
             {
                 Success = true,
@@ -47,7 +49,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<Coordinator>> GetCoordinators()
         {
-            var getCoordinators = this.repository.GetCoordinators();
+            var getCoordinators = _repository.GetCoordinators();
             return new ServiceResult<IEnumerable<Coordinator>>
             {
                 Success = true,
@@ -58,25 +60,39 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<Coordinator> Insert(Coordinator coordinator)
         {
-            Coordinator emailExist = this.repository.GetCoordinatorByEmail(coordinator.Email);
-
+            var emailExist = _repository.GetCoordinatorByEmail(coordinator.Email);
+            const string defaultPassword = "12345";
             if (emailExist == null)
             {
-                User user = new User();
-                user.Email = coordinator.Email;
-                user.FirstName = coordinator.FirstName;
-                user.SecondName = coordinator.SecondName;
-                user.Surname = coordinator.Surname;
-                user.SecondSurname = coordinator.SecondSurname;
-                user.Password = Encrypt.EncryptString("12345", this.configuration["KeyEncription"]);
-                var userInserted = this.userRepository.Insert(user);
+                var user = new User
+                {
+                    Email = coordinator.Email,
+                    FirstName = coordinator.FirstName,
+                    SecondName = coordinator.SecondName,
+                    Surname = coordinator.Surname,
+                    SecondSurname = coordinator.SecondSurname,
+                    Password = Encrypt.EncryptString(defaultPassword, _configuration["KeyEncription"])
+                };
+                var userInserted = _userRepository.Insert(user);
                 user.UserId = userInserted.UserId;
                 coordinator.UserId = user.UserId;
-                var CoordinatorInserted = this.repository.Insert(coordinator);
+                var coordinatorInserted = _repository.Insert(coordinator);
+                if (coordinatorInserted != null && coordinatorInserted.UserId > 0)
+                {
+                    var mailMessage = new MailMessage
+                    {
+                        Body = string.Format("A continuación se listan los datos de ingreso para su cuenta en Blue: <br/><br/>" +
+                              "Usuario: <b>{0}</b> <br/> Password: <b>{1}</b> <br/>", user.Email, defaultPassword),
+                        Subject = "Creación de usuario Blue",
+                        To = new MailAccount(user.FirstName, user.Email)
+
+                    };
+                    _mailService.SendMail(mailMessage);
+                }
                 return new ServiceResult<Coordinator>
                 {
                     Success = true,
-                    Result = CoordinatorInserted
+                    Result = coordinatorInserted
                 };
             }
 
@@ -89,19 +105,19 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<Coordinator> Update(Coordinator coordinator)
         {
-            Coordinator emailExist = this.repository.GetCoordinatorByEmailWithoutId(coordinator.CoordinatorId, coordinator.Email);
+            var emailExist = _repository.GetCoordinatorByEmailWithoutId(coordinator.CoordinatorId, coordinator.Email);
 
             if (emailExist == null)
             {
-                User user = new User();
+                var user = new User();
                 user.Email = coordinator.Email;
                 user.FirstName = coordinator.FirstName;
                 user.SecondName = coordinator.SecondName;
                 user.Surname = coordinator.Surname;
                 user.SecondSurname = coordinator.SecondSurname;
                 user.UserId = coordinator.UserId;
-                var userUpdate = this.userRepository.Update(user);
-                var updated = this.repository.Update(coordinator);
+                var userUpdate = _userRepository.Update(user);
+                var updated = _repository.Update(coordinator);
                 return new ServiceResult<Coordinator>
                 {
                     Success = true,

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging;
@@ -40,6 +41,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
             try
             {
                 result = this.appService.GetPatients();
+                
             }
             catch (Exception ex)
             {
@@ -72,6 +74,30 @@ namespace Adom.Hhm.Web.Rest.Controllers
         }
 
         [Authorize(Policy = "/Patient/Get")]
+        [HttpGet("{documentType}/{dataFind}/{search}")]
+        public ServiceResult<IEnumerable<Patient>> Get(int documentType, string dataFind, string search)
+        {
+            ServiceResult<IEnumerable<Patient>> result;
+            if (search == "1")
+            {
+                try
+                {
+                    result = this.appService.GetByDocument(documentType, dataFind);
+                }
+                catch (Exception ex)
+                {
+                    result = new ServiceResult<IEnumerable<Patient>>();
+                    result.Errors = new[] { ex.Message };
+                    result.Success = false;
+                }
+                return result;
+            }
+            result = new ServiceResult<IEnumerable<Patient>>();
+            result.Errors = new[] { "Método inválido" };
+            result.Success = false;
+            return result;
+        }
+        [Authorize(Policy = "/Patient/Get")]
         [HttpGet("{dataFind}")]
         public ServiceResult<IEnumerable<Patient>> Get(string dataFind)
         {
@@ -79,7 +105,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             try
             {
-                result = this.appService.GetByNamesOrDocument(dataFind);
+                result = this.appService.GetByNames(dataFind);
             }
             catch (Exception ex)
             {
@@ -91,12 +117,21 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
+
         [Authorize(Policy = "/Patient/Create")]
         [HttpPost]
         public ServiceResult<Patient> Post([FromBody]Patient model)
         {
             ServiceResult<Patient> result = null;
             var validatorResult = validator.Validate(model);
+            var documentValidation = appService.GetByDocument(model.DocumentTypeId, model.Document);
+            if (documentValidation != null && documentValidation.Result.Count() > 0)
+            {
+                result = new ServiceResult<Patient>();
+                result.Errors = new[] { "El documento ya existe" };
+                result.Success = false;
+                return result;
+            }
 
             if (validatorResult.IsValid)
             {

@@ -8,13 +8,14 @@ namespace Adom.Hhm.Domain.Repositories
     {
         IEnumerable<Patient> GetPatients(int pageNumber, int pageSize);
         IEnumerable<Patient> GetPatients();
-        Patient GetPatientById(int PatientId);
+        Patient GetPatientById(int patientId);
         Patient GetPatientByEmail(string email);
-        Patient GetPatientByEmailWithoutId(int PatientId, string email);
+        Patient GetPatientByEmailWithoutId(int patientId, string email);
         Patient GetPatientByDocument(string email);
-        IEnumerable<Patient> GetByNamesOrDocument(string dataFind);
-        Patient GetPatientByDocumentWithoutId(int PatientId, string email);
-        Patient Insert(Patient Patient);
-        Patient Update(Patient Patient);
+        IEnumerable<Patient> GetByDocument(int documentTypeId, string dataFind);
+        IEnumerable<Patient> GetByNames(string dataFind);
+        Patient GetPatientByDocumentWithoutId(int patientId, string email);
+        Patient Insert(Patient patient);
+        Patient Update(Patient patient);
     }
 }

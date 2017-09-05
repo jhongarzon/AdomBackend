@@ -22,9 +22,9 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Patient>(PatientQuerys.GetByDocument, new { Document = document }).FirstOrDefault();
         }
 
-        public Patient GetPatientByDocumentWithoutId(int PatientId, string document)
+        public Patient GetPatientByDocumentWithoutId(int patientId, string document)
         {
-            return connection.Query<Patient>(PatientQuerys.GetByDocumentWithoutId, new { Document = document, PatientId = PatientId }).FirstOrDefault();
+            return connection.Query<Patient>(PatientQuerys.GetByDocumentWithoutId, new { Document = document, PatientId = patientId }).FirstOrDefault();
         }
 
         public Patient GetPatientByEmail(string email)
@@ -32,19 +32,22 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Patient>(PatientQuerys.GetByEmail, new { Email = email }).FirstOrDefault();
         }
 
-        public Patient GetPatientByEmailWithoutId(int PatientId, string email)
+        public Patient GetPatientByEmailWithoutId(int patientId, string email)
         {
-            return connection.Query<Patient>(PatientQuerys.GetByEmailWithoutId, new { Email = email, PatientId = PatientId }).FirstOrDefault();
+            return connection.Query<Patient>(PatientQuerys.GetByEmailWithoutId, new { Email = email, PatientId = patientId }).FirstOrDefault();
         }
-
-        public IEnumerable<Patient> GetByNamesOrDocument(string dataFind)
+        public IEnumerable<Patient> GetByDocument(int documentTypeId, string dataFind)
+        {
+            return connection.Query<Patient>(PatientQuerys.GetByDocumentType, new { DocumentTypeId = documentTypeId, DataFind = "%" + dataFind + "%" });
+        }
+        public IEnumerable<Patient> GetByNames(string dataFind)
         {
             return connection.Query<Patient>(PatientQuerys.GetByNamesOrDocument, new { DataFind = "%" + dataFind + "%" });
         }
 
-        public Patient GetPatientById(int PatientId)
+        public Patient GetPatientById(int patientId)
         {
-            return connection.Query<Patient>(PatientQuerys.GetById, new { PatientId = PatientId }).FirstOrDefault();
+            return connection.Query<Patient>(PatientQuerys.GetById, new { PatientId = patientId }).FirstOrDefault();
         }
 
         public IEnumerable<Patient> GetPatients(int pageNumber, int pageSize)
@@ -57,19 +60,19 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Patient>(PatientQuerys.GetAllWithoutPagination);
         }
 
-        public Patient Insert(Patient Patient)
+        public Patient Insert(Patient patient)
         {
-            Patient.NameCompleted = Patient.FirstName  + (Patient.SecondName == null ? " " : " " + Patient.SecondName + " ") + Patient.Surname + (Patient.SecondSurname == null ? "" : " " + Patient.SecondSurname);
-            var id = connection.Query<int>(PatientQuerys.Insert, Patient).Single();
-            Patient.PatientId = id;
-            return Patient;
+            patient.NameCompleted = patient.FirstName + (patient.SecondName == null ? " " : " " + patient.SecondName + " ") + patient.Surname + (patient.SecondSurname == null ? "" : " " + patient.SecondSurname);
+            var id = connection.Query<int>(PatientQuerys.Insert, patient).Single();
+            patient.PatientId = id;
+            return patient;
         }
 
-        public Patient Update(Patient Patient)
+        public Patient Update(Patient patient)
         {
-            Patient.NameCompleted = Patient.FirstName + (Patient.SecondName == null ? " " : " " + Patient.SecondName + " ") + Patient.Surname + (Patient.SecondSurname == null ? "" : " " + Patient.SecondSurname);
-            var affectedRows = connection.Execute(PatientQuerys.Update, Patient);
-            return Patient;
+            patient.NameCompleted = patient.FirstName + (patient.SecondName == null ? " " : " " + patient.SecondName + " ") + patient.Surname + (patient.SecondSurname == null ? "" : " " + patient.SecondSurname);
+            var affectedRows = connection.Execute(PatientQuerys.Update, patient);
+            return patient;
         }
     }
 }

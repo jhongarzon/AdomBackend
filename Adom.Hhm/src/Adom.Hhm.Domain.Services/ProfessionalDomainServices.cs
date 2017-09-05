@@ -11,20 +11,22 @@ namespace Adom.Hhm.Domain.Services
 {
     public class ProfessionalDomainServices : IProfessionalDomainService
     {
-        private readonly IProfessionalRepository repository;
-        private readonly IUserRepository userRepository;
-        private readonly IConfigurationRoot configuration;
+        private readonly IProfessionalRepository _repository;
+        private readonly IUserRepository _userRepository;
+        private readonly IConfigurationRoot _configuration;
+        private readonly IMailService _mailService;
 
-        public ProfessionalDomainServices(IConfigurationRoot configuration, IProfessionalRepository repository, IUserRepository userRepository)
+        public ProfessionalDomainServices(IConfigurationRoot configuration, IProfessionalRepository repository, IMailService mailService, IUserRepository userRepository)
         {
-            this.repository = repository;
-            this.userRepository = userRepository;
-            this.configuration = configuration;
+            _repository = repository;
+            _userRepository = userRepository;
+            _configuration = configuration;
+            _mailService = mailService;
         }
 
-        public ServiceResult<Professional> GetProfessionalById(int ProfessionalId)
+        public ServiceResult<Professional> GetProfessionalById(int professionalId)
         {
-            var getProfessional = this.repository.GetProfessionalById(ProfessionalId);
+            var getProfessional = _repository.GetProfessionalById(professionalId);
 
             return new ServiceResult<Professional>
             {
@@ -36,7 +38,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<Professional>> GetProfessionals(int pageNumber, int pageSize)
         {
-            var getProfessionals = this.repository.GetProfessionals(pageNumber, pageSize);
+            var getProfessionals = _repository.GetProfessionals(pageNumber, pageSize);
             return new ServiceResult<IEnumerable<Professional>>
             {
                 Success = true,
@@ -47,7 +49,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<Professional>> GetProfessionals()
         {
-            var getProfessionals = this.repository.GetProfessionals();
+            var getProfessionals = _repository.GetProfessionals();
             return new ServiceResult<IEnumerable<Professional>>
             {
                 Success = true,
@@ -58,21 +60,35 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<Professional> Insert(Professional professional)
         {
-            Professional emailExist = this.repository.GetProfessionalByEmail(professional.Email);
-
+            var emailExist = _repository.GetProfessionalByEmail(professional.Email);
+            const string defaultPassword = "12345";
             if (emailExist == null)
             {
-                User user = new User();
-                user.Email = professional.Email;
-                user.FirstName = professional.FirstName;
-                user.SecondName = professional.SecondName;
-                user.Surname = professional.Surname;
-                user.SecondSurname = professional.SecondSurname;
-                user.Password = Encrypt.EncryptString("12345", this.configuration["KeyEncription"]);
-                var userInserted = this.userRepository.Insert(user);
+                var user = new User
+                {
+                    Email = professional.Email,
+                    FirstName = professional.FirstName,
+                    SecondName = professional.SecondName,
+                    Surname = professional.Surname,
+                    SecondSurname = professional.SecondSurname,
+                    Password = Encrypt.EncryptString(defaultPassword, _configuration["KeyEncription"])
+                };
+                var userInserted = _userRepository.Insert(user);
                 user.UserId = userInserted.UserId;
                 professional.UserId = user.UserId;
-                var professionalInserted = this.repository.Insert(professional);
+                var professionalInserted = _repository.Insert(professional);
+                if (professionalInserted != null && professionalInserted.UserId > 0)
+                {
+                    var mailMessage = new MailMessage
+                    {
+                        Body = string.Format("A continuación se listan los datos de ingreso para su cuenta en Blue: <br/><br/>" +
+                              "Usuario: <b>{0}</b> <br/> Password: <b>{1}</b> <br/>", user.Email, defaultPassword),
+                        Subject = "Creación de usuario Blue",
+                        To = new MailAccount(user.FirstName, user.Email)
+
+                    };
+                    _mailService.SendMail(mailMessage);
+                }
                 return new ServiceResult<Professional>
                 {
                     Success = true,
@@ -89,19 +105,19 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<Professional> Update(Professional professional)
         {
-            Professional emailExist = this.repository.GetProfessionalByEmailWithoutId(professional.ProfessionalId, professional.Email);
+            var emailExist = _repository.GetProfessionalByEmailWithoutId(professional.ProfessionalId, professional.Email);
 
             if (emailExist == null)
             {
-                User user = new User();
+                var user = new User();
                 user.Email = professional.Email;
                 user.FirstName = professional.FirstName;
                 user.SecondName = professional.SecondName;
                 user.Surname = professional.Surname;
                 user.SecondSurname = professional.SecondSurname;
                 user.UserId = professional.UserId;
-                var userUpdate = this.userRepository.Update(user);
-                var updated = this.repository.Update(professional);
+                var userUpdate = _userRepository.Update(user);
+                var updated = _repository.Update(professional);
                 return new ServiceResult<Professional>
                 {
                     Success = true,

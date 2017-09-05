@@ -20,8 +20,19 @@ namespace Adom.Hhm.Domain.Services
         public bool SendMail(MailMessage mailMessage)
         {
             _mimeMessage.Subject = mailMessage.Subject;
-            _mimeMessage.Body = new TextPart("plain") { Text = mailMessage.Body };
+            if (mailMessage.HtmlBody)
+            {
+                var builder = new BodyBuilder {HtmlBody = mailMessage.Body};
+                _mimeMessage.Body = builder.ToMessageBody();
+
+            }
+            else
+            {
+                _mimeMessage.Body = new TextPart("plain") { Text = mailMessage.Body };
+            }
+            
             _mimeMessage.To.Add(new MailboxAddress(mailMessage.To.Name, mailMessage.To.MailAddress));
+            
             using (var client = new SmtpClient())
             {
                 client.Connect(_mailServerConfig.Server, _mailServerConfig.Port, false);
