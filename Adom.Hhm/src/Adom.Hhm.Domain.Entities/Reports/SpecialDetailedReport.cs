@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Adom.Hhm.Domain.Entities.Reports
 {
@@ -46,6 +47,18 @@ namespace Adom.Hhm.Domain.Entities.Reports
         public string ProfessionalDocument { get; set; }
         [ExcelReportCell("HORAS INVERTIDAS")]
         public string HoursToInvest { get; set; }
+        [ExcelReportCell("FECHA LLAM. CALIDAD")]
+        public string QualityCallDate { get; set; }
+        [ExcelReportCell("USUARIO")]
+        public string QualityCallUser { get; set; }
+        [ExcelReportCell("COMENTARIOS")]
+        public string Observation { get; set; }
+        [ExcelReportCell("VERIFICADO")]
+        public string Verified { get; set; }
+        [ExcelReportCell("VERIFICADO POR")]
+        public string VerifiedBy { get; set; }
+        [ExcelReportCell("FECHA VERIFICADO")]
+        public string VerificationDate { get; set; }
         [ExcelReportCell("", IsListField = true)]
         public IEnumerable<QualityQuestion> QualityQuestions { get; set; }
         [ExcelReportCell("ID", IsVisible = false)]

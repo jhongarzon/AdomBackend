@@ -31,7 +31,7 @@ namespace Adom.Hhm.Domain.Entities.Reports
         [ExcelReportCell("TARIFA", IsMoney = true)]
         public int Rate { get; set; }
         [ExcelReportCell("COPAGO", IsMoney = true)]
-        public int Copayment { get; set; }
+        public int CoPaymentAmount { get; set; }
         [ExcelReportCell("FREC. COPAGO")]
         public string CopaymentFrecuency { get; set; }
         [ExcelReportCell("ESTADO COPAGO")]
@@ -42,10 +42,14 @@ namespace Adom.Hhm.Domain.Entities.Reports
         public string InitialDate { get; set; }
         [ExcelReportCell("FECHA FIN TENT.", IsDate = true, DateFormat = "dd/mm/yyyy")]
         public string FinalDate { get; set; }
+        [ExcelReportCell("FECHA INICIO REAL", IsDate = true, DateFormat = "dd/mm/yyyy")]
+        public string RealInitialDate { get; set; }
+        [ExcelReportCell("FECHA FIN REAL", IsDate = true, DateFormat = "dd/mm/yyyy")]
+        public string RealFinalDate { get; set; }
         [ExcelReportCell("CIE10")]
         public string Cie10 { get; set; }
         [ExcelReportCell("DES. CIE10")]
-        public string DescCie10 { get; set; }
+        public string DescriptionCie10 { get; set; }
         [ExcelReportCell("TIPO PACIENTE")]
         public string PatientType { get; set; }
         [ExcelReportCell("EDAD", IsNumber = true)]
@@ -63,7 +67,7 @@ namespace Adom.Hhm.Domain.Entities.Reports
         [ExcelReportCell("EMAIL")]
         public string PatientEmail { get; set; }
         [ExcelReportCell("ASIGNADO POR")]
-        public string ServiceAssignedBy { get; set; }
+        public string AssignedBy { get; set; }
         [ExcelReportCell("", IsListField = true)]
         public IEnumerable<AssignedProfessional> AssignedProfessionals { get; set; }
         [ExcelReportCell("ID", IsVisible = false)]

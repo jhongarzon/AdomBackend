@@ -12,6 +12,6 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<AssignServiceDetail> GetAssignServiceDetailByAssignServiceId(int assignServiceId);
         AssignServiceDetail Update(AssignServiceDetail assignServiceDetail);
         IEnumerable<QualityQuestion> GetQuestions(int serviceId);
-        string SaveAnswers(int assignServiceDetailId, IEnumerable<QualityQuestion> answers);
+        string SaveAnswers(int assignServiceDetailId, int qualityCallUser, IEnumerable<QualityQuestion> answers);
     }
 }

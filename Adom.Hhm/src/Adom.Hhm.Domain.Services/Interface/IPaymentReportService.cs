@@ -6,6 +6,6 @@ namespace Adom.Hhm.Domain.Services.Interface
 {
     public interface IPaymentReportService
     {
-        ServiceResult<IEnumerable<PaymentReport>> GetPaymentReport();
+        ServiceResult<IEnumerable<PaymentReport>> GetPaymentReport(PaymentReportFilter paymentReportFilter);
     }
 }

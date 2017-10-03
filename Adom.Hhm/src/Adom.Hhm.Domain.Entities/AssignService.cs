@@ -39,5 +39,6 @@ namespace Adom.Hhm.Domain.Entities
         public string Observation { get; set; }
         public int TotalRows { get; set; }
         public bool AllowsUpdate { get; set; }
+        public string AssignedBy { get; set; }
     }
 }

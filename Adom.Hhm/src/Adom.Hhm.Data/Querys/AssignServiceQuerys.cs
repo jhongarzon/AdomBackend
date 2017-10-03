@@ -13,14 +13,14 @@
                   ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
-                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
+                  ,CONVERT(char(10), Ags.[Validity],105) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) AS Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
-                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
+                  ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
@@ -34,7 +34,7 @@
 				  ,sta.Name AS StateName
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
-					FROM [AdomServices].[cfg].[AdomInfo]  
+					FROM [cfg].[AdomInfo]  
 					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
@@ -67,14 +67,14 @@
                   ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
-                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
+                  ,CONVERT(char(10), Ags.[Validity],105) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3) AS Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
-                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
+                  ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
@@ -88,7 +88,7 @@
 				  ,sta.Name AS StateName
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
-					FROM [AdomServices].[cfg].[AdomInfo]  
+					FROM [cfg].[AdomInfo]  
 					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
@@ -122,14 +122,14 @@
                   ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
-                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
+                  ,CONVERT(char(10), Ags.[Validity],105) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) AS Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
-                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
+                  ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
@@ -143,7 +143,7 @@
 				  ,sta.Name AS StateName
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
-					FROM [AdomServices].[cfg].[AdomInfo]  
+					FROM [cfg].[AdomInfo]  
 					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
@@ -177,14 +177,14 @@
                   ,pe.[Name] AS PlanEntityName
                   ,Ags.[Cie10]
                   ,Ags.[DescriptionCie10]
-                  ,CONVERT(char(10), Ags.[Validity],126) AS Validity
+                  ,CONVERT(char(10), Ags.[Validity],105) AS Validity
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
                   ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) as Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                  ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
-                  ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
+                  ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
+                  ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
@@ -198,7 +198,7 @@
 				  ,sta.Name AS StateName
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
-					FROM [AdomServices].[cfg].[AdomInfo]  
+					FROM [cfg].[AdomInfo]  
 					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags

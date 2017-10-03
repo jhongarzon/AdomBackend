@@ -8,6 +8,7 @@ using Adom.Hhm.Domain.Services.Interface;
 using Adom.Hhm.Domain.Entities.Reports;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -19,11 +20,20 @@ namespace Adom.Hhm.Web.Rest.Controllers
     {
         private readonly IExcelReportService _excelReportService;
         private readonly ISpecialReportService _specialReportService;
-        public SpecialReportController(IExcelReportService excelReportService, ISpecialReportService specialReportService)
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public SpecialReportController(IHostingEnvironment hostingEnvironment, IExcelReportService excelReportService, ISpecialReportService specialReportService)
         {
             _excelReportService = excelReportService;
             _specialReportService = specialReportService;
+            _hostingEnvironment = hostingEnvironment;
         }
+        [Authorize(Policy = "/ReportSpecial/Get")]
+        public string Get()
+        {
+            return "Funciona";
+        }
+
         [Authorize(Policy = "/SpecialReport/Create")]
         [HttpPost]
         public FileResult Post([FromBody] SpecialReportFilter specialReportFilter)
@@ -31,14 +41,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
             dynamic data;
             if (specialReportFilter.ReportType == 1)
             {
-                data = _specialReportService.GetSpecialSummaryReport();
+                data = _specialReportService.GetSpecialSummaryReport(specialReportFilter);
             }
             else
             {
-                data = _specialReportService.GetSpecialDetailedReport();
+                data = _specialReportService.GetSpecialDetailedReport(specialReportFilter);
             }
-            
-            var excelFile = _excelReportService.GenerateExcelReport(data.Result);
+            var rootPath = Path.Combine(_hostingEnvironment.WebRootPath, "Temp");
+            var excelFile = _excelReportService.GenerateExcelReport(rootPath,data.Result);
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             var bytes = System.IO.File.ReadAllBytes(excelFile);
             var fileName = Path.GetFileNameWithoutExtension(excelFile);

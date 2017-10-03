@@ -11,8 +11,8 @@ namespace Adom.Hhm.Data.Querys
             @"SELECT 	(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
 		        ,pro.Document
 		        ,Ser.Name as ServiceName
-		        ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
-		        ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
+		        ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
+		        ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
 		        ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
 		        ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3))  QuantityProgrammed
 		        ,sta.Name AS StateName
@@ -48,6 +48,12 @@ namespace Adom.Hhm.Data.Querys
         INNER JOIN [cfg].[Entities] ent ON ent.EntityId = Ags.EntityId
         INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
         INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId 
-        INNER JOIN [cfg].[DocumentType] doc ON Pat.DocumentTypeId = doc.Id";
+        INNER JOIN [cfg].[DocumentType] doc ON Pat.DocumentTypeId = doc.Id 
+        WHERE Ags.[InitialDate] > CONVERT(DATE,ISNULL(@InitialDateIni,'01-01-2000'), 105)
+		AND Ags.[InitialDate] < CONVERT(DATE,ISNULL(@InitialDateEnd,GETDATE() + 100),105)
+		AND Ags.[FinalDate] > CONVERT(DATE,ISNULL(@FinalDateIni,'01-01-2000'), 105)
+		AND Ags.[FinalDate] < CONVERT(DATE,ISNULL(@FinalDateEnd,GETDATE() + 100),105)
+		AND Ags.[RecordDate] > CONVERT(DATE,ISNULL(@DeliverDateIni,'01-01-2000'), 105)
+		AND Ags.[RecordDate] < CONVERT(DATE,ISNULL(@DeliverDateEnd,GETDATE() + 100),105) ";
     }
 }

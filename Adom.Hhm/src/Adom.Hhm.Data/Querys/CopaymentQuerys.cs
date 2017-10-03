@@ -22,8 +22,8 @@ namespace Adom.Hhm.Data.Querys
 		            ,Ser.Name as ServiceName
                     ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3))  Quantity
                     ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                    ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
-                    ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
+                    ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
+                    ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
                     ,Ags.[ServiceFrecuencyId]
 		            ,sef.Name as ServiceFrecuencyName
                     ,Ags.[ProfessionalId]
@@ -61,8 +61,7 @@ namespace Adom.Hhm.Data.Querys
             INNER JOIN [cfg].[PlansEntity] pe
             ON pe.PlanEntityId = Ags.PlanEntityId
 			INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId 
-			WHERE pro.ProfessionalId =  @ProfessionalId AND Ags.StateId = @ServiceStatusId
-            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
+            WHERE 1 = 1 ";
 
         public static string UpdateCopayment =
             @"UPDATE [sas].[AssignService]

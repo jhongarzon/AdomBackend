@@ -124,14 +124,6 @@ namespace Adom.Hhm.Web.Rest.Controllers
         {
             ServiceResult<Patient> result = null;
             var validatorResult = validator.Validate(model);
-            var documentValidation = appService.GetByDocument(model.DocumentTypeId, model.Document);
-            if (documentValidation != null && documentValidation.Result.Count() > 0)
-            {
-                result = new ServiceResult<Patient>();
-                result.Errors = new[] { "El documento ya existe" };
-                result.Success = false;
-                return result;
-            }
 
             if (validatorResult.IsValid)
             {

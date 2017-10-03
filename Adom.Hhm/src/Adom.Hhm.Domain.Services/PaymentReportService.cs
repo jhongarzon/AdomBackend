@@ -14,9 +14,9 @@ namespace Adom.Hhm.Domain.Services
         {
             _paymentReportRepository = paymentReportRepository;
         }
-        public ServiceResult<IEnumerable<PaymentReport>> GetPaymentReport()
+        public ServiceResult<IEnumerable<PaymentReport>> GetPaymentReport(PaymentReportFilter paymentReportFilter)
         {
-            var result = _paymentReportRepository.GetPaymentReport();
+            var result = _paymentReportRepository.GetPaymentReport(paymentReportFilter);
             return new ServiceResult<IEnumerable<PaymentReport>>
             {
                 Result = result,

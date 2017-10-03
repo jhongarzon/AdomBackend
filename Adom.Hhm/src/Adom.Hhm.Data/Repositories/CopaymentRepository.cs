@@ -21,7 +21,24 @@ namespace Adom.Hhm.Data.Repositories
 
         public IEnumerable<Copayment> GetCopayments(int professionalId, int serviceStatusId, int copaymentStatusId)
         {
-            return _connection.Query<Copayment>(CopaymentQuerys.GetCopayment,
+            var copaymentQuery = CopaymentQuerys.GetCopayment;
+            if (professionalId > 0)
+            {
+                copaymentQuery += "AND pro.ProfessionalId = @ProfessionalId ";
+            }
+            if (serviceStatusId > 0)
+            {
+                copaymentQuery += "AND Ags.StateId = @ServiceStatusId ";
+            }
+            if (copaymentStatusId < 2)
+            {
+                copaymentQuery += "AND Ags.CopaymentStatus = @copaymentStatusId ";
+            }
+
+            copaymentQuery += "ORDER BY Ags.StateId ASC, Ags.[InitialDate] DESC";
+
+
+            return _connection.Query<Copayment>(copaymentQuery,
                 new
                 {
                     ProfessionalId = professionalId,

@@ -17,13 +17,13 @@
 				    ,ISNULL([dbo].[CALCULATE_AGE] (pat.BirthDate, 1), pat.Age) Age
 				    ,ISNULL([dbo].[CALCULATE_AGE] (pat.BirthDate, 1),pat.UnitTimeId) AgeUnit
 				    ,CASE pat.GenderId WHEN 1 THEN 'M' WHEN 2 THEN 'F' ELSE '' END AS Gender
-				    ,(SELECT TOP (1) [ProviderCode] FROM [AdomServices].[cfg].[AdomInfo]) ProviderCode
-				    ,(SELECT TOP (1) [BusinessName] FROM [AdomServices].[cfg].[AdomInfo]) BusinessName
-				    ,(SELECT TOP (1) [IdentificationType] FROM [AdomServices].[cfg].[AdomInfo]) AdomIdentificationType
-				    ,(SELECT TOP (1) [IdentificationNumber] FROM [AdomServices].[cfg].[AdomInfo]) AdomIdentificationNumber
-				    ,(SELECT TOP (1) [DepartmentCode] FROM [AdomServices].[cfg].[AdomInfo]) DepartmentCode
-				    ,(SELECT TOP (1) [CityCode] FROM [AdomServices].[cfg].[AdomInfo]) CityCode
-				    ,(SELECT TOP (1) [ResidenceArea] FROM [AdomServices].[cfg].[AdomInfo]) ResidenceArea
+				    ,(SELECT TOP (1) [ProviderCode] FROM [cfg].[AdomInfo]) ProviderCode
+				    ,(SELECT TOP (1) [BusinessName] FROM [cfg].[AdomInfo]) BusinessName
+				    ,(SELECT TOP (1) [IdentificationType] FROM [cfg].[AdomInfo]) AdomIdentificationType
+				    ,(SELECT TOP (1) [IdentificationNumber] FROM [cfg].[AdomInfo]) AdomIdentificationNumber
+				    ,(SELECT TOP (1) [DepartmentCode] FROM [cfg].[AdomInfo]) DepartmentCode
+				    ,(SELECT TOP (1) [CityCode] FROM [cfg].[AdomInfo]) CityCode
+				    ,(SELECT TOP (1) [ResidenceArea] FROM [cfg].[AdomInfo]) ResidenceArea
 				    ,ent.[Code] EntityCode
                     ,ent.[Name] AS EntityName
 				    ,pe.[Name] AS PlanEntityName
@@ -95,7 +95,7 @@
                         ,[Quantity]
                         ,[BilledToId]
                         ,[Observation]
-                        FROM [AdomServices].[sas].[AssignServiceSupply] asp
+                        FROM [sas].[AssignServiceSupply] asp
             INNER JOIN cfg.[Supplies] sup ON asp.[SupplyId] = sup.SupplyId
             WHERE AssignServiceId = @assignServiceId";
 

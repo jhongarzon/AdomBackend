@@ -13,6 +13,6 @@ namespace Adom.Hhm.Domain.Services.Interface
         ServiceResult<IEnumerable<AssignServiceDetail>> GetAssignServiceDetailByAssignServiceId(int assignServiceId);
         ServiceResult<AssignServiceDetail> Update(AssignServiceDetail assignServiceDetail);
         ServiceResult<IEnumerable<QualityQuestion>> GetQuestions(int serviceId);
-        ServiceResult<string> SaveAnswers(int assignServiceDetailId, IEnumerable<QualityQuestion> answers);
+        ServiceResult<string> SaveAnswers(int assignServiceDetailId, int qualityQuestionUser, IEnumerable<QualityQuestion> answers);
     }
 }

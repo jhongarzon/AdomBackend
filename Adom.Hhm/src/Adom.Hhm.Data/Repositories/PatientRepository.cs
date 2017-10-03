@@ -22,9 +22,9 @@ namespace Adom.Hhm.Data.Repositories
             return connection.Query<Patient>(PatientQuerys.GetByDocument, new { Document = document }).FirstOrDefault();
         }
 
-        public Patient GetPatientByDocumentWithoutId(int patientId, string document)
+        public Patient GetPatientByDocumentWithoutId(int patientId, string document, int documentTypeId)
         {
-            return connection.Query<Patient>(PatientQuerys.GetByDocumentWithoutId, new { Document = document, PatientId = patientId }).FirstOrDefault();
+            return connection.Query<Patient>(PatientQuerys.GetByDocumentWithoutId, new { Document = document, PatientId = patientId, DocumentTypeId = documentTypeId }).FirstOrDefault();
         }
 
         public Patient GetPatientByEmail(string email)

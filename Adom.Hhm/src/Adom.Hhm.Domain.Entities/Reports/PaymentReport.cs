@@ -42,7 +42,15 @@ namespace Adom.Hhm.Domain.Entities.Reports
         public string EntityName { get; set; }
         [ExcelReportCell("PLAN")]
         public string PlanName { get; set; }
+        [ExcelReportCell("FECHA SOLICITUD")]
+        public string RequestDate { get; set; }
         [ExcelReportCell("HORAS INVERTIDAS")]
         public int HoursToInvest { get; set; }
+        [ExcelReportCell("VERIFICADO")]
+        public string Verified { get; set; }
+        [ExcelReportCell("VERIFICADO POR")]
+        public string VerifiedBy { get; set; }
+        [ExcelReportCell("FECHA VERIFICADO")]
+        public string VerificationDate { get; set; }
     }
 }

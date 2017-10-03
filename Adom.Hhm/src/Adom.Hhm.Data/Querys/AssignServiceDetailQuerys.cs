@@ -12,7 +12,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
+                  ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
                   ,Ags.[Observation]
@@ -35,7 +35,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
+                  ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
                   ,Ags.[Observation]
@@ -58,7 +58,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Asig.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
+                  ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
                   ,Ags.[Observation]
@@ -92,7 +92,7 @@ namespace Adom.Hhm.Data.Querys
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
 				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-                  ,CONVERT(char(10), Ags.[DateVisit],126) AS DateVisit
+                  ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
                   ,Ags.[Observation]
@@ -115,11 +115,14 @@ namespace Adom.Hhm.Data.Querys
 
         public static string GetQuestions =
             @"SELECT [QuestionId],[IdServiceType],[QuestionText],[RecordDate], -1 AS[AnswerId]
-                  FROM [AdomServices].[cfg].[QualityQuestions] 
+                  FROM [cfg].[QualityQuestions] 
                   WHERE [IdServiceType] = (SELECT ServiceTypeId FROM [cfg].[Services] WHERE ServiceId = @ServiceId)";
 
         public static string SaveQuestion =
             @"INSERT INTO [sas].[DetailAnswers] ([QuestionId],[AnswerId],[AssignServiceDetailId]) 
-                VALUES	(@AnswerId, @AssignServiceDetailId)";
+                VALUES	(@QuestionId,@AnswerId, @AssignServiceDetailId)";
+
+        public static string UpdateQualityCall =
+            "UPDATE sas.AssignServiceDetails SET QualityCallDate = GETDATE(), QualityCallUser = @QualityCallUser WHERE AssignServiceDetailId = @AssignServiceDetailId";
     }
 }

@@ -8,6 +8,6 @@ namespace Adom.Hhm.Domain.Repositories
 {
     public interface IPaymentReportRepository
     {
-        IEnumerable<PaymentReport> GetPaymentReport();
+        IEnumerable<PaymentReport> GetPaymentReport(PaymentReportFilter paymentReportFilter);
     }
 }

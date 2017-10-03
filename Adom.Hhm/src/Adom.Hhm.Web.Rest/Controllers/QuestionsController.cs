@@ -42,14 +42,14 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
         [Authorize(Policy = "/Questions/Create")]
-        [HttpPost("{assignServiceDetailId}")]
-        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, [FromBody]IEnumerable<QualityQuestion> answers)
+        [HttpPost("{assignServiceDetailId}/{qualityCallUser}")]
+        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, int qualityCallUser, [FromBody]IEnumerable<QualityQuestion> answers)
         {
             ServiceResult<string> result;
 
             try
             {
-                result = _appService.SaveAnswers(assignServiceDetailId, answers);
+                result = _appService.SaveAnswers(assignServiceDetailId, qualityCallUser, answers);
             }
             catch (Exception ex)
             {

@@ -45,9 +45,9 @@ namespace Adom.Hhm.AppServices
             return service.GetQuestions(serviceId);
         }
 
-        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, IEnumerable<QualityQuestion> answers)
+        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, int qualityCallUser, IEnumerable<QualityQuestion> answers)
         {
-            return service.SaveAnswers(assignServiceDetailId, answers);
+            return service.SaveAnswers(assignServiceDetailId, qualityCallUser, answers);
         }
     }
 }

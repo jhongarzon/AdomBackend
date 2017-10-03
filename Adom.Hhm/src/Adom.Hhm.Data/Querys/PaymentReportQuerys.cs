@@ -29,14 +29,16 @@
 		                ,pat.Document PatientDocument
 		                ,ent.Name EntityName
 		                ,pl.Name PlanName
+                        ,Ags.RecordDate RequestDate
 		                ,Ser.HoursToInvest
-		                --Verificado SI/NO
-		                --Verificado Por 
-		                --Fecha Verificado
+                        ,CASE Asd.[Verified] WHEN 1 THEN 'SI' ELSE 'NO' END Verified		                
+                        ,(ISNULL(cal.FirstName,'') + ' ' + ISNULL(cal.SecondName, '') + ' ' + ISNULL(cal.Surname, '') + ' ' + ISNULL(cal.SecondSurname, '')) AS VerifiedBy  
+                        ,CASE WHEN Asd.[VerificationDate] IS NULL THEN '' ELSE CONVERT(VARCHAR(30), Asd.[VerificationDate], 121) END AS [VerificationDate]		                
             FROM [sas].[AssignServiceDetails] Asd
             INNER JOIN [sas].[AssignService] Ags ON Asd.AssignServiceId = Ags.AssignServiceId
             LEFT JOIN [cfg].[Professionals] Pro ON Pro.ProfessionalId = Asd.ProfessionalId
             LEFT JOIN [sec].[Users] usr ON usr.UserId = Pro.UserId
+            LEFT JOIN [sec].[Users] cal ON cal.UserId = Asd.VerifiedBy
             INNER JOIN [cfg].[Services] Ser ON Ser.ServiceId = Ags.ServiceId
             INNER JOIN [cfg].[Entities] ent ON ent.EntityId = Ags.EntityId
             INNER JOIN [cfg].[PlansEntity] pl ON pl.PlanEntityId =  Ags.PlanEntityId
@@ -48,7 +50,9 @@
             INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
             INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId
             INNER JOIN [cfg].[DocumentType] doc ON doc.Id = pat.DocumentTypeId
-            WHERE Asd.StateId = 3 AND Asd.ProfessionalId NOT IN (-1, 0)
-            ORDER BY    Asd.AssignServiceDetailId DESC";
+            WHERE Asd.StateId = 3 
+            AND Asd.ProfessionalId NOT IN (-1, 0) 
+            AND Ags.[InitialDate] > CONVERT(DATE,ISNULL(@InitialDateIni,'01-01-2000'), 105)
+			AND Ags.[InitialDate] < CONVERT(DATE,ISNULL(@InitialDateEnd,GETDATE() + 100),105) ";
     }
 }

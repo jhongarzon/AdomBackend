@@ -15,9 +15,14 @@ namespace Adom.Hhm.Data.Repositories
             _dbConnection = dbConnection;
         }
 
-        public IEnumerable<CopaymentReport> GetCopaymentReport()
+        public IEnumerable<CopaymentReport> GetCopaymentReport(CopaymentReportFilter copaymentReportFilter)
         {
-            return _dbConnection.Query<CopaymentReport>(CopaymentReportQuerys.GetCopaymentReport);
+            var copaymentReport = CopaymentReportQuerys.GetCopaymentReport;
+            if (copaymentReportFilter.ProfessionalId > 0)
+            {
+                copaymentReport += "AND Ags.[ProfessionalId] = @ProfessionalId ";
+            }
+            return _dbConnection.Query<CopaymentReport>(copaymentReport, copaymentReportFilter);
         }
     }
 }

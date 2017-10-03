@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Adom.Hhm.Domain.Entities.Security;
 using Microsoft.Extensions.Configuration;
 using Adom.Hhm.Domain.Services.Interface;
@@ -24,7 +25,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<Patient> GetPatientById(int PatientId)
         {
-            var getPatient = this.repository.GetPatientById(PatientId);
+            var getPatient = repository.GetPatientById(PatientId);
 
             return new ServiceResult<Patient>
             {
@@ -36,7 +37,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<Patient>> GetPatients(int pageNumber, int pageSize)
         {
-            var getPatients = this.repository.GetPatients(pageNumber, pageSize);
+            var getPatients = repository.GetPatients(pageNumber, pageSize);
             return new ServiceResult<IEnumerable<Patient>>
             {
                 Success = true,
@@ -47,7 +48,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<Patient>> GetByDocument(int documentTypeId, string dataFind)
         {
-            var getPatients = this.repository.GetByDocument(documentTypeId, dataFind);
+            var getPatients = repository.GetByDocument(documentTypeId, dataFind);
 
             return new ServiceResult<IEnumerable<Patient>>
             {
@@ -58,7 +59,7 @@ namespace Adom.Hhm.Domain.Services
         }
         public ServiceResult<IEnumerable<Patient>> GetByNames(string dataFind)
         {
-            var getPatients = this.repository.GetByNames(dataFind);
+            var getPatients = repository.GetByNames(dataFind);
 
             return new ServiceResult<IEnumerable<Patient>>
             {
@@ -70,7 +71,7 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<IEnumerable<Patient>> GetPatients()
         {
-            var getPatients = this.repository.GetPatients();
+            var getPatients = repository.GetPatients();
             return new ServiceResult<IEnumerable<Patient>>
             {
                 Success = true,
@@ -81,49 +82,41 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<Patient> Insert(Patient patient)
         {
-            Patient emailExist = this.repository.GetPatientByEmail(patient.Email);
-            Patient documentExist = this.repository.GetPatientByDocument(patient.Document);
+            var emailExist = repository.GetPatientByEmail(patient.Email);
+            var documentExist = repository.GetByDocument(patient.DocumentTypeId, patient.Document);
 
-            if (documentExist == null)
-            {
-                if (emailExist == null)
-                {
-                    var PatientInserted = this.repository.Insert(patient);
-                    return new ServiceResult<Patient>
-                    {
-                        Success = true,
-                        Result = PatientInserted
-                    };
-                }
-                else
-                {
-                    return new ServiceResult<Patient>
-                    {
-                        Success = false,
-                        Errors = new string[] { MessageError.EmailExists }
-                    };
-                }
-            }
-            else
-            {
+            if (documentExist != null && documentExist.Any())
                 return new ServiceResult<Patient>
                 {
                     Success = false,
-                    Errors = new string[] { MessageError.DocumentExists }
+                    Errors = new[] { MessageError.DocumentExists }
                 };
-            }
+
+            if (emailExist != null)
+                return new ServiceResult<Patient>
+                {
+                    Success = false,
+                    Errors = new[] { MessageError.EmailExists }
+                };
+
+            var patientInserted = repository.Insert(patient);
+            return new ServiceResult<Patient>
+            {
+                Success = true,
+                Result = patientInserted
+            };
         }
 
         public ServiceResult<Patient> Update(Patient patient)
         {
-            Patient emailExist = this.repository.GetPatientByEmailWithoutId(patient.PatientId, patient.Email);
-            Patient documentExist = this.repository.GetPatientByDocumentWithoutId(patient.PatientId, patient.Document);
+            var emailExist = repository.GetPatientByEmailWithoutId(patient.PatientId, patient.Email);
+            var documentExist = repository.GetPatientByDocumentWithoutId(patient.PatientId, patient.Document, patient.DocumentTypeId);
 
             if (documentExist == null)
             {
                 if (emailExist == null)
                 {
-                    var updated = this.repository.Update(patient);
+                    var updated = repository.Update(patient);
                     return new ServiceResult<Patient>
                     {
                         Success = true,

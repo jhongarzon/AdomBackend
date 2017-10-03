@@ -10,6 +10,7 @@ namespace Adom.Hhm.Domain.Entities.Reports
         public int EntityId { get; set; }
         public int PlanEntityId { get; set; }
         public int ServiceId { get; set; }
-        public string InitialDate { get; set; }
+        public string InitialDateIni { get; set; }
+        public string InitialDateEnd { get; set; }
     }
 }

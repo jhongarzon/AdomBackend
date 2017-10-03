@@ -14,9 +14,23 @@ namespace Adom.Hhm.Data.Repositories
         {
             _dbConnection = dbConnection;
         }
-        public IEnumerable<PaymentReport> GetPaymentReport()
+        public IEnumerable<PaymentReport> GetPaymentReport(PaymentReportFilter paymentReportFilter)
         {
-            return _dbConnection.Query<PaymentReport>(PaymentReportQuerys.GetPaymentReport);
+            var paymentReport = PaymentReportQuerys.GetPaymentReport;
+            if (paymentReportFilter.EntityId > 0)
+            {
+                paymentReport += "AND Ags.[EntityId] = @EntityId ";
+            }
+            if (paymentReportFilter.PlanEntityId > 0)
+            {
+                paymentReport += "AND Ags.[PlanEntityId] = @PlanEntityId ";
+            }
+            if (paymentReportFilter.ServiceId > 0)
+            {
+                paymentReport += "AND Ags.[ServiceId] = @ServiceId ";
+            }
+            paymentReport += "ORDER BY Asd.AssignServiceDetailId DESC";
+            return _dbConnection.Query<PaymentReport>(paymentReport, paymentReportFilter);
         }
     }
 }

@@ -6,7 +6,7 @@ namespace Adom.Hhm.Domain.Services.Interface
 {
     public interface ISpecialReportService
     {
-        ServiceResult<IEnumerable<SpecialSummaryReport>> GetSpecialSummaryReport();
-        ServiceResult<IEnumerable<SpecialDetailedReport>> GetSpecialDetailedReport();
+        ServiceResult<IEnumerable<SpecialSummaryReport>> GetSpecialSummaryReport(SpecialReportFilter specialReportFilter);
+        ServiceResult<IEnumerable<SpecialDetailedReport>> GetSpecialDetailedReport(SpecialReportFilter specialReportFilter);
     }
 }

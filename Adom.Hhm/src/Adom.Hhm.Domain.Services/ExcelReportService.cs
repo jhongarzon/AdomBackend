@@ -17,11 +17,10 @@ namespace Adom.Hhm.Domain.Services
         private readonly List<string> _dynAdditionalColumns = new List<string>();
         private int _removedColumns = 0;
         private int _currentIndex = 1;
-        public string GenerateExcelReport<T>(IEnumerable<T> data)
+        public string GenerateExcelReport<T>(string rootPath, IEnumerable<T> data)
         {
             var type = typeof(T).Name;
-            const string folderPath = @"D:\Jhon\Projects\Adom\Hhm\Backend\Adom.Hhm";
-            var filePath = string.Format(@"{0}\{1}_{2}.xlsx", folderPath, type, DateTime.Now.ToString("yyMMddhhmmss"));
+            var filePath = string.Format(@"{0}\{1}_{2}.xlsx", rootPath, type, DateTime.Now.ToString("yyMMddhhmmss"));
             CreateSpreadSheet(filePath, data);
             return filePath;
         }

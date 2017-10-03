@@ -86,9 +86,9 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
-        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, IEnumerable<QualityQuestion> answers)
+        public ServiceResult<string> SaveAnswers(int assignServiceDetailId, int qualityQuestionUser, IEnumerable<QualityQuestion> answers)
         {
-            var updated = repository.SaveAnswers(assignServiceDetailId, answers);
+            var updated = repository.SaveAnswers(assignServiceDetailId, qualityQuestionUser, answers);
             return new ServiceResult<string>
             {
                 Success = true,

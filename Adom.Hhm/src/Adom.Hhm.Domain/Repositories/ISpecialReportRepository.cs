@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Adom.Hhm.Domain.Entities.Reports;
 
 namespace Adom.Hhm.Domain.Repositories
 {
     public interface ISpecialReportRepository
     {
-        IEnumerable<SpecialSummaryReport> GetSpecialSummaryReport();
-        IEnumerable<SpecialDetailedReport> GetSpecialDetailedReport();
+        IEnumerable<SpecialSummaryReport> GetSpecialSummaryReport(SpecialReportFilter specialReportFilter);
+        IEnumerable<SpecialDetailedReport> GetSpecialDetailedReport(SpecialReportFilter specialReportFilter);
     }
 }

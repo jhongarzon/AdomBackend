@@ -339,7 +339,8 @@ namespace Adom.Hhm.Data.Querys
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
             WHERE       [pat].[Document] = @Document
-            AND         [pat].[PatientId] <> @PatientId";
+            AND         [pat].[PatientId] <> @PatientId 
+            AND         [pat].[DocumentTypeId] = @DocumentTypeId";
 
         public static string GetById =
         @"  SELECT pat.[PatientId]

@@ -14,9 +14,9 @@ namespace Adom.Hhm.Domain.Services
         {
             _copaymentReportRepository = copaymentReportRepository;
         }
-        public ServiceResult<IEnumerable<CopaymentReport>> GetCopaymentReport()
+        public ServiceResult<IEnumerable<CopaymentReport>> GetCopaymentReport(CopaymentReportFilter copaymentReportFilter)
         {
-            var result = _copaymentReportRepository.GetCopaymentReport();
+            var result = _copaymentReportRepository.GetCopaymentReport(copaymentReportFilter);
             return new ServiceResult<IEnumerable<CopaymentReport>>
             {
                 Success = true,

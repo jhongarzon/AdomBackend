@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Adom.Hhm.Domain.Services.Interface;
 using Adom.Hhm.Domain.Entities.Reports;
+using Microsoft.AspNetCore.Hosting;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -22,17 +23,20 @@ namespace Adom.Hhm.Web.Rest.Controllers
     {
         private readonly IExcelReportService _excelReportService;
         private readonly ICopaymentReportService _copaymentReportService;
-        public CopaymentReportController(IExcelReportService excelReportService, ICopaymentReportService copaymentReportService)
+        private readonly IHostingEnvironment _hostingEnvironment;
+        public CopaymentReportController(IHostingEnvironment hostingEnvironment, IExcelReportService excelReportService, ICopaymentReportService copaymentReportService)
         {
             _excelReportService = excelReportService;
             _copaymentReportService = copaymentReportService;
+            _hostingEnvironment = hostingEnvironment;
         }
         [Authorize(Policy = "/SpecialReport/Create")]
         [HttpPost]
         public FileResult Post([FromBody] CopaymentReportFilter copaymentReportFilter)
         {
-            var data = _copaymentReportService.GetCopaymentReport();
-            var excelFile = _excelReportService.GenerateExcelReport(data.Result);
+            var data = _copaymentReportService.GetCopaymentReport(copaymentReportFilter);
+            var rootPath = Path.Combine(_hostingEnvironment.WebRootPath, "Temp");
+            var excelFile = _excelReportService.GenerateExcelReport(rootPath, data.Result);
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             var bytes = System.IO.File.ReadAllBytes(excelFile);
             var fileName = Path.GetFileNameWithoutExtension(excelFile);

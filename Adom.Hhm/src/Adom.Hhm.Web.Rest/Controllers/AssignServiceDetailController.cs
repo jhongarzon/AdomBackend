@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -80,10 +81,31 @@ namespace Adom.Hhm.Web.Rest.Controllers
         [HttpPut("{id}")]
         public ServiceResult<AssignServiceDetail> Put(int id, [FromBody]IEnumerable<AssignServiceDetail> models)
         {
-            ServiceResult<AssignServiceDetail> result = null;
+            ServiceResult<AssignServiceDetail> result = new ServiceResult<AssignServiceDetail>();
+            var errorList = new List<string>();
 
             foreach (var model in models)
             {
+                if (string.IsNullOrEmpty(model.DateVisit))
+                {
+                    if (model.Verified)
+                    {
+                        errorList.Add("Para verificar el registro es necesario ingresar la fecha de visita");
+                        result.Success = false;
+                        break;
+
+                    }
+                    continue;
+                }
+                DateTime date;
+                DateTime.TryParseExact(model.DateVisit, "dd-MM-yyyy", CultureInfo.InvariantCulture,
+                    DateTimeStyles.None, out date);
+                if (date > DateTime.Today && model.StateId == 2)
+                {
+                    errorList.Add("En la visita #" + model.Consecutive + " la fecha de visita es mayor a hoy");
+                    result.Success = false;
+                    break;
+                }
                 var validatorResult = _validator.Validate(model);
 
                 if (validatorResult.IsValid)
@@ -95,18 +117,18 @@ namespace Adom.Hhm.Web.Rest.Controllers
                     catch (Exception ex)
                     {
                         result = new ServiceResult<AssignServiceDetail>();
-                        result.Errors = new string[] { ex.Message };
+                        errorList.Add(ex.Message);
                         result.Success = false;
                     }
                 }
                 else
                 {
                     result = new ServiceResult<AssignServiceDetail>();
-                    result.Errors = validatorResult.GetErrors();
+                    errorList = validatorResult.GetErrors().ToList();
                     result.Success = false;
                 }
             }
-
+            result.Errors = errorList.ToArray();
             return result;
         }
     }

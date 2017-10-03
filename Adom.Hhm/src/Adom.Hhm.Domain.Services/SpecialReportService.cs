@@ -16,9 +16,9 @@ namespace Adom.Hhm.Domain.Services
         {
             _specialReportRepository = specialReportRepository;
         }
-        public ServiceResult<IEnumerable<SpecialSummaryReport>> GetSpecialSummaryReport()
+        public ServiceResult<IEnumerable<SpecialSummaryReport>> GetSpecialSummaryReport(SpecialReportFilter specialReportFilter)
         {
-            var result = _specialReportRepository.GetSpecialSummaryReport();
+            var result = _specialReportRepository.GetSpecialSummaryReport(specialReportFilter);
             return new ServiceResult<IEnumerable<SpecialSummaryReport>>
             {
                 Result = result,
@@ -27,9 +27,9 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
-        public ServiceResult<IEnumerable<SpecialDetailedReport>> GetSpecialDetailedReport()
+        public ServiceResult<IEnumerable<SpecialDetailedReport>> GetSpecialDetailedReport(SpecialReportFilter specialReportFilter)
         {
-            var result = _specialReportRepository.GetSpecialDetailedReport();
+            var result = _specialReportRepository.GetSpecialDetailedReport(specialReportFilter);
             return new ServiceResult<IEnumerable<SpecialDetailedReport>>
             {
                 Result = result,
