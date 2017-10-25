@@ -29,13 +29,13 @@ namespace Adom.Hhm.Data.Querys
 		        ,Ags.Discounts
 		        ,Ser.Value ValueToPayToProfessional
 		        ,'Recicido Por'  ReceivedBy
-		        ,CONVERT(VARCHAR(10),GETDATE(),120) ReceivedDateTime
+		        ,FORMAT(GETDATE(),'dd-MM-yyyy HH:mm:ss') ReceivedDateTime
 		        ,CONCAT(pat.[FirstName],' ', pat.Surname) PatientName
 		        ,doc.Name PatientDocumentType
 		        ,pat.[Document] PatientDocument
 		        ,ent.[Name] AS EntityName                 
 		        ,pe.[Name] AS PlanEntityName
-		        ,Ags.RecordDate
+		        ,FORMAT(Ags.RecordDate, 'dd-MM-yyyy HH:mm:ss') RecordDate
         FROM	    [sas].[AssignService] Ags
         INNER JOIN  [cfg].[Professionals] Pro ON Ags.ProfessionalId = Pro.ProfessionalId
         INNER JOIN [cfg].[PlansEntity] pl ON pl.PlanEntityId =  Ags.PlanEntityId
@@ -49,11 +49,6 @@ namespace Adom.Hhm.Data.Querys
         INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
         INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId 
         INNER JOIN [cfg].[DocumentType] doc ON Pat.DocumentTypeId = doc.Id 
-        WHERE Ags.[InitialDate] > CONVERT(DATE,ISNULL(@InitialDateIni,'01-01-2000'), 105)
-		AND Ags.[InitialDate] < CONVERT(DATE,ISNULL(@InitialDateEnd,GETDATE() + 100),105)
-		AND Ags.[FinalDate] > CONVERT(DATE,ISNULL(@FinalDateIni,'01-01-2000'), 105)
-		AND Ags.[FinalDate] < CONVERT(DATE,ISNULL(@FinalDateEnd,GETDATE() + 100),105)
-		AND Ags.[RecordDate] > CONVERT(DATE,ISNULL(@DeliverDateIni,'01-01-2000'), 105)
-		AND Ags.[RecordDate] < CONVERT(DATE,ISNULL(@DeliverDateEnd,GETDATE() + 100),105) ";
+        WHERE 1 = 1 ";
     }
 }

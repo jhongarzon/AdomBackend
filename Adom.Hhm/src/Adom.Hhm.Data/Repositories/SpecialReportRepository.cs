@@ -22,6 +22,30 @@ namespace Adom.Hhm.Data.Repositories
         public IEnumerable<SpecialSummaryReport> GetSpecialSummaryReport(SpecialReportFilter specialReportFilter)
         {
             var summaryReport = SpecialReportQuerys.GetSummaryReport;
+            if (!string.IsNullOrEmpty(specialReportFilter.InitialDateIni))
+            {
+                summaryReport += " AND Ags.[InitialDate] > CONVERT(DATE, @InitialDateIni, 105) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.InitialDateEnd))
+            {
+                summaryReport += " AND Ags.[InitialDate] < CONVERT(DATE, @InitialDateEnd, 105) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.VisitDateIni))
+            {
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit > CONVERT(DATE, @VisitDateIni, 105)) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.VisitDateEnd))
+            {
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit < CONVERT(DATE, @VisitDateEnd,105)) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.RequestDateIni))
+            {
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE RecordDate > CONVERT(DATE, @RequestDateIni, 105)) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.RequestDateEnd))
+            {
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE RecordDate < CONVERT(DATE, @RequestDateEnd,105)) ";
+            }
             if (specialReportFilter.EntityId > 0)
             {
                 summaryReport += "AND Ags.[EntityId] = @EntityId ";
@@ -49,7 +73,30 @@ namespace Adom.Hhm.Data.Repositories
         public IEnumerable<SpecialDetailedReport> GetSpecialDetailedReport(SpecialReportFilter specialReportFilter)
         {
             var detailedReportQuery = SpecialReportQuerys.GetDetailedReport;
-
+            if (!string.IsNullOrEmpty(specialReportFilter.InitialDateIni))
+            {
+                detailedReportQuery += " AND Ags.[InitialDate] > CONVERT(DATE, @InitialDateIni, 105) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.InitialDateEnd))
+            {
+                detailedReportQuery += " AND Ags.[InitialDate] < CONVERT(DATE, @InitialDateEnd, 105) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.VisitDateIni))
+            {
+                detailedReportQuery += " AND Asd.[DateVisit] > CONVERT(DATE, @VisitDateIni, 105) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.VisitDateEnd))
+            {
+                detailedReportQuery += " AND Asd.[DateVisit] < CONVERT(DATE, @VisitDateEnd, 105) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.RequestDateIni))
+            {
+                detailedReportQuery += " AND Asd.[RecordDate] > CONVERT(DATE, @RequestDateIni, 105) ";
+            }
+            if (!string.IsNullOrEmpty(specialReportFilter.RequestDateEnd))
+            {
+                detailedReportQuery += " AND Asd.[RecordDate] < CONVERT(DATE, @RequestDateEnd,105) ";
+            }
             if (specialReportFilter.EntityId > 0)
             {
                 detailedReportQuery += "AND Ags.[EntityId] = @EntityId ";

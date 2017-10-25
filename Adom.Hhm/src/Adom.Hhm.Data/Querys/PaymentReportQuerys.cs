@@ -8,7 +8,7 @@
 		                ,Pro.Document ProfessionalDocument
 		                ,UPPER(Typ.Description) ServiceType
 		                ,Ser.Name ServiceName
-		                ,CONVERT(VARCHAR,Ags.InitialDate, 120) InitialDate
+		                ,FORMAT(Ags.InitialDate, 'dd-MM-yyyy HH:mm:ss') InitialDate
 		                ,UPPER(CASE DATEPART(dw,CONVERT(DATETIME,Ags.InitialDate,120)) 
 			                WHEN 2 THEN 'Lunes' 
 			                WHEN 3 THEN 'Martes' 
@@ -29,7 +29,7 @@
 		                ,pat.Document PatientDocument
 		                ,ent.Name EntityName
 		                ,pl.Name PlanName
-                        ,Ags.RecordDate RequestDate
+                        ,FORMAT(Ags.RecordDate,'dd-MM-yyyy HH:mm:ss') RequestDate
 		                ,Ser.HoursToInvest
                         ,CASE Asd.[Verified] WHEN 1 THEN 'SI' ELSE 'NO' END Verified		                
                         ,(ISNULL(cal.FirstName,'') + ' ' + ISNULL(cal.SecondName, '') + ' ' + ISNULL(cal.Surname, '') + ' ' + ISNULL(cal.SecondSurname, '')) AS VerifiedBy  

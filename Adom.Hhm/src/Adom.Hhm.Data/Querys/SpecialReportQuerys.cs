@@ -3,7 +3,7 @@
     public class SpecialReportQuerys
     {
         public static string GetSummaryReport =
-        @"   SELECT	Ags.[AssignServiceId]
+            @"   SELECT	Ags.[AssignServiceId]
                     ,(ISNULL(pat.FirstName,'') + ' ' + ISNULL(pat.SecondName, '') + ' ' + ISNULL(pat.Surname, '') + ' ' + ISNULL(pat.SecondSurname, '')) AS PatientName
 		            ,doc.Name PatientDocumentType
 		            ,pat.Document PatientDocument
@@ -20,11 +20,11 @@
 		            ,Ags.CoPaymentAmount
 		            ,cpf.Name CopaymentFrecuency
 		            ,CASE Ags.CopaymentStatus WHEN 0 THEN 'ENTREGADO' ELSE 'SIN ENTREGAR' END CopaymentStatus
-		            ,Ags.RecordDate RequestDate
-                    ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
-                    ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
-                    ,(SELECT MAX(DateVisit) FROM [sas].AssignServiceDetails where AssignServiceId = Ags.AssignServiceId) RealInitialDate
-					,(SELECT MIN(DateVisit) FROM [sas].AssignServiceDetails where AssignServiceId = Ags.AssignServiceId) RealFinalDate
+		            ,FORMAT(Ags.RecordDate, 'dd-MM-yyyy HH:mm:ss') RequestDate
+                    ,FORMAT(Ags.[InitialDate], 'dd-MM-yyyy') InitialDate
+                    ,FORMAT(Ags.[FinalDate], 'dd-MM-yyyy') FinalDate
+                    ,FORMAT((SELECT MAX(DateVisit) FROM [sas].AssignServiceDetails where AssignServiceId = Ags.AssignServiceId), 'dd-MM-yyyy') RealInitialDate
+					,FORMAT((SELECT MIN(DateVisit) FROM [sas].AssignServiceDetails where AssignServiceId = Ags.AssignServiceId), 'dd-MM-yyyy') RealFinalDate
 		            ,Ags.Cie10	
 		            ,Ags.DescriptionCie10
 		            ,pt.Name PatientType			  
@@ -50,12 +50,7 @@
             INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
             INNER JOIN [cfg].[PlansRates] pr ON pr.PlanEntityId = Ags.PlanEntityId AND pr.ServiceId = Ags.ServiceId
             INNER JOIN [sec].[Users] usr ON usr.UserId = Ags.AssignedBy
-			WHERE Ags.[InitialDate] > CONVERT(DATE,ISNULL(@InitialDateIni,'01-01-2000'), 105)
-			AND Ags.[InitialDate] < CONVERT(DATE,ISNULL(@InitialDateEnd,GETDATE() + 100),105)
-			AND EXISTS(SELECT 1 FROM [sas].[AssignServiceDetails] WHERE DateVisit > CONVERT(DATE,ISNULL(@VisitDateIni,'01-01-2000'), 105)) 
-			AND EXISTS(SELECT 1 FROM [sas].[AssignServiceDetails] WHERE DateVisit < CONVERT(DATE,ISNULL(@VisitDateEnd,GETDATE() + 100),105))
-			AND EXISTS(SELECT 1 FROM [sas].[AssignServiceDetails] WHERE RecordDate > CONVERT(DATE,ISNULL(@RequestDateIni,'01-01-2000'), 105)) 
-			AND EXISTS(SELECT 1 FROM [sas].[AssignServiceDetails] WHERE RecordDate < CONVERT(DATE,ISNULL(@RequestDateEnd,GETDATE() + 100),105)) ";
+			WHERE 1 =1 ";
 
         public static string GetDetailedReport =
             @"SELECT	  AssignServiceDetailId
@@ -70,21 +65,21 @@
 			,Sef.Name ServiceFrecuency
 			,Ags.Cie10
 			,Sta.Name VisitStatus
-			,Ags.RecordDate RequestDate
-			,Asd.DateVisit
+			,FORMAT(Ags.RecordDate, 'dd-MM-yyyy HH:mm:ss') RequestDate
+			,FORMAT(Asd.DateVisit, 'dd-MM-yyyy') DateVisit
 			,cpf.Name CopaymentFrecuency
 			,Asd.ReceivedAmount
 			,Asd.Pin
 			,Asd.OtherAmount
-			,Asd.RecordDate
+			,FORMAT(Asd.RecordDate, 'dd-MM-yyyy HH:mm:ss') RecordDate
 			,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
 		    ,Pro.Document ProfessionalDocument
 			,Ser.HoursToInvest            
-            ,CASE WHEN Asd.QualityCallDate IS NULL THEN '' ELSE CONVERT(VARCHAR(30), Asd.QualityCallDate, 121) END AS QualityCallDate
+            ,CASE WHEN Asd.QualityCallDate IS NULL THEN '' ELSE FORMAT(Asd.QualityCallDate, 'dd-MM-yyyy HH:mm:ss') END AS QualityCallDate
             ,(ISNULL(qua.FirstName,'') + ' ' + ISNULL(qua.SecondName, '') + ' ' + ISNULL(qua.Surname, '') + ' ' + ISNULL(qua.SecondSurname, '')) AS QualityCallUser 
             ,Asd.[Observation]
             ,CASE Asd.[Verified] WHEN 1 THEN 'SI' ELSE 'NO' END Verified
-            ,CASE WHEN Asd.[VerificationDate] IS NULL THEN '' ELSE CONVERT(VARCHAR(30), Asd.[VerificationDate], 121) END AS [VerificationDate]
+            ,CASE WHEN Asd.[VerificationDate] IS NULL THEN '' ELSE FORMAT(Asd.[VerificationDate], 'dd-MM-yyyy HH:mm:ss') END AS [VerificationDate]
             ,(ISNULL(cal.FirstName,'') + ' ' + ISNULL(cal.SecondName, '') + ' ' + ISNULL(cal.Surname, '') + ' ' + ISNULL(cal.SecondSurname, '')) AS VerifiedBy  
             FROM [sas].[AssignServiceDetails] Asd
             INNER JOIN [sas].[AssignService] Ags ON Asd.AssignServiceId = Ags.AssignServiceId            
@@ -101,13 +96,7 @@
             LEFT JOIN [sec].[Users] usr ON usr.UserId = Pro.UserId
             LEFT JOIN [sec].[Users] cal ON cal.UserId = Asd.VerifiedBy
             LEFT JOIN [sec].[Users] qua ON qua.UserId = Asd.QualityCallUser
-            WHERE Asd.ProfessionalId NOT IN (-1, 0)
-			AND Ags.[InitialDate] > CONVERT(DATE,ISNULL(@InitialDateIni,'01-01-2000'), 105)
-			AND Ags.[InitialDate] < CONVERT(DATE,ISNULL(@InitialDateEnd,GETDATE() + 100),105)
-			AND Asd.[DateVisit] > CONVERT(DATE,ISNULL(@VisitDateIni,'01-01-2000'), 105) 
-			AND Asd.[DateVisit] < CONVERT(DATE,ISNULL(@VisitDateEnd,GETDATE() + 100),105)
-			AND Asd.[RecordDate] > CONVERT(DATE,ISNULL(@RequestDateIni,'01-01-2000'), 105) 
-			AND Asd.[RecordDate] < CONVERT(DATE	,ISNULL(@RequestDateEnd,GETDATE() + 100),105)";
+            WHERE 1 = 1 ";
             
 
         public static string GetAssignedProfessionals =
