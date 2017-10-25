@@ -33,13 +33,21 @@ namespace Adom.Hhm.Data.Repositories
             {
                 whereClause.Append("AND ser.ServiceTypeId = @ServiceTypeId ");
             }
-            if (!string.IsNullOrEmpty(ripsFilter.InitialDate))
+            if (!string.IsNullOrEmpty(ripsFilter.InitialDateIni))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) > CONVERT(DATETIME,@InitialDate, 105) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) > CONVERT(DATETIME,@InitialDateIni, 105) ");
             }
-            if (!string.IsNullOrEmpty(ripsFilter.FinalDate))
+            if (!string.IsNullOrEmpty(ripsFilter.InitialDateEnd))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) < CONVERT(DATETIME,@FinalDate, 105) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) < CONVERT(DATETIME,@InitialDateEnd, 105) ");
+            }
+            if (!string.IsNullOrEmpty(ripsFilter.FinalDateIni))
+            {
+                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) > CONVERT(DATETIME,@FinalDateIni, 105) ");
+            }
+            if (!string.IsNullOrEmpty(ripsFilter.FinalDateEnd))
+            {
+                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) < CONVERT(DATETIME,@FinalDateEnd, 105) ");
             }
             var finalQuery = string.Format("{0} {1}", RipsQuerys.GetServiceRips, whereClause);
             return _dbConnection.Query<Rips>(finalQuery, ripsFilter);
