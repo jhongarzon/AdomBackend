@@ -49,7 +49,8 @@ namespace Adom.Hhm.Web.Rest.Controllers
         [HttpPost]
         public FileResult Post([FromBody] RipsGenerationData ripsGenerationData)
         {
-            var folderPath = _ripsDomainService.GenerateRips(ripsGenerationData);
+            var rootPath = Path.Combine(_hostingEnvironment.WebRootPath, "Temp");
+            var folderPath = _ripsDomainService.GenerateRips(rootPath, ripsGenerationData);
             var fileName = string.Format("{0}/{1}.zip", Path.Combine(_hostingEnvironment.WebRootPath, "Temp"), "Test");
             var zipPath = Path.Combine(folderPath, fileName);
             if (System.IO.File.Exists(zipPath))

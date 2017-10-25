@@ -33,28 +33,28 @@ namespace Adom.Hhm.Domain.Services
             };
         }
 
-        public string GenerateRips(RipsGenerationData ripsGenerationData)
+        public string GenerateRips(string rootPath, RipsGenerationData ripsGenerationData)
         {
-            var basePath = @"D:\Jhon\Projects\Adom\Hhm\Backend\Adom.Hhm";
+            
             var consecutive = _ripsRepository.InsertRipsControl(ripsGenerationData.RipsFilter.InvoiceNumber);
-            basePath = string.Format(@"{0}\{1}", basePath, consecutive);
-            if (!Directory.Exists(basePath))
+            rootPath = string.Format(@"{0}\{1}", rootPath, consecutive);
+            if (!Directory.Exists(rootPath))
             {
-                Directory.CreateDirectory(basePath);
+                Directory.CreateDirectory(rootPath);
             }
             var firstRip = ripsGenerationData.Rips.FirstOrDefault();
-            if (firstRip == null) return basePath;
+            if (firstRip == null) return rootPath;
             var groups = ripsGenerationData.Rips.GroupBy(x => x.PatientDocument).Select(group => @group.First());
-            var afCount = _ripsGenerator.GenerateAfFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            var usCount = _ripsGenerator.GenerateUsFile(basePath, groups);
-            var apCount = _ripsGenerator.GenerateApFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            var acCount = _ripsGenerator.GenerateAcFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            var atCount = _ripsGenerator.GenerateAtFile(basePath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
-            var ctCount = _ripsGenerator.GenerateCtFile(basePath, firstRip.ProviderCode, afCount, usCount, apCount,
+            var afCount = _ripsGenerator.GenerateAfFile(rootPath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var usCount = _ripsGenerator.GenerateUsFile(rootPath, groups);
+            var apCount = _ripsGenerator.GenerateApFile(rootPath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var acCount = _ripsGenerator.GenerateAcFile(rootPath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var atCount = _ripsGenerator.GenerateAtFile(rootPath, ripsGenerationData.RipsFilter, ripsGenerationData.Rips);
+            var ctCount = _ripsGenerator.GenerateCtFile(rootPath, firstRip.ProviderCode, afCount, usCount, apCount,
                 acCount, atCount);
             UpdateServiceInvoices(ripsGenerationData.Rips, ripsGenerationData.RipsFilter.InvoiceNumber);
 
-            return basePath;
+            return rootPath;
         }
 
         public void UpdateServiceInvoices(IEnumerable<Rips> rips, string invoiceNumber)
