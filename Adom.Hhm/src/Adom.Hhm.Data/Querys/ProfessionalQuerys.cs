@@ -85,6 +85,15 @@ namespace Adom.Hhm.Data.Querys
             WHERE       [Pro].[ProfessionalId] = @ProfessionalId
             AND         [Urs].[State] = 1";
 
+        public static string GetByDocument =
+        @"  SELECT	    Pro.*
+            FROM	    [cfg].[Professionals] Pro
+            INNER JOIN  [sec].[Users] Urs
+            ON          [Urs].[UserId] = [Pro].[UserId]
+            WHERE       [Pro].[Document] = @Document
+            AND         [Pro].[DocumentTypeId] = @DocumentTypeId
+            AND         [Urs].[State] = 1";
+
         public static string Insert =
         @"  INSERT INTO [cfg].[Professionals]
                ([UserId]

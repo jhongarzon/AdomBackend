@@ -12,5 +12,6 @@ namespace Adom.Hhm.Domain.Services.Interface
         ServiceResult<Professional> GetProfessionalById(int professionalId);
         ServiceResult<Professional> Insert(Professional Professional);
         ServiceResult<Professional> Update(Professional Professional);
+        ServiceResult<Professional> GetByDocument(int documentType, string document);
     }
 }

@@ -75,6 +75,25 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             return result;
         }
+        [Authorize(Policy = "/Professional/Get")]
+        [HttpGet("{documentTypeId}/{document}")]
+        public ServiceResult<Professional> Get(int documentTypeId, string document)
+        {
+            ServiceResult<Professional> result = null;
+
+            try
+            {
+                result = this.appService.GetByDocument(documentTypeId, document);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<Professional>();
+                result.Errors = new string[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
 
         [Authorize(Policy = "/Professional/Create")]
         [HttpPost]

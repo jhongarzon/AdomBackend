@@ -16,6 +16,8 @@ using System.IdentityModel.Tokens.Jwt;
 using Adom.Hhm.Utility;
 using Adom.Hhm.AppServices.Interfaces;
 using Adom.Hhm.Domain.Entities;
+using Adom.Hhm.Domain.Services.Interface;
+using Adom.Hhm.Domain.Services;
 
 // For more information on enabling Web API for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -29,12 +31,27 @@ namespace Adom.Hhm.Web.Rest.Controllers
         private readonly IAssignServiceDetailAppService _appService;
         private readonly AssignServiceDetailValidator _validator;
         private readonly IConfigurationRoot _configuration;
+        private readonly IMailService _mailService;
+        private readonly IAssignServiceDomainService _assignServiceDomainService;
+        private readonly IProfessionalDomainService _professionalDomainService;
+        private readonly IPatientDomainService _patientDomainService;
+        private readonly IServiceDomainService _serviceDomainService;
 
-        public AssignServiceDetailController(IAssignServiceDetailAppService appService, AssignServiceDetailValidator validator, IConfigurationRoot configuration)
+
+        public AssignServiceDetailController(IAssignServiceDetailAppService appService, AssignServiceDetailValidator validator,
+            IConfigurationRoot configuration, IMailService mailService, IAssignServiceDomainService assignServiceDomainService,
+            IProfessionalDomainService professionalDomainService, IPatientDomainService patientDomainService, 
+            IServiceDomainService serviceDomainService)
         {
-            this._appService = appService;
-            this._validator = validator;
-            this._configuration = configuration;
+            _appService = appService;
+            _validator = validator;
+            _configuration = configuration;
+            _mailService = mailService;
+            _assignServiceDomainService = assignServiceDomainService;
+            _professionalDomainService = professionalDomainService;
+            _patientDomainService = patientDomainService;
+            _serviceDomainService = serviceDomainService;
+
         }
 
         [Authorize(Policy = "/AssignService/Get")]
@@ -45,7 +62,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             try
             {
-                result = this._appService.GetAssignServiceDetails();
+                result = _appService.GetAssignServiceDetails();
             }
             catch (Exception ex)
             {
@@ -65,7 +82,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             try
             {
-                result = this._appService.GetAssignServiceDetailByAssignServiceId(assignServiceId);
+                result = _appService.GetAssignServiceDetailByAssignServiceId(assignServiceId);
             }
             catch (Exception ex)
             {
@@ -83,7 +100,9 @@ namespace Adom.Hhm.Web.Rest.Controllers
         {
             ServiceResult<AssignServiceDetail> result = new ServiceResult<AssignServiceDetail>();
             var errorList = new List<string>();
-
+            var isReassignment = false;
+            var reasigmentDetailCount = 0;
+            AssignServiceDetail currentDetail = null;
             foreach (var model in models)
             {
                 if (string.IsNullOrEmpty(model.DateVisit))
@@ -97,6 +116,8 @@ namespace Adom.Hhm.Web.Rest.Controllers
                     }
                     continue;
                 }
+
+
                 DateTime date;
                 DateTime.TryParseExact(model.DateVisit, "dd-MM-yyyy", CultureInfo.InvariantCulture,
                     DateTimeStyles.None, out date);
@@ -112,7 +133,15 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 {
                     try
                     {
-                        result = this._appService.Update(model);
+                        var currentDetailResult = _appService.GetAssignServiceDetailById(model.AssignServiceDetailId);
+                        currentDetail = currentDetailResult.Result;
+                        result = _appService.Update(model);
+                        if (currentDetail.ProfessionalId != model.ProfessionalId)
+                        {
+                            reasigmentDetailCount++;
+                            isReassignment = true;
+                        }
+
                     }
                     catch (Exception ex)
                     {
@@ -128,8 +157,41 @@ namespace Adom.Hhm.Web.Rest.Controllers
                     result.Success = false;
                 }
             }
+            if (isReassignment && currentDetail!= null)
+            {
+                ReassignProfessionalMail(currentDetail, reasigmentDetailCount);
+            }
             result.Errors = errorList.ToArray();
             return result;
+        }
+
+        private void ReassignProfessionalMail(AssignServiceDetail assignServiceDetail, int detailCount)
+        {
+            var result = _assignServiceDomainService.GetAssignServiceById(assignServiceDetail.AssignServiceId);
+            var assingService = result.Result;
+            if (assingService == null) return;
+
+            var patientResult = _patientDomainService.GetPatientById(assingService.PatientId);
+            var serviceResult = _serviceDomainService.GetServiceById(assingService.ServiceId);
+            var service = serviceResult.Result;
+            var patient = patientResult.Result;
+            var professionalResult = _professionalDomainService.GetProfessionalById(assignServiceDetail.ProfessionalId);
+            var professional = professionalResult.Result;
+            var professionalFullName = $"{professional.FirstName} {professional.SecondName} {professional.Surname} {professional.SecondSurname}";
+            var patientFullName = $"{patient.FirstName} {patient.SecondName} {patient.Surname} {patient.SecondSurname}";
+            var mailMessage = new MailMessage
+            {
+                Body = string.Format(AdomMailContent.ProfessionalReasigmentMail,
+                    professionalFullName,
+                    patient.Document,
+                    patientFullName,
+                    service.Name,
+                    detailCount),
+
+                Subject = "Cambios en tus servicios - ADOM",
+                To = new MailAccount(professional.FirstName, professional.Email)
+            };
+            _mailService.SendMail(mailMessage);
         }
     }
 }

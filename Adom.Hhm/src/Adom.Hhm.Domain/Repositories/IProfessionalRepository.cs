@@ -13,5 +13,6 @@ namespace Adom.Hhm.Domain.Repositories
         Professional GetProfessionalByEmailWithoutId(int ProfessionalId, string email);
         Professional Insert(Professional Professional);
         Professional Update(Professional Professional);
+        Professional GetByDocument(int documentType, string document);
     }
 }

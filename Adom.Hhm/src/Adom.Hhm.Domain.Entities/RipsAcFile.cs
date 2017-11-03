@@ -13,7 +13,7 @@ namespace Adom.Hhm.Domain.Entities
         public string Cups { get; set; }
         public int Consultation { get; set; }
         public int External { get; set; }
-        public int Cie10 { get; set; }
+        public string Cie10 { get; set; }
         public string DiagnosticType { get; set; }
         public int Rate { get; set; }
         public decimal CopaymentPerSession { get; set; }

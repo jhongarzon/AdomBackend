@@ -17,6 +17,14 @@ namespace Adom.Hhm.Data.Repositories
         public IEnumerable<PaymentReport> GetPaymentReport(PaymentReportFilter paymentReportFilter)
         {
             var paymentReport = PaymentReportQuerys.GetPaymentReport;
+            if (!string.IsNullOrEmpty(paymentReportFilter.InitialDateIni))
+            {
+                paymentReport += " AND Ags.[InitialDate] > CONVERT(DATETIME, @InitialDateIni, 105) ";
+            }
+            if (!string.IsNullOrEmpty(paymentReportFilter.InitialDateEnd))
+            {
+                paymentReport += " AND Ags.[InitialDate] < CONVERT(DATETIME, @InitialDateEnd, 105) ";
+            }
             if (paymentReportFilter.EntityId > 0)
             {
                 paymentReport += "AND Ags.[EntityId] = @EntityId ";

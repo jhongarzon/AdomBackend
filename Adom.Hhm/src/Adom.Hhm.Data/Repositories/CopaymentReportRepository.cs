@@ -24,7 +24,7 @@ namespace Adom.Hhm.Data.Repositories
             }
             if (!string.IsNullOrEmpty(copaymentReportFilter.InitialDateIni))
             {
-                copaymentReport += " Ags.[InitialDate] > CONVERT(DATE, @InitialDateIni, 105) ";
+                copaymentReport += " AND Ags.[InitialDate] > CONVERT(DATE, @InitialDateIni, 105) ";
             }
             if (!string.IsNullOrEmpty(copaymentReportFilter.InitialDateEnd))
             {

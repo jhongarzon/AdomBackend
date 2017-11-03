@@ -36,7 +36,7 @@
         public int Quantity { get; set; }
         public int External { get; set; }
         public int Consultation { get; set; }
-        public int Cie10 { get; set; }
+        public string Cie10 { get; set; }
         public int QuantityCompleted { get; set; }
         public string InitialDate { get; set; }
         public string FinalDate { get; set; }

@@ -16,14 +16,23 @@ namespace Adom.Hhm.Domain.Services
         private readonly IMailService _mailService;
         private readonly IProfessionalRepository _professionalRepository;
         private readonly IServiceRepository _serviceRepository;
+        private readonly IPatientRepository _patientRepository;
+        private readonly ICoPaymentFrecuencyRepository _copaymentFrecuencyRepository;
+        private readonly IServiceFrecuencyRepository _serviceFrecuencyRepository;
 
         public AssignServiceDomainServices(IAssignServiceRepository repository, IMailService mailService,
-            IProfessionalRepository professionalRepository, IServiceRepository serviceRepository)
+            IProfessionalRepository professionalRepository, IServiceRepository serviceRepository,
+            IPatientRepository patientRepository, ICoPaymentFrecuencyRepository coPaymentFrecuencyRepository,
+            IServiceFrecuencyRepository serviceFrecuencyRepository)
         {
             _repository = repository;
             _mailService = mailService;
             _professionalRepository = professionalRepository;
             _serviceRepository = serviceRepository;
+            _patientRepository = patientRepository;
+            _copaymentFrecuencyRepository = coPaymentFrecuencyRepository;
+            _serviceFrecuencyRepository = serviceFrecuencyRepository;
+
         }
 
         public ServiceResult<AssignService> GetAssignServiceById(int assignServiceId)
@@ -67,7 +76,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<IEnumerable<AssignService>>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getAssignServices
             };
         }
@@ -75,26 +84,7 @@ namespace Adom.Hhm.Domain.Services
         public ServiceResult<AssignService> Insert(AssignService assignService)
         {
             var assignServiceInserted = _repository.Insert(assignService);
-            if (assignServiceInserted.AssignServiceId > 0)
-            {
-                if (assignService.ProfessionalId > 0)
-                {
-                    var professional = _professionalRepository.GetProfessionalById(assignService.ProfessionalId);
-                    var service = _serviceRepository.GetServiceById(assignService.ServiceId);
-                    var mailMessage = new MailMessage
-                    {
-
-                        Body =
-                            $"Buen día Sr(a): {professional.FirstName} <br/><br/>" +
-                            $"Se le ha asignado el servicio {service.Name}, con fecha de inicio {assignService.InitialDate} y fecha final {assignService.FinalDate} ",
-                        Subject = "Asignación de servicio",
-                        To = new MailAccount(professional.FirstName, professional.Email)
-
-                    };
-                    _mailService.SendMail(mailMessage);
-                }
-                
-            }
+            AssignmentMail(assignServiceInserted);
             return new ServiceResult<AssignService>
             {
                 Success = true,
@@ -104,12 +94,98 @@ namespace Adom.Hhm.Domain.Services
 
         public ServiceResult<AssignService> Update(AssignService assignService)
         {
+            var current = _repository.GetAssignServiceById(assignService.AssignServiceId);
             var updated = _repository.Update(assignService);
+            
+            if (updated.ProfessionalId != current.ProfessionalId)
+            {
+                AssignmentMail(updated);
+                CancellationMail(current);
+            }
+
             return new ServiceResult<AssignService>
             {
                 Success = true,
                 Result = updated
             };
+        }
+
+        private void AssignmentMail(AssignService assignService)
+        {
+            if (assignService.AssignServiceId > 0)
+            {
+                if (assignService.ProfessionalId > 0)
+                {
+                    var professional = _professionalRepository.GetProfessionalById(assignService.ProfessionalId);
+                    var service = _serviceRepository.GetServiceById(assignService.ServiceId);
+                    var patient = _patientRepository.GetPatientById(assignService.PatientId);
+                    var professionalFullName = $" {professional.FirstName} {professional.SecondName} {professional.Surname} {professional.SecondSurname} ";
+                    var patientFullName = $"{patient.FirstName} {patient.SecondName} {patient.Surname} {patient.SecondSurname} ";
+                    var copaymentFrecuency = _copaymentFrecuencyRepository.GetCoPaymentFrecuencyById(assignService.CoPaymentFrecuencyId);
+                    var serviceFrecuency = _serviceFrecuencyRepository.GetServiceFrecuencyById(assignService.ServiceFrecuencyId);
+
+                    var body = string.Format(AdomMailContent.AssignServiceMailText,
+                        professionalFullName,
+                        patient.Document,
+                        patientFullName,
+                        patient.Address,
+                        patient.Telephone1,
+                        assignService.AuthorizationNumber,
+                        service.Name,
+                        assignService.InitialDate,
+                        assignService.FinalDate,
+                        serviceFrecuency.Name,
+                        assignService.CoPaymentAmount,
+                        copaymentFrecuency.Name);
+
+                    var mailMessage = new MailMessage
+                    {
+                        Body = body,
+                        Subject = "Nuevo servicio asignado – ADOM",
+                        To = new MailAccount(professional.FirstName, professional.Email)
+                    };
+                    _mailService.SendMail(mailMessage);
+                }
+            }
+        }
+
+        private void CancellationMail(AssignService assignService)
+        {
+            if (assignService.AssignServiceId > 0)
+            {
+                if (assignService.ProfessionalId > 0)
+                {
+                    var professional = _professionalRepository.GetProfessionalById(assignService.ProfessionalId);
+                    var service = _serviceRepository.GetServiceById(assignService.ServiceId);
+                    var patient = _patientRepository.GetPatientById(assignService.PatientId);
+                    var professionalFullName = $" {professional.FirstName} {professional.SecondName} {professional.Surname} {professional.SecondSurname} ";
+                    var patientFullName = $"{patient.FirstName} {patient.SecondName} {patient.Surname} {patient.SecondSurname} ";
+                    var copaymentFrecuency = _copaymentFrecuencyRepository.GetCoPaymentFrecuencyById(assignService.CoPaymentFrecuencyId);
+                    var serviceFrecuency = _serviceFrecuencyRepository.GetServiceFrecuencyById(assignService.ServiceFrecuencyId);
+
+                    var body = string.Format(AdomMailContent.AssignServiceMailText,
+                        professionalFullName,
+                        patient.Document,
+                        patientFullName,
+                        patient.Address,
+                        patient.Telephone1,
+                        assignService.AuthorizationNumber,
+                        service.Name,
+                        assignService.InitialDate,
+                        assignService.FinalDate,
+                        serviceFrecuency.Name,
+                        assignService.CoPaymentAmount,
+                        copaymentFrecuency.Name);
+
+                    var mailMessage = new MailMessage
+                    {
+                        Body = body,
+                        Subject = "Nuevo servicio asignado – ADOM",
+                        To = new MailAccount(professional.FirstName, professional.Email)
+                    };
+                    _mailService.SendMail(mailMessage);
+                }
+            }
         }
 
         public ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)

@@ -12,7 +12,7 @@
         public string RealizationScope { get; set; }
         public string ProcedurePurpose { get; set; }
         public string AttendandPerson { get; set; }
-        public int Cie10 { get; set; }
+        public string Cie10 { get; set; }
         public string DescCie10 { get; set; }
         public string Complication { get; set; }
         public string  PerformWay { get; set; }

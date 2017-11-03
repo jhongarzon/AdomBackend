@@ -24,6 +24,8 @@ namespace Adom.Hhm.Ioc
         {
             var mailServerConfig = new MailServerConfig
             {
+
+                //From = new MailAccount("BLUE ADOM SERVICES", "serviciosadom@adomsaluddomiciliaria.com", "xxxxx"),
                 From = new MailAccount("BLUE ADOM SERVICES", "serviciosadom@adomsaluddomiciliaria.com", "7818141dd"),
                 Port = 80,
                 Server = "smtpout.secureserver.net"

@@ -62,5 +62,10 @@ namespace Adom.Hhm.Data.Repositories
             var affectedRows = connection.Execute(ProfessionalQuerys.Update, Professional);
             return Professional;
         }
+
+        public Professional GetByDocument(int documentType, string document)
+        {
+            return connection.Query<Professional>(ProfessionalQuerys.GetByDocument, new { DocumentTypeId = documentType, Document = document }).FirstOrDefault();
+        }
     }
 }

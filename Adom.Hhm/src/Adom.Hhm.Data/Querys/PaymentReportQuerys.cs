@@ -50,9 +50,9 @@
             INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
             INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId
             INNER JOIN [cfg].[DocumentType] doc ON doc.Id = pat.DocumentTypeId
-            WHERE Asd.StateId = 3 
+            WHERE Asd.StateId = 3             
             AND Asd.ProfessionalId NOT IN (-1, 0) 
-            AND Ags.[InitialDate] > CONVERT(DATE,ISNULL(@InitialDateIni,'01-01-2000'), 105)
-			AND Ags.[InitialDate] < CONVERT(DATE,ISNULL(@InitialDateEnd,GETDATE() + 100),105) ";
+
+             ";
     }
 }

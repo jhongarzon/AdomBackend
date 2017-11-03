@@ -5,6 +5,7 @@ using Adom.Hhm.Domain.Services.Interface;
 using Adom.Hhm.Domain.Repositories;
 using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Security.Repositories;
+using Adom.Hhm.Domain.Secutiry.Repositories;
 using Adom.Hhm.Utility;
 
 namespace Adom.Hhm.Domain.Services
@@ -15,13 +16,16 @@ namespace Adom.Hhm.Domain.Services
         private readonly IUserRepository _userRepository;
         private readonly IConfigurationRoot _configuration;
         private readonly IMailService _mailService;
+        private readonly IUserRoleRepository _userRoleRepository;
 
-        public CoordinatorDomainServices(IConfigurationRoot configuration, ICoordinatorRepository repository, IMailService mailService, IUserRepository userRepository)
+        public CoordinatorDomainServices(IConfigurationRoot configuration, ICoordinatorRepository repository,
+            IMailService mailService, IUserRepository userRepository, IUserRoleRepository userRoleRepository)
         {
             _repository = repository;
             _userRepository = userRepository;
             _mailService = mailService;
             _configuration = configuration;
+            _userRoleRepository = userRoleRepository;
         }
 
         public ServiceResult<Coordinator> GetCoordinatorById(int coordinatorId)
@@ -31,7 +35,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<Coordinator>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getCoordinator
             };
         }
@@ -42,7 +46,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<IEnumerable<Coordinator>>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getCoordinators
             };
         }
@@ -79,6 +83,12 @@ namespace Adom.Hhm.Domain.Services
                 var coordinatorInserted = _repository.Insert(coordinator);
                 if (coordinatorInserted != null && coordinatorInserted.UserId > 0)
                 {
+                    var userRole = new UserRole
+                    {
+                        UserId = coordinator.UserId,
+                        RoleId = 6
+                    };
+                    _userRoleRepository.Insert(userRole);
                     var mailMessage = new MailMessage
                     {
                         Body = string.Format("A continuación se listan los datos de ingreso para su cuenta en Blue: <br/><br/>" +

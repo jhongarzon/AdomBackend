@@ -14,7 +14,6 @@ namespace Adom.Hhm.Web.Rest.Validators
         {
             RuleFor(x => x.Name).NotNull().WithMessage(MessageValidator.NameServiceRequired);
             RuleFor(x => x.Value).NotNull().WithMessage(MessageValidator.ValueServiceRequired);
-            RuleFor(x => x.Value).GreaterThan(0).WithMessage(MessageValidator.ValueGreaterServiceRequired);
             RuleFor(x => x.Code).NotNull().WithMessage(MessageValidator.CodeServiceRequired);
             RuleFor(x => x.ClassificationId).NotEqual(-1).WithMessage(MessageValidator.ClassificationServiceRequired);
             RuleFor(x => x.ServiceTypeId).NotEqual(-1).WithMessage(MessageValidator.ServiceTypeServiceRequired);

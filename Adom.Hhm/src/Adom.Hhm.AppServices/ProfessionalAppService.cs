@@ -39,5 +39,10 @@ namespace Adom.Hhm.AppServices
         {
             return this.service.Update(Professional);
         }
+
+        public ServiceResult<Professional> GetByDocument(int documentType, string document)
+        {
+            return this.service.GetByDocument(documentType, document);
+        }
     }
 }

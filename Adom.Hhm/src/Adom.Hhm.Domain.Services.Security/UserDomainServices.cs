@@ -138,10 +138,10 @@ namespace Adom.Hhm.Domain.Services.Security
                 var user = _repository.GetUserById(userId);
                 var mailMessage = new MailMessage
                 {
-                    Body = string.Format("Su contraseña ha sido cambiada. <br/>" +
-                                         "A continuación se listan los nuevos datos de ingreso para su cuenta en Blue: <br/><br/>" +
-                          "Usuario: <b>{0}</b> <br/> Password: <b>{1}</b> <br/>", user.Email, password),
-                    Subject = "Cambio de contraseña Blue",
+                    Body = string.Format("HOLA, {0} <br/>" +
+                                         "Estos son tus nuevos datos de acceso a Blue: <br/><br/>" +
+                          "Usuario: <b>{1}</b> <br/> Contraseña: <b>{2}</b> <br/>", user.NamesComplete, user.Email, password),
+                    Subject = "Cambio de contraseña - ADOM",
                     To = new MailAccount(user.FirstName, user.Email)
 
                 };
@@ -166,7 +166,7 @@ namespace Adom.Hhm.Domain.Services.Security
                 {
                     Body = string.Format("Su contraseña ha sido recuperada. <br/> " +
                                          "Los datos de ingreso para su cuenta en Blue son: <br/><br/>" +
-                          "Usuario: <b>{0}</b> <br/> Password: <b>{1}</b> <br/>", user.Email, user.Password),
+                          "Usuario: <b>{0}</b> <br/> Contraseña: <b>{1}</b> <br/>", user.Email, user.Password),
                     Subject = "Recuperación de contraseña Blue",
                     To = new MailAccount(user.FirstName, user.Email)
 

@@ -5,6 +5,7 @@ using Adom.Hhm.Domain.Services.Interface;
 using Adom.Hhm.Domain.Repositories;
 using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Security.Repositories;
+using Adom.Hhm.Domain.Secutiry.Repositories;
 using Adom.Hhm.Utility;
 
 namespace Adom.Hhm.Domain.Services
@@ -15,13 +16,16 @@ namespace Adom.Hhm.Domain.Services
         private readonly IUserRepository _userRepository;
         private readonly IConfigurationRoot _configuration;
         private readonly IMailService _mailService;
+        private readonly IUserRoleRepository _userRoleRepository;
 
-        public ProfessionalDomainServices(IConfigurationRoot configuration, IProfessionalRepository repository, IMailService mailService, IUserRepository userRepository)
+        public ProfessionalDomainServices(IConfigurationRoot configuration, IProfessionalRepository repository,
+            IMailService mailService, IUserRepository userRepository, IUserRoleRepository userRoleRepository)
         {
             _repository = repository;
             _userRepository = userRepository;
             _configuration = configuration;
             _mailService = mailService;
+            _userRoleRepository = userRoleRepository;
         }
 
         public ServiceResult<Professional> GetProfessionalById(int professionalId)
@@ -79,6 +83,13 @@ namespace Adom.Hhm.Domain.Services
                 var professionalInserted = _repository.Insert(professional);
                 if (professionalInserted != null && professionalInserted.UserId > 0)
                 {
+                    var userRole = new UserRole
+                    {
+                        UserId = professional.UserId,
+                        RoleId = 14
+                    };
+                    _userRoleRepository.Insert(userRole);
+
                     var mailMessage = new MailMessage
                     {
                         Body = string.Format("A continuación se listan los datos de ingreso para su cuenta en Blue: <br/><br/>" +
@@ -109,13 +120,15 @@ namespace Adom.Hhm.Domain.Services
 
             if (emailExist == null)
             {
-                var user = new User();
-                user.Email = professional.Email;
-                user.FirstName = professional.FirstName;
-                user.SecondName = professional.SecondName;
-                user.Surname = professional.Surname;
-                user.SecondSurname = professional.SecondSurname;
-                user.UserId = professional.UserId;
+                var user = new User
+                {
+                    Email = professional.Email,
+                    FirstName = professional.FirstName,
+                    SecondName = professional.SecondName,
+                    Surname = professional.Surname,
+                    SecondSurname = professional.SecondSurname,
+                    UserId = professional.UserId
+                };
                 var userUpdate = _userRepository.Update(user);
                 var updated = _repository.Update(professional);
                 return new ServiceResult<Professional>
@@ -129,6 +142,18 @@ namespace Adom.Hhm.Domain.Services
             {
                 Success = false,
                 Errors = new string[] { MessageError.EmailExists }
+            };
+        }
+
+        public ServiceResult<Professional> GetByDocument(int documentType, string document)
+        {
+            var getProfessional = _repository.GetByDocument(documentType, document);
+
+            return new ServiceResult<Professional>
+            {
+                Success = true,
+                Errors = new[] { string.Empty },
+                Result = getProfessional
             };
         }
     }
