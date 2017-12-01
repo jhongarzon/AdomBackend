@@ -28,15 +28,27 @@ namespace Adom.Hhm.Web.Rest.Controllers
             _specialReportService = specialReportService;
             _hostingEnvironment = hostingEnvironment;
         }
-        [Authorize(Policy = "/ReportSpecial/Get")]
+        [Authorize(Policy = "/SpecialReport/Get")]
         public string Get()
         {
             return "Funciona";
         }
 
-        [Authorize(Policy = "/SpecialReport/Create")]
+        //[HttpPost]
+        //[Authorize(Policy = "/SpecialReport/Create")]
+        //public FileResult PostFromBody([FromBody] SpecialReportFilter specialReportFilter)
+        //{
+        //    return GenerateSpecialReport(specialReportFilter);
+        //}
         [HttpPost]
-        public FileResult Post([FromBody] SpecialReportFilter specialReportFilter)
+        [Authorize(Policy = "/SpecialReport/Create")]
+        public FileContentResult Post([FromBody] SpecialReportFilter specialReportFilter)
+        {
+            //return Json(specialReportFilter);
+            return GenerateSpecialReport(specialReportFilter);
+        }
+
+        private FileContentResult GenerateSpecialReport(SpecialReportFilter specialReportFilter)
         {
             dynamic data;
             if (specialReportFilter.ReportType == 1)
@@ -48,7 +60,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 data = _specialReportService.GetSpecialDetailedReport(specialReportFilter);
             }
             var rootPath = Path.Combine(_hostingEnvironment.WebRootPath, "Temp");
-            var excelFile = _excelReportService.GenerateExcelReport(rootPath,data.Result);
+            var excelFile = _excelReportService.GenerateExcelReport(rootPath, data.Result);
             var response = new HttpResponseMessage(HttpStatusCode.OK);
             var bytes = System.IO.File.ReadAllBytes(excelFile);
             var fileName = Path.GetFileNameWithoutExtension(excelFile);

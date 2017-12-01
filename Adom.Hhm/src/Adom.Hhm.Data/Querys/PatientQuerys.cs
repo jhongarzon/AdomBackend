@@ -168,11 +168,8 @@ namespace Adom.Hhm.Data.Querys
             ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
-            WHERE       [pat].[FirstName] like @DataFind
-            OR          [pat].[SecondName] like @DataFind
-            OR          [pat].[SurName] like @DataFind
-            OR          [pat].[SecondSurname] like @DataFind
-            OR          [pat].[NameCompleted] like @DataFind";
+            WHERE       [pat].[NameCompleted] like @DataFind 
+            OR          [pat].[Document] like @DataFind";
 
         public static string GetByDocumentType =
         @"  SELECT pat.[PatientId]
@@ -213,7 +210,7 @@ namespace Adom.Hhm.Data.Querys
             ON pt.Id = pat.PatientTypeId
             INNER JOIN  [cfg].[DocumentType] dt
             ON dt.Id = pat.DocumentTypeId
-            WHERE       [pat].[Document] like @DataFind
+            WHERE       [pat].[Document] = RTRIM(LTRIM(@DataFind))
             AND         [pat].[DocumentTypeId] = @DocumentTypeId";
 
         public static string GetByEmail =
@@ -410,7 +407,7 @@ namespace Adom.Hhm.Data.Querys
                ,[PatientTypeId]
                ,[NameCompleted])
          VALUES
-               (@Document
+               (RTRIM(LTRIM(@Document))
                ,@DocumentTypeId
                ,@BirthDate
                ,@Age

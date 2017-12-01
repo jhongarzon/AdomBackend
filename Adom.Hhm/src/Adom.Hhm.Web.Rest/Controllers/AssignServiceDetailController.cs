@@ -40,7 +40,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
         public AssignServiceDetailController(IAssignServiceDetailAppService appService, AssignServiceDetailValidator validator,
             IConfigurationRoot configuration, IMailService mailService, IAssignServiceDomainService assignServiceDomainService,
-            IProfessionalDomainService professionalDomainService, IPatientDomainService patientDomainService, 
+            IProfessionalDomainService professionalDomainService, IPatientDomainService patientDomainService,
             IServiceDomainService serviceDomainService)
         {
             _appService = appService;
@@ -94,7 +94,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
             return result;
         }
 
-        [Authorize(Policy = "/AssignService/Edit")]
+        [AllowAnonymous]
         [HttpPut("{id}")]
         public ServiceResult<AssignServiceDetail> Put(int id, [FromBody]IEnumerable<AssignServiceDetail> models)
         {
@@ -103,6 +103,12 @@ namespace Adom.Hhm.Web.Rest.Controllers
             var isReassignment = false;
             var reasigmentDetailCount = 0;
             AssignServiceDetail currentDetail = null;
+            if (models.Count() == 0)
+            {
+                errorList.Add("Seleccione por lo menos una visita");
+                result.Errors = errorList.ToArray();
+                return result;
+            }
             foreach (var model in models)
             {
                 if (string.IsNullOrEmpty(model.DateVisit))
@@ -157,7 +163,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
                     result.Success = false;
                 }
             }
-            if (isReassignment && currentDetail!= null)
+            if (isReassignment && currentDetail != null)
             {
                 ReassignProfessionalMail(currentDetail, reasigmentDetailCount);
             }

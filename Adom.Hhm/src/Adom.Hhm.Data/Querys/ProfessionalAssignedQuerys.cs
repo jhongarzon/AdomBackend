@@ -2,7 +2,7 @@
 {
     public class ProfessionalAssignedQuerys
     {
-        public static string GetByUserId =
+        public static string GetByProfessionalId =
         @"  SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
 				  ,CONCAT(pat.[FirstName],' ', pat.Surname) PatientName
@@ -19,8 +19,8 @@
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
-                  ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3))  Quantity
-                  ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
+                  ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId and det.ProfessionalId <> @ProfessionalId))  Quantity
+                  ,(SELECT count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2 and det.ProfessionalId = @ProfessionalId) as QuantityCompleted                  
                   ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
                   ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
                   ,Ags.[ServiceFrecuencyId]
@@ -37,6 +37,8 @@
                   ,Ags.Observation
                   ,(select sum(det.ReceivedAmount) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId)  TotalReceived
 				  ,Count(*) Over() AS TotalRows
+                  ,CONVERT(char(10), Ags.[RecordDate],126) AS RecordDate
+                  
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
             ON Ags.ProfessionalId = Pro.ProfessionalId
@@ -55,7 +57,10 @@
             INNER JOIN [cfg].[PlansEntity] pe
             ON pe.PlanEntityId = Ags.PlanEntityId
 			INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId 
-			WHERE pro.UserId =  @UserId AND Ags.StateId = @StatusId
-            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
+			WHERE AssignServiceId IN(	SELECT DISTINCT([AssignServiceId]) 
+										FROM [sas].[AssignServiceDetails]
+										WHERE professionalId=  @ProfessionalId AND StateId = @StatusId)
+			AND Ags.StateId = @StatusId 
+			ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
     }
 }

@@ -7,9 +7,9 @@ namespace Adom.Hhm.Domain.Entities.Reports
     {
         [ExcelReportCell("NOMBRE PACIENTE")]
         public string PatientName { get; set; }
-        [ExcelReportCell("NÚMERO DOCUMENTO")]
-        public string PatientDocumentType { get; set; }
         [ExcelReportCell("TIPO DOCUMENTO")]
+        public string PatientDocumentType { get; set; }
+        [ExcelReportCell("NÚMERO DOCUMENTO")]
         public string PatientDocument { get; set; }
         [ExcelReportCell("ENTIDAD")]
         public string EntityName { get; set; }
@@ -40,25 +40,25 @@ namespace Adom.Hhm.Domain.Entities.Reports
         [ExcelReportCell("OTROS VAL. RECIBIDOS")]
         public string OtherAmount { get; set; }
         [ExcelReportCell("FECHA DE REGISTRO")]
-        public string RecordDate { get; set; }
+        public string UpdateDate { get; set; }
         [ExcelReportCell("PROFESIONAL")]
         public string ProfessionalName { get; set; }
         [ExcelReportCell("DOC. PROF.")]
         public string ProfessionalDocument { get; set; }
         [ExcelReportCell("HORAS INVERTIDAS")]
         public string HoursToInvest { get; set; }
-        [ExcelReportCell("FECHA LLAM. CALIDAD")]
-        public string QualityCallDate { get; set; }
-        [ExcelReportCell("USUARIO")]
-        public string QualityCallUser { get; set; }
-        [ExcelReportCell("COMENTARIOS")]
-        public string Observation { get; set; }
         [ExcelReportCell("VERIFICADO")]
         public string Verified { get; set; }
         [ExcelReportCell("VERIFICADO POR")]
         public string VerifiedBy { get; set; }
         [ExcelReportCell("FECHA VERIFICADO")]
         public string VerificationDate { get; set; }
+        [ExcelReportCell("FECHA LLAM. CALIDAD")]
+        public string QualityCallDate { get; set; }
+        [ExcelReportCell("USUARIO CALIDAD")]
+        public string QualityCallUser { get; set; }
+        [ExcelReportCell("COMENTARIOS")]
+        public string Observation { get; set; }
         [ExcelReportCell("", IsListField = true)]
         public IEnumerable<QualityQuestion> QualityQuestions { get; set; }
         [ExcelReportCell("ID", IsVisible = false)]

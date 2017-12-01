@@ -62,7 +62,7 @@ namespace Adom.Hhm.Domain.Services
 			            </tr>	
 		            </table>		
 		            <br/>
-		            <div style='text-align:center'><a href='http://181.49.151.250:51052'>Ingreso a Blue</a></div>					
+		            <div style='text-align:center'><a href='https://adomblue.com/'>Ingreso a Blue</a></div>					
 		            <br/>
 		            * La fecha de inicio es una fecha sugerida, ya que la fecha y hora de atención dependerá de lo que se convenga entre terapeuta y paciente.
 		            <br/>
@@ -126,7 +126,7 @@ namespace Adom.Hhm.Domain.Services
 			            </tr>	
 		            </table>		
 		            <br/>
-		            <div style='text-align:center'><a href='http://181.49.151.250:51052'>Ingreso a Blue</a></div>					
+		            <div style='text-align:center'><a href='https://adomblue.com/'>Ingreso a Blue</a></div>					
 		            <br/>
 		            *Para más información, comunícate con la central de operaciones		            
 	            </body>
@@ -161,7 +161,7 @@ namespace Adom.Hhm.Domain.Services
 			
 		                </table>		
 		                <br/>
-		                <div style='text-align:center'><a href='http://181.49.151.250:51052'>Ingreso a Blue</a></div>					
+		                <div style='text-align:center'><a href='https://adomblue.com/'>Ingreso a Blue</a></div>					
 		                <br/>
 		                * Para más información, comunícate con la central de operaciones
                     </body>

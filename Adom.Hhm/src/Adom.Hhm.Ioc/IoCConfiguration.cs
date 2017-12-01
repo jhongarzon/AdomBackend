@@ -25,10 +25,11 @@ namespace Adom.Hhm.Ioc
             var mailServerConfig = new MailServerConfig
             {
 
-                //From = new MailAccount("BLUE ADOM SERVICES", "serviciosadom@adomsaluddomiciliaria.com", "xxxxx"),
-                From = new MailAccount("BLUE ADOM SERVICES", "serviciosadom@adomsaluddomiciliaria.com", "7818141dd"),
-                Port = 80,
-                Server = "smtpout.secureserver.net"
+                //From = new MailAccount("BLUE ADOM SERVICES", "serviciosadom", "xxxxx"),
+                From = new MailAccount("BLUE ADOM SERVICES", "servicios.adomsalud@gmail.com", "830001237-4blue"),
+                Port = 465,
+                Server = "smtp.gmail.com",
+                CopyTo = new List<MailAccount> { new MailAccount("Adom Salud", "adomsalud1978@gmail.com") }
             };
             services.AddSingleton(typeof(MailServerConfig), mailServerConfig);
             //services.Configure<MailServerConfig>(mailServerConfig =>

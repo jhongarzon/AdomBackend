@@ -18,9 +18,9 @@ namespace Adom.Hhm.Data.Repositories
         {
             _connection = connection;
         }
-        public IEnumerable<ProfessionalAssignedServices> GetAssignedServices(int userId, int statusId)
+        public IEnumerable<ProfessionalAssignedServices> GetAssignedServices(int professionalId, int statusId)
         {
-            return _connection.Query<ProfessionalAssignedServices>(ProfessionalAssignedQuerys.GetByUserId, new { UserId = userId, StatusId = statusId });
+            return _connection.Query<ProfessionalAssignedServices>(ProfessionalAssignedQuerys.GetByProfessionalId, new { ProfessionalId = professionalId, StatusId = statusId });
         }
     }
 }

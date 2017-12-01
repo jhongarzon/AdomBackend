@@ -35,7 +35,18 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<Professional>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
+                Result = getProfessional
+            };
+        }
+
+        public ServiceResult<Professional> GetProfessionalByUserId(int userId)
+        {
+            var getProfessional =  _repository.GetProfessionalByUserId(userId);
+            return new ServiceResult<Professional>
+            {
+                Success = true,
+                Errors = new[] { string.Empty },
                 Result = getProfessional
             };
         }
@@ -46,7 +57,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<IEnumerable<Professional>>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getProfessionals
             };
         }
@@ -57,7 +68,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<IEnumerable<Professional>>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getProfessionals
             };
         }
@@ -110,7 +121,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<Professional>
             {
                 Success = false,
-                Errors = new string[] { MessageError.EmailExists }
+                Errors = new[] { MessageError.EmailExists }
             };
         }
 
@@ -141,7 +152,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<Professional>
             {
                 Success = false,
-                Errors = new string[] { MessageError.EmailExists }
+                Errors = new[] { MessageError.EmailExists }
             };
         }
 

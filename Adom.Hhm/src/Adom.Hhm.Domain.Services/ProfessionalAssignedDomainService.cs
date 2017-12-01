@@ -13,9 +13,9 @@ namespace Adom.Hhm.Domain.Services
         {
             _professionalAssignedRepository = professionalAssignedRepository;
         }
-        public ServiceResult<IEnumerable<ProfessionalAssignedServices>> GetAssignedServices(int userId, int statusId)
+        public ServiceResult<IEnumerable<ProfessionalAssignedServices>> GetAssignedServices(int professionalId, int statusId)
         {
-            var result = _professionalAssignedRepository.GetAssignedServices(userId, statusId);
+            var result = _professionalAssignedRepository.GetAssignedServices(professionalId, statusId);
 
             return new ServiceResult<IEnumerable<ProfessionalAssignedServices>>
             {

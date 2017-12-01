@@ -12,6 +12,7 @@
 		            ,Ags.[AuthorizationNumber]
                     ,Ags.[ContractNumber]
                     ,Ser.Name as ServiceName
+                    ,Ags.[Quantity] TotalSessions
 		            ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) AS ProgrammedSessions
                     ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as CompletedSessions
 		            ,sef.Name as ServiceFrecuency
@@ -23,8 +24,11 @@
 		            ,FORMAT(Ags.RecordDate, 'dd-MM-yyyy HH:mm:ss') RequestDate
                     ,FORMAT(Ags.[InitialDate], 'dd-MM-yyyy') InitialDate
                     ,FORMAT(Ags.[FinalDate], 'dd-MM-yyyy') FinalDate
-                    ,FORMAT((SELECT MAX(DateVisit) FROM [sas].AssignServiceDetails where AssignServiceId = Ags.AssignServiceId), 'dd-MM-yyyy') RealInitialDate
-					,FORMAT((SELECT MIN(DateVisit) FROM [sas].AssignServiceDetails where AssignServiceId = Ags.AssignServiceId), 'dd-MM-yyyy') RealFinalDate
+                    ,FORMAT((SELECT MIN(DateVisit) FROM [sas].AssignServiceDetails where AssignServiceId = Ags.AssignServiceId), 'dd-MM-yyyy') RealInitialDate
+					,FORMAT((SELECT DateVisit FROM	[sas].AssignServiceDetails WHERE StateId = 2 AND AssignServiceDetailId 
+							IN( SELECT	MAX(AssignServiceDetailId) 
+								FROM	[sas].AssignServiceDetails 
+								WHERE	AssignServiceId = Ags.AssignServiceId)),'dd-MM-yyyy') RealFinalDate		
 		            ,Ags.Cie10	
 		            ,Ags.DescriptionCie10
 		            ,pt.Name PatientType			  
@@ -54,7 +58,7 @@
 
         public static string GetDetailedReport =
             @"SELECT	  AssignServiceDetailId
-            ,(ISNULL(pat.FirstName,'') + ' ' + ISNULL(pat.SecondName, '') + ' ' + ISNULL(pat.SecondName, '') + ' ' + ISNULL(pat.SecondSurname, '')) AS PatientName
+            ,(ISNULL(pat.FirstName,'') + ' ' + ISNULL(pat.SecondName, '') + ' ' + ISNULL(pat.Surname, '') + ' ' + ISNULL(pat.SecondSurname, '')) AS PatientName
 		    ,doc.Name PatientDocumentType
 		    ,pat.Document PatientDocument
 			,ent.Name EntityName
@@ -81,6 +85,7 @@
             ,CASE Asd.[Verified] WHEN 1 THEN 'SI' ELSE 'NO' END Verified
             ,CASE WHEN Asd.[VerificationDate] IS NULL THEN '' ELSE FORMAT(Asd.[VerificationDate], 'dd-MM-yyyy HH:mm:ss') END AS [VerificationDate]
             ,(ISNULL(cal.FirstName,'') + ' ' + ISNULL(cal.SecondName, '') + ' ' + ISNULL(cal.Surname, '') + ' ' + ISNULL(cal.SecondSurname, '')) AS VerifiedBy  
+            ,FORMAT(Asd.UpdateDate, 'dd-MM-yyyy HH:mm:ss') UpdateDate
             FROM [sas].[AssignServiceDetails] Asd
             INNER JOIN [sas].[AssignService] Ags ON Asd.AssignServiceId = Ags.AssignServiceId            
             INNER JOIN [cfg].[Services] Ser ON Ser.ServiceId = Ags.ServiceId
@@ -88,7 +93,7 @@
             INNER JOIN [cfg].[PlansEntity] pl ON pl.PlanEntityId =  Ags.PlanEntityId
             INNER JOIN [cfg].[ServiceFrecuency] sef ON sef.ServiceFrecuencyId = Ags.ServiceFrecuencyId
             INNER JOIN [cfg].[CoPaymentFrecuency] cpf ON cpf.CoPaymentFrecuencyId = Ags.CoPaymentFrecuencyId
-            INNER JOIN [sas].[StateAssignService] sta ON sta.Id = Ags.StateId
+            INNER JOIN [sas].[StateAssignService] sta ON sta.Id = Asd.StateId
             INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
             INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId
             INNER JOIN [cfg].[DocumentType] doc ON doc.Id = pat.DocumentTypeId

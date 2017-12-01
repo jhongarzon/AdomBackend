@@ -30,11 +30,14 @@ namespace Adom.Hhm.Domain.Services
                 Comission = "",
                 EntityCode = rip.EntityCode,
                 EntityName = rip.EntityName,
+                ContractNumber = "1",
+                BenefitPlan = "2",
+                PolicyNumber = "4",
                 InvoiceDate = ripsFilter.InvoiceDate.Replace("-", "/"),
                 InvoiceNumber = ripsFilter.InvoiceNumber,
                 NetValue = ripsFilter.NetValue,
                 OtherValuesReceived = rip.OtherValuesReceived,
-                TotalCopaymentReceived = rip.TotalCopaymentReceived
+                TotalCopaymentReceived = ripsFilter.Copayment
 
             }).ToList();
             var filePath = string.Format(@"{0}\AF{1}.txt", basePath, consecutive);
@@ -59,14 +62,14 @@ namespace Adom.Hhm.Domain.Services
                 CityCode = rip.CityCode,
                 DeparmentCode = rip.DepartmentCode,
                 DocumentTypeName = rip.DocumentTypeAbbreviation,
-                FirstName = rip.FirstName,
-                Surname = rip.Surname,
-                Gender = rip.Gender,
-                PatientDocument = rip.PatientDocument,
+                FirstName = rip.FirstName.Replace("\"", "").Trim(),
+                Surname = rip.Surname.Replace("\"", "").Trim(),
+                Gender = rip.Gender.Trim(),
+                PatientDocument = rip.PatientDocument.Trim(),
                 ResidenceArea = rip.ResidenceArea,
                 RipsUserType = rip.RipsUserType,
-                SecondName = rip.SecondName,
-                SecondSurname = rip.SecondSurname
+                SecondName = rip.SecondName.Replace("\"", "").Trim(),
+                SecondSurname = rip.SecondSurname.Replace("\"", "").Trim(),
 
             }).ToList();
             var filePath = string.Format(@"{0}\US{1}.txt", basePath, consecutive);
@@ -74,6 +77,7 @@ namespace Adom.Hhm.Domain.Services
             {
                 var writer = new CsvWriter(streamWriter);
                 writer.Configuration.HasHeaderRecord = false;
+                writer.Configuration.QuoteAllFields = false;
                 writer.WriteRecords(usFiles);
             }
             return usFiles.Count;
@@ -124,7 +128,6 @@ namespace Adom.Hhm.Domain.Services
                     InvoiceNumber = ripsFilter.InvoiceNumber,
                     FinalDate = ripsFilter.FinalDateIni.Replace("-", "/"),
                     AuthorizationNumber = rip.AuthorizationNumber,
-                    Cie10 = rip.Cie10,
                     Cups = rip.Cups,
                     Rate = rip.Rate,
                     Consultation = rip.Consultation,
@@ -180,8 +183,9 @@ namespace Adom.Hhm.Domain.Services
         public int GenerateCtFile(string basePath, long providerCode, int afCount, int usCount, int apCount, int acCount, int atCount)
         {
             var consecutive = Path.GetFileName(basePath);
-            var currentDate = new DateTime();
+            var currentDate = DateTime.Now;
             var formattedDate = currentDate.ToString("dd/MM/yyyy");
+            formattedDate = formattedDate.Replace('-', '/');
             var ctFiles = new List<CtFile>
             {
                 new CtFile { ProviderCode = providerCode, FileName = string.Format("AF{0}", consecutive),FileRecordCount = afCount, RipsDate = formattedDate},

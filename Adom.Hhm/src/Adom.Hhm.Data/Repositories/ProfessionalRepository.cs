@@ -24,6 +24,11 @@ namespace Adom.Hhm.Data.Repositories
             this.connection = connection;
         }
 
+        public Professional GetProfessionalByUserId(int userId)
+        {
+            return connection.Query<Professional>(ProfessionalQuerys.GetByUserId, new { UserId = userId }).FirstOrDefault();
+        }
+
         public Professional GetProfessionalByEmail(string email)
         {
             return connection.Query<Professional>(ProfessionalQuerys.GetByEmail, new { Email = email }).FirstOrDefault();

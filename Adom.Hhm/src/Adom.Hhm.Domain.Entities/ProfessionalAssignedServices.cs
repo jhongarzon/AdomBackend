@@ -38,5 +38,6 @@ namespace Adom.Hhm.Domain.Entities
         public string Observation { get; set; }
         public int TotalReceived { get; set; }
         public int TotalRows { get; set; }
+        public string RecordDate { get; set; }
     }
 }

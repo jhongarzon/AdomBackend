@@ -9,6 +9,7 @@ namespace Adom.Hhm.Domain.Repositories
         IEnumerable<Professional> GetProfessionals(int pageNumber, int pageSize);
         IEnumerable<Professional> GetProfessionals();
         Professional GetProfessionalById(int ProfessionalId);
+        Professional GetProfessionalByUserId(int userId);
         Professional GetProfessionalByEmail(string email);
         Professional GetProfessionalByEmailWithoutId(int ProfessionalId, string email);
         Professional Insert(Professional Professional);

@@ -38,7 +38,7 @@ namespace Adom.Hhm.Data.Repositories
         }
         public IEnumerable<Patient> GetByDocument(int documentTypeId, string dataFind)
         {
-            return connection.Query<Patient>(PatientQuerys.GetByDocumentType, new { DocumentTypeId = documentTypeId, DataFind = "%" + dataFind + "%" });
+            return connection.Query<Patient>(PatientQuerys.GetByDocumentType, new { DocumentTypeId = documentTypeId, DataFind = dataFind });
         }
         public IEnumerable<Patient> GetByNames(string dataFind)
         {

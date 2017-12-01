@@ -40,8 +40,8 @@
                     ,Ags.[PlanEntityId]                    
                     ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3))  Quantity
                     ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
-                    ,CONVERT(char(10), Ags.[InitialDate],126) AS InitialDate
-                    ,CONVERT(char(10), Ags.[FinalDate],126) AS FinalDate
+                    ,FORMAT(Ags.[InitialDate], 'dd-MM-yyyy') AS InitialDate
+                    ,FORMAT(Ags.[FinalDate], 'dd-MM-yyyy') AS FinalDate         
                     ,Ags.[ServiceFrecuencyId]		            
                     ,Ags.[ProfessionalId]
 		            ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName

@@ -18,18 +18,38 @@ namespace Adom.Hhm.Web.Rest.Controllers
     public class ProfessionalAssignedServicesController : Controller
     {
         private readonly IProfessionalAssignedDomainService _professionalAssignedDomainService;
-        public ProfessionalAssignedServicesController(IProfessionalAssignedDomainService professionalAssignedDomainService)
+        private readonly IProfessionalDomainService _professionalDomainService;
+        public ProfessionalAssignedServicesController(IProfessionalAssignedDomainService professionalAssignedDomainService, IProfessionalDomainService professionalDomainService)
         {
             _professionalAssignedDomainService = professionalAssignedDomainService;
+            _professionalDomainService = professionalDomainService;
         }
         [Authorize(Policy = "/ProfessionalAssignedServices/Get")]
-        [HttpGet("{userId}/{statusId}")]
-        public ServiceResult<IEnumerable<ProfessionalAssignedServices>> Get(int userId, int statusId)
+        [HttpGet("{userId}")]
+        public ServiceResult<Professional> Get(int userId)
+        {
+            ServiceResult<Professional> result = null;
+            try
+            {
+                result = _professionalDomainService.GetProfessionalByUserId(userId);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<Professional>();
+                result.Errors = new[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
+        [Authorize(Policy = "/ProfessionalAssignedServices/Get")]
+        [HttpGet("{professionalId}/{statusId}")]
+        public ServiceResult<IEnumerable<ProfessionalAssignedServices>> Get(int professionalId, int statusId)
         {
             ServiceResult<IEnumerable<ProfessionalAssignedServices>> result = null;
             try
             {
-                result = _professionalAssignedDomainService.GetAssignedServices(userId, statusId);
+                result = _professionalAssignedDomainService.GetAssignedServices(professionalId, statusId);
             }
             catch (Exception ex)
             {

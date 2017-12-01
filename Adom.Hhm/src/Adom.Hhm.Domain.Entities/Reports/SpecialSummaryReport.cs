@@ -6,20 +6,22 @@ namespace Adom.Hhm.Domain.Entities.Reports
     {
         [ExcelReportCell("NOMBRE PACIENTE")]
         public string PatientName { get; set; }
-        [ExcelReportCell("NÚMERO DOCUMENTO")]
-        public long PatientDocument { get; set; }
         [ExcelReportCell("TIPO DOCUMENTO")]
         public string PatientDocumentType { get; set; }
+        [ExcelReportCell("NÚMERO DOCUMENTO")]
+        public string PatientDocument { get; set; }
         [ExcelReportCell("ENTIDAD")]
         public string EntityName { get; set; }
         [ExcelReportCell("CONTRATO")]
         public string ContractNumber { get; set; }
         [ExcelReportCell("PLAN")]
-        public string Plan { get; set; }
+        public string PlanEntityName { get; set; }
         [ExcelReportCell("AUTORIZACIÓN", IsNumber = true)]
-        public long AuthorizationNumber { get; set; }
+        public string AuthorizationNumber { get; set; }
         [ExcelReportCell("SERVICIO")]
         public string ServiceName { get; set; }
+        [ExcelReportCell("N. TOTAL SESIONES", IsNumber = true)]
+        public int TotalSessions { get; set; }
         [ExcelReportCell("N. SESIONES COMPL", IsNumber = true)]
         public int CompletedSessions { get; set; }
         [ExcelReportCell("N. SESIONES PROGRAM", IsNumber = true)]

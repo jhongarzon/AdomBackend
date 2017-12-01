@@ -146,6 +146,7 @@
 					FROM [cfg].[AdomInfo]  
 					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
+                  ,CONVERT(char(10), Ags.[RecordDate],105) AS RecordDate
             FROM	    [sas].[AssignService] Ags
 			LEFT JOIN  [cfg].[Professionals] Pro
             ON Pro.ProfessionalId = Ags.ProfessionalId

@@ -69,6 +69,14 @@ namespace Adom.Hhm.Data.Querys
             WHERE       [Urs].[Email] = @Email
             ORDER BY Urs.Firstname, Urs.Surname, Urs.State DESC";
 
+        public static string GetByUserId =
+       @"  SELECT	    Pro.*,Urs.State
+            FROM	    [cfg].[Professionals] Pro
+            INNER JOIN  [sec].[Users] Urs
+            ON          [Urs].[UserId] = [Pro].[UserId]
+            WHERE       [Urs].[UserId] = @UserId
+            ORDER BY Urs.Firstname, Urs.Surname, Urs.State DESC";
+
         public static string GetByEmailWithoutId =
         @"  SELECT	    Pro.*,Urs.State
             FROM	    [cfg].[Professionals] Pro

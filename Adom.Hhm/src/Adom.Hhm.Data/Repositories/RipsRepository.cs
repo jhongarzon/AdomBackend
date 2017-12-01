@@ -27,7 +27,7 @@ namespace Adom.Hhm.Data.Repositories
             }
             if (ripsFilter.EntityPlanId > 0)
             {
-                whereClause.Append("AND pe.EntityId = @EntityPlanId ");
+                whereClause.Append("AND pe.PlanEntityId = @EntityPlanId ");
             }
             if (ripsFilter.ServiceTypeId > 0)
             {

@@ -1,4 +1,5 @@
-﻿using Adom.Hhm.Domain.Entities;
+﻿using System;
+using Adom.Hhm.Domain.Entities;
 using Adom.Hhm.Domain.Services.Interface;
 using MailKit.Net.Imap;
 using MailKit.Net.Smtp;
@@ -32,19 +33,31 @@ namespace Adom.Hhm.Domain.Services
             }
             
             _mimeMessage.To.Add(new MailboxAddress(mailMessage.To.Name, mailMessage.To.MailAddress));
-            
-            using (var client = new SmtpClient())
-            {
-                client.Connect(_mailServerConfig.Server, _mailServerConfig.Port, false);
-                client.Authenticate(_mailServerConfig.From.MailAddress, _mailServerConfig.From.Password);
+            if (_mailServerConfig?.CopyTo == null) return false;
 
-                client.AuthenticationMechanisms.Remove("XOAUTH2");
-                // Note: since we don't have an OAuth2 token, disable 	// the XOAUTH2 authentication mechanism.     client.Authenticate("anuraj.p@example.com", "password");
-                client.Send(_mimeMessage);
-                client.Disconnect(true);
+            foreach (var mailAccount in _mailServerConfig.CopyTo)
+            {
+                _mimeMessage.Cc.Add(new MailboxAddress(mailAccount.Name, mailAccount.MailAddress));
+            }
+            try
+            {
+                using (var client = new SmtpClient())
+                {
+                    client.Connect(_mailServerConfig.Server, _mailServerConfig.Port, true);
+                    client.Authenticate(_mailServerConfig.From.MailAddress, _mailServerConfig.From.Password);
+
+                    client.AuthenticationMechanisms.Remove("XOAUTH2");
+
+                    // Note: since we don't have an OAuth2 token, disable 	// the XOAUTH2 authentication mechanism.     client.Authenticate("anuraj.p@example.com", "password");
+                    client.Send(_mimeMessage);
+                    client.Disconnect(true);
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
                 return true;
             }
-
         }
     }
 }
