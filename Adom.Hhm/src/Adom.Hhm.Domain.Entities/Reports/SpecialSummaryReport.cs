@@ -70,6 +70,8 @@ namespace Adom.Hhm.Domain.Entities.Reports
         public string PatientEmail { get; set; }
         [ExcelReportCell("ASIGNADO POR")]
         public string AssignedBy { get; set; }
+        [ExcelReportCell("OBSERVACIONES")]
+        public string Observations { get; set; }
         [ExcelReportCell("", IsListField = true)]
         public IEnumerable<AssignedProfessional> AssignedProfessionals { get; set; }
         [ExcelReportCell("ID", IsVisible = false)]

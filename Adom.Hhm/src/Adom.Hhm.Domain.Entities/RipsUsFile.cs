@@ -4,7 +4,7 @@
     {
         public string DocumentTypeName { get; set; }
         public string PatientDocument { get; set; }
-        public long ProviderCode { get; set; }
+        public string ProviderCode { get; set; }
         public string RipsUserType { get; set; }
         public string Surname { get; set; }
         public string SecondSurname { get; set; }

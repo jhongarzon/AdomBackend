@@ -11,7 +11,7 @@ namespace Adom.Hhm.Data.Querys
         @" SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
@@ -34,7 +34,7 @@ namespace Adom.Hhm.Data.Querys
         @"  SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
@@ -57,7 +57,7 @@ namespace Adom.Hhm.Data.Querys
                   ,ser.Name ServiceName
                   ,Asig.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
@@ -91,7 +91,7 @@ namespace Adom.Hhm.Data.Querys
             SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]

@@ -14,6 +14,9 @@ namespace Adom.Hhm.Domain.Entities
         public int Consultation { get; set; }
         public int External { get; set; }
         public string Cie10 { get; set; }
+        public string AddedField1 { get; set; }
+        public string AddedField2 { get; set; }
+        public string AddedField3 { get; set; }
         public string DiagnosticType { get; set; }
         public int Rate { get; set; }
         public decimal CopaymentPerSession { get; set; }

@@ -41,12 +41,12 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Insert =
         @"  INSERT INTO [cfg].[PlansEntity]([Name],[EntityId],[State])
-            VALUES(@Name,@EntityId,1);
+            VALUES(UPPER(@Name),@EntityId,1);
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
         @"  UPDATE [cfg].[PlansEntity]
-            SET     [Name] = @Name, 
+            SET     [Name] = UPPER(@Name), 
                     [State] = @State
             WHERE   [PlanEntityId] = @PlanEntityId";
     }

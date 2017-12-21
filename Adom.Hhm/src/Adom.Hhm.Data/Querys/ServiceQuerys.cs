@@ -65,14 +65,14 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Insert =
         @"  INSERT INTO [cfg].[Services]([Value],[Code],[Name],[ClassificationId],[ServiceTypeId],[HoursToInvest])
-            VALUES(@Value,@Code,@Name,@ClassificationId,@ServiceTypeId,@HoursToInvest);
+            VALUES(@Value,UPPER(@Code),UPPER(@Name),@ClassificationId,@ServiceTypeId,@HoursToInvest);
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
         @"  UPDATE [cfg].[Services]
-            SET     [Name] = @Name, 
+            SET     [Name] = UPPER(@Name), 
                     [Value] = @Value,
-                    [Code] = @Code,
+                    [Code] = UPPER(@Code),
                     [ClassificationId] = @ClassificationId,
                     [ServiceTypeId] = @ServiceTypeId,
                     [HoursToInvest] = @HoursToInvest

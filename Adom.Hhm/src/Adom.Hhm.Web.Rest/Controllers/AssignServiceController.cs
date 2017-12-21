@@ -27,13 +27,15 @@ namespace Adom.Hhm.Web.Rest.Controllers
         private readonly ILogger logger;
         private readonly IAssignServiceAppService appService;
         private readonly AssignServiceValidator validator;
+        private readonly AssignServiceObservationValidator observationValidator;
         private readonly IConfigurationRoot configuration;
 
-        public AssignServiceController(IAssignServiceAppService appService, AssignServiceValidator validator, IConfigurationRoot configuration)
+        public AssignServiceController(IAssignServiceAppService appService, AssignServiceValidator validator, AssignServiceObservationValidator observationValidator, IConfigurationRoot configuration)
         {
             this.appService = appService;
             this.validator = validator;
             this.configuration = configuration;
+            this.observationValidator = observationValidator;
         }
 
         [Authorize(Policy = "/AssignService/Get")]
@@ -49,7 +51,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
             catch (Exception ex)
             {
                 result = new ServiceResult<IEnumerable<AssignService>>();
-                result.Errors = new string[] { ex.Message };
+                result.Errors = new[] { ex.Message };
                 result.Success = false;
             }
 
@@ -69,7 +71,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
             catch (Exception ex)
             {
                 result = new ServiceResult<IEnumerable<AssignService>>();
-                result.Errors = new string[] { ex.Message };
+                result.Errors = new[] { ex.Message };
                 result.Success = false;
             }
 
@@ -89,7 +91,26 @@ namespace Adom.Hhm.Web.Rest.Controllers
             catch (Exception ex)
             {
                 result = new ServiceResult<string>();
-                result.Errors = new string[] { ex.Message };
+                result.Errors = new[] { ex.Message };
+                result.Success = false;
+            }
+
+            return result;
+        }
+        [Authorize(Policy = "/AssignService/Get")]
+        [HttpGet("{assignServiceId}/{userId}")]
+        public ServiceResult<IEnumerable<ServiceObservation>> GetServiceObservations(int assignServiceId, int userId)
+        {
+            ServiceResult<IEnumerable<ServiceObservation>> result = null;
+
+            try
+            {
+                result = this.appService.GetServiceObservations(assignServiceId, userId);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<IEnumerable<ServiceObservation>>();
+                result.Errors = new[] { ex.Message };
                 result.Success = false;
             }
 
@@ -112,7 +133,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 catch (Exception ex)
                 {
                     result = new ServiceResult<AssignService>();
-                    result.Errors = new string[] { ex.Message };
+                    result.Errors = new[] { ex.Message };
                     result.Success = false;
                 }
             }
@@ -125,7 +146,35 @@ namespace Adom.Hhm.Web.Rest.Controllers
 
             return result;
         }
+        [Authorize(Policy = "/AssignService/Create")]
+        [HttpPost("{id}")]
+        public ServiceResult<ServiceObservation> PostObservation(int id, [FromBody] ServiceObservation model)
+        {
+            ServiceResult<ServiceObservation> result = null;
+            var validatorResult = observationValidator.Validate(model);
 
+            if (validatorResult.IsValid)
+            {
+                try
+                {
+                    result = this.appService.InsertObservation(model);
+                }
+                catch (Exception ex)
+                {
+                    result = new ServiceResult<ServiceObservation>();
+                    result.Errors = new[] { ex.Message };
+                    result.Success = false;
+                }
+            }
+            else
+            {
+                result = new ServiceResult<ServiceObservation>();
+                result.Errors = validatorResult.GetErrors();
+                result.Success = false;
+            }
+
+            return result;
+        }
         [Authorize(Policy = "/AssignService/Edit")]
         [HttpPut("{id}")]
         public ServiceResult<AssignService> Put(int id, [FromBody]AssignService model)
@@ -142,7 +191,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 catch (Exception ex)
                 {
                     result = new ServiceResult<AssignService>();
-                    result.Errors = new string[] { ex.Message };
+                    result.Errors = new[] { ex.Message };
                     result.Success = false;
                 }
             }
@@ -153,6 +202,23 @@ namespace Adom.Hhm.Web.Rest.Controllers
                 result.Success = false;
             }
 
+            return result;
+        }
+        [Authorize(Policy = "/AssignService/Edit")]
+        [HttpDelete("{serviceObservationId}")]
+        public ServiceResult<string> DeleteObservation(int serviceObservationId)
+        {
+            ServiceResult<string> result = null;
+            try
+            {
+                result = this.appService.DeleteObservation(serviceObservationId);
+            }
+            catch (Exception ex)
+            {
+                result = new ServiceResult<string>();
+                result.Errors = new[] { ex.Message };
+                result.Success = false;
+            }
             return result;
         }
     }

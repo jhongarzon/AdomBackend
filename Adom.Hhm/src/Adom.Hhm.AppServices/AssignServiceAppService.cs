@@ -18,37 +18,52 @@ namespace Adom.Hhm.AppServices
 
         public ServiceResult<AssignService> GetAssignServiceById(int AssignServiceId)
         {
-            return this.service.GetAssignServiceById(AssignServiceId);
+            return service.GetAssignServiceById(AssignServiceId);
         }
 
         public ServiceResult<IEnumerable<AssignService>> GetAssignServiceByPatientId(int patientId)
         {
-            return this.service.GetAssignServiceByPatientId(patientId);
+            return service.GetAssignServiceByPatientId(patientId);
         }
 
         public ServiceResult<IEnumerable<AssignService>> GetAssignServices(int pageNumber, int pageSize)
         {
-            return this.service.GetAssignServices(pageNumber, pageSize);
+            return service.GetAssignServices(pageNumber, pageSize);
         }
 
         public ServiceResult<IEnumerable<AssignService>> GetAssignServices()
         {
-            return this.service.GetAssignServices();
+            return service.GetAssignServices();
         }
 
         public ServiceResult<AssignService> Insert(AssignService assignService)
         {
-            return this.service.Insert(assignService);
+            return service.Insert(assignService);
+        }
+
+        public ServiceResult<IEnumerable<ServiceObservation>> GetServiceObservations(int assignServiceId,int userId)
+        {
+            return service.GetServiceObservations(assignServiceId, userId);
+        }
+
+        public ServiceResult<ServiceObservation> InsertObservation(ServiceObservation serviceObservation)
+        {
+            return service.InsertObservation(serviceObservation);
         }
 
         public ServiceResult<AssignService> Update(AssignService assignService)
         {
-            return this.service.Update(assignService);
+            return service.Update(assignService);
         }
 
         public ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate)
         {
-            return this.service.CalculateFinalDateAssignService(quantity, serviceFrecuencyId, initialDate);
+            return service.CalculateFinalDateAssignService(quantity, serviceFrecuencyId, initialDate);
+        }
+
+        public ServiceResult<string> DeleteObservation(int assignServiceObservationId)
+        {
+            return service.DeleteObservation(assignServiceObservationId);
         }
     }
 }

@@ -42,18 +42,18 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Insert =
         @"  INSERT INTO [sec].[Users]([FirstName],[SecondName],[Surname],[SecondSurname],[Email],[Password])
-            VALUES(@FirstName,@SecondName,@Surname,@SecondSurname,@Email,@Password);
+            VALUES(UPPER(@FirstName),UPPER(@SecondName),UPPER(@Surname),UPPER(@SecondSurname),UPPER(@Email),@Password);
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
         @"  UPDATE [sec].[Users]
-            SET     [FirstName] = @FirstName, 
-                    [SecondName] = @SecondName, 
-                    [Surname] = @Surname, 
-                    [SecondSurname] = @SecondSurname, 
-                    [Email] = @Email,
-                    [State] = @State
-            WHERE   [UserId] = @UserId";
+            SET     [FirstName] = UPPER(@FirstName), 
+                    [SecondName] = UPPER(@SecondName), 
+                    [Surname] = UPPER(@Surname), 
+                    [SecondSurname] = UPPER(@SecondSurname), 
+                    [Email] = UPPER(@Email),
+                    [State] = UPPER(@State)
+            WHERE   [UserId] = UPPER(@UserId)";
 
         public static string ChangePassword =
         @"  UPDATE [sec].[Users]

@@ -41,5 +41,6 @@ namespace Adom.Hhm.Domain.Entities
         public bool AllowsUpdate { get; set; }
         public string AssignedBy { get; set; }
         public string RecordDate { get; set; }
+        public bool HasObservations { get; set; }
     }
 }

@@ -111,18 +111,18 @@ namespace Adom.Hhm.Web.Rest.Controllers
             }
             foreach (var model in models)
             {
-                if (string.IsNullOrEmpty(model.DateVisit))
+                if (string.IsNullOrEmpty(model.DateVisit) && model.StateId == 2)
                 {
-                    if (model.Verified)
-                    {
-                        errorList.Add("Para verificar el registro es necesario ingresar la fecha de visita");
-                        result.Success = false;
-                        break;
-
-                    }
-                    continue;
+                    errorList.Add("En la visita #" + model.Consecutive + " es necesario ingresar la fecha de visita");
+                    result.Success = false;
+                    break;
                 }
-
+                if (string.IsNullOrEmpty(model.DateVisit) && model.Verified)
+                {
+                    errorList.Add("En la visita #" + model.Consecutive + " es necesario ingresar la fecha de visita");
+                    result.Success = false;
+                    break;
+                }
 
                 DateTime date;
                 DateTime.TryParseExact(model.DateVisit, "dd-MM-yyyy", CultureInfo.InvariantCulture,

@@ -40,6 +40,9 @@
 		            ,pat.Address PatientAddress
 		            ,pat.Email PatientEmail
                     ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS AssignedBy
+                    ,SUBSTRING((SELECT ',' + Description AS 'data()' FROM [sas].[AssignServiceObservation]  
+                                WHERE AssignServiceId = Ags.AssignServiceId 
+							    FOR XML PATH('')),2,9999) AS Observations							
             FROM	    [sas].[AssignService] Ags
             INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId
             INNER JOIN [cfg].[UnitTime] ut ON ut.Id= pat.UnitTimeId

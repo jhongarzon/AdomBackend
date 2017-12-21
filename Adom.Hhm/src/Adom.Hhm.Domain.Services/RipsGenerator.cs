@@ -27,12 +27,12 @@ namespace Adom.Hhm.Domain.Services
                 FinalDate = rip.FinalDate.Replace("-", "/"),
                 AdomIdentiticationNumber = rip.AdomIdentificationNumber,
                 AdomIdentiticationTypeId = rip.AdomIdentificationType,
-                Comission = "",
+                Comission = 0,
                 EntityCode = rip.EntityCode,
                 EntityName = rip.EntityName,
-                ContractNumber = "1",
-                BenefitPlan = "2",
-                PolicyNumber = "4",
+                ContractNumber = "",
+                BenefitPlan = "",
+                PolicyNumber = "",
                 InvoiceDate = ripsFilter.InvoiceDate.Replace("-", "/"),
                 InvoiceNumber = ripsFilter.InvoiceNumber,
                 NetValue = ripsFilter.NetValue,
@@ -56,7 +56,7 @@ namespace Adom.Hhm.Domain.Services
             var usFiles = rips.Select(rip => new RipsUsFile
             {
 
-                ProviderCode = rip.ProviderCode,
+                ProviderCode = rip.EntityCode.Replace("\"", "").Trim(),
                 Age = rip.Age,
                 AgeUnit = rip.AgeUnit,
                 CityCode = rip.CityCode,
@@ -69,7 +69,7 @@ namespace Adom.Hhm.Domain.Services
                 ResidenceArea = rip.ResidenceArea,
                 RipsUserType = rip.RipsUserType,
                 SecondName = rip.SecondName.Replace("\"", "").Trim(),
-                SecondSurname = rip.SecondSurname.Replace("\"", "").Trim(),
+                SecondSurname = rip.SecondSurname.Replace("\"", "").Trim()
 
             }).ToList();
             var filePath = string.Format(@"{0}\US{1}.txt", basePath, consecutive);
@@ -97,6 +97,9 @@ namespace Adom.Hhm.Domain.Services
                     InvoiceNumber = ripsFilter.InvoiceNumber,
                     FinalDate = ripsFilter.FinalDateIni.Replace("-", "/"),
                     AuthorizationNumber = rip.AuthorizationNumber,
+                    RealizationScope = "1",
+                    ProcedurePurpose = "2",
+                    AttendandPerson = "4",
                     Cie10 = rip.Cie10,
                     Cups = rip.Cups,
                     Rate = rip.Rate,
@@ -124,16 +127,17 @@ namespace Adom.Hhm.Domain.Services
                 {
                     ProviderCode = rip.ProviderCode,
                     DocumentTypeName = rip.DocumentTypeAbbreviation,
-                    PatientDocument = rip.PatientDocument,
+                    PatientDocument = rip.PatientDocument.Replace("\"", "").Trim(),
                     InvoiceNumber = ripsFilter.InvoiceNumber,
-                    FinalDate = ripsFilter.FinalDateIni.Replace("-", "/"),
+                    FinalDate = item.DateVisit.Replace("-", "/"),
                     AuthorizationNumber = rip.AuthorizationNumber,
                     Cups = rip.Cups,
                     Rate = rip.Rate,
                     Consultation = rip.Consultation,
+                    Cie10 = rip.Cie10,
                     DiagnosticType = "2",
                     External = rip.External,
-                    CopaymentPerSession = rip.CoPaymentAmount,
+                    CopaymentPerSession = item.ReceivedAmount,
                     NetValuePerSession = rip.Rate - rip.CoPaymentAmount
                 }));
 

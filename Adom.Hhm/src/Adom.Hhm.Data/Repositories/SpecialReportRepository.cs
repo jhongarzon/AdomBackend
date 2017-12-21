@@ -24,27 +24,27 @@ namespace Adom.Hhm.Data.Repositories
             var summaryReport = SpecialReportQuerys.GetSummaryReport;
             if (!string.IsNullOrEmpty(specialReportFilter.InitialDateIni))
             {
-                summaryReport += " AND Ags.[InitialDate] > CONVERT(DATE, @InitialDateIni, 105) ";
+                summaryReport += " AND Ags.[InitialDate] >= CONVERT(DATE, @InitialDateIni, 105) ";
             }
             if (!string.IsNullOrEmpty(specialReportFilter.InitialDateEnd))
             {
-                summaryReport += " AND Ags.[InitialDate] < CONVERT(DATE, @InitialDateEnd, 105) ";
+                summaryReport += " AND Ags.[InitialDate] <= CONVERT(DATE, @InitialDateEnd, 105) ";
             }
             if (!string.IsNullOrEmpty(specialReportFilter.VisitDateIni))
             {
-                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit > CONVERT(DATE, @VisitDateIni, 105)) ";
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit >= CONVERT(DATE, @VisitDateIni, 105)) ";
             }
             if (!string.IsNullOrEmpty(specialReportFilter.VisitDateEnd))
             {
-                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit < CONVERT(DATE, @VisitDateEnd,105)) ";
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit <= CONVERT(DATE, @VisitDateEnd,105)) ";
             }
             if (!string.IsNullOrEmpty(specialReportFilter.RequestDateIni))
             {
-                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE RecordDate > CONVERT(DATE, @RequestDateIni, 105)) ";
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE RecordDate >= CONVERT(DATE, @RequestDateIni, 105)) ";
             }
             if (!string.IsNullOrEmpty(specialReportFilter.RequestDateEnd))
             {
-                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE RecordDate < CONVERT(DATE, @RequestDateEnd,105)) ";
+                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE RecordDate <= CONVERT(DATE, @RequestDateEnd,105)) ";
             }
             if (specialReportFilter.EntityId > 0)
             {

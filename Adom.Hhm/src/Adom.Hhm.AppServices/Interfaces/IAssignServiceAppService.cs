@@ -12,7 +12,10 @@ namespace Adom.Hhm.AppServices.Interfaces
         ServiceResult<AssignService> GetAssignServiceById(int assignServiceId);
         ServiceResult<IEnumerable<AssignService>> GetAssignServiceByPatientId(int patientId);
         ServiceResult<AssignService> Insert(AssignService assignService);
+        ServiceResult<IEnumerable<ServiceObservation>> GetServiceObservations(int assignServiceId, int userId);
+        ServiceResult<ServiceObservation> InsertObservation(ServiceObservation serviceObservation);
         ServiceResult<AssignService> Update(AssignService assignService);
         ServiceResult<string> CalculateFinalDateAssignService(int quantity, int serviceFrecuencyId, string initialDate);
+        ServiceResult<string> DeleteObservation(int assignServiceObservationId);
     }
 }

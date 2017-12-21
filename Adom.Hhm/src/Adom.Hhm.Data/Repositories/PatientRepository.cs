@@ -62,7 +62,12 @@ namespace Adom.Hhm.Data.Repositories
 
         public Patient Insert(Patient patient)
         {
-            patient.NameCompleted = patient.FirstName + (patient.SecondName == null ? " " : " " + patient.SecondName + " ") + patient.Surname + (patient.SecondSurname == null ? "" : " " + patient.SecondSurname);
+            patient.FirstName = patient.FirstName?.Trim();
+            patient.SecondName = patient.SecondName?.Trim();
+            patient.Surname = patient.Surname?.Trim();
+            patient.SecondSurname = patient.SecondSurname?.Trim();
+            patient.NameCompleted = patient.FirstName + (patient.SecondName == null ? " " : " " + patient.SecondName) + patient.Surname + (patient.SecondSurname == null ? "" : " " + patient.SecondSurname);
+            
             var id = connection.Query<int>(PatientQuerys.Insert, patient).Single();
             patient.PatientId = id;
             return patient;
@@ -70,7 +75,11 @@ namespace Adom.Hhm.Data.Repositories
 
         public Patient Update(Patient patient)
         {
-            patient.NameCompleted = patient.FirstName + (patient.SecondName == null ? " " : " " + patient.SecondName + " ") + patient.Surname + (patient.SecondSurname == null ? "" : " " + patient.SecondSurname);
+            patient.FirstName = patient.FirstName?.Trim();
+            patient.SecondName = patient.SecondName?.Trim();
+            patient.Surname = patient.Surname?.Trim();
+            patient.SecondSurname = patient.SecondSurname?.Trim();
+            patient.NameCompleted = patient.FirstName + (patient.SecondName == null ? " " : " " + patient.SecondName) + patient.Surname + (patient.SecondSurname == null ? "" : " " + patient.SecondSurname);
             var affectedRows = connection.Execute(PatientQuerys.Update, patient);
             return patient;
         }

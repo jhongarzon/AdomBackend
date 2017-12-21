@@ -34,12 +34,12 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Insert =
         @"  INSERT INTO [cfg].[ServiceFrecuency]([Name])
-            VALUES(@[Name]);
+            VALUES(UPPER(@[Name]));
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
         @"  UPDATE [cfg].[ServiceFrecuency]
-            SET     [Name] = @Name
+            SET     [Name] = UPPER(@Name)
             WHERE   [ServiceFrecuencyId] = @ServiceFrecuencyId";
     }
 }

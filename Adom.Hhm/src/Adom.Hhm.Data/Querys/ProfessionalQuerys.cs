@@ -129,8 +129,8 @@ namespace Adom.Hhm.Data.Querys
                ,CONVERT(DATETIME,@BirthDate,105)
                ,CONVERT(DATETIME,@DateAdmission,105)
                ,@Availability
-               ,@Neighborhood
-               ,@Address
+               ,UPPER(@Neighborhood)
+               ,UPPER(@Address)
                ,@Telephone1
                ,@Telephone2
                ,@AccountNumber
@@ -138,8 +138,8 @@ namespace Adom.Hhm.Data.Querys
                ,@GenderId
                ,@SpecialtyId
                ,@DocumentTypeId
-               ,@FamilyName
-               ,@FamilyRelationship
+               ,UPPER(@FamilyName)
+               ,UPPER(@FamilyRelationship)
                ,@FamilyPhone
                ,@Coverage
                ,@AccountTypeId);
@@ -151,9 +151,9 @@ namespace Adom.Hhm.Data.Querys
               ,[Document] = @Document
               ,[BirthDate] = CONVERT(DATETIME,@BirthDate,105)
               ,[DateAdmission] = CONVERT(DATETIME,@DateAdmission,105)
-              ,[Availability] = @Availability
-              ,[Neighborhood] = @Neighborhood
-              ,[Address] = @Address
+              ,[Availability] = UPPER(@Availability)
+              ,[Neighborhood] = UPPER(@Neighborhood)
+              ,[Address] = UPPER(@Address)
               ,[Telephone1] = @Telephone1
               ,[Telephone2] = @Telephone2
               ,[AccountNumber] = @AccountNumber
@@ -162,8 +162,8 @@ namespace Adom.Hhm.Data.Querys
               ,[SpecialtyId] = @SpecialtyId
               ,[DocumentTypeId] = @DocumentTypeId
               ,[Coverage] = @Coverage
-              ,[FamilyName] = @FamilyName
-              ,[FamilyRelationship] = @FamilyRelationship
+              ,[FamilyName] = UPPER(@FamilyName)
+              ,[FamilyRelationship] = UPPER(@FamilyRelationship)
               ,[FamilyPhone] = @FamilyPhone
               ,[AccountTypeId] = @AccountTypeId
             WHERE   [ProfessionalId] = @ProfessionalId;

@@ -412,25 +412,25 @@ namespace Adom.Hhm.Data.Querys
                ,@BirthDate
                ,@Age
                ,@UnitTimeId
-               ,@FirstName
-               ,@SecondName
-               ,@Surname
-               ,@SecondSurname
-               ,@Email
+               ,UPPER(@FirstName)
+               ,UPPER(@SecondName)
+               ,UPPER(@Surname)
+               ,UPPER(@SecondSurname)
+               ,UPPER(@Email)
                ,@GenderId
-               ,@Occupation
-               ,@Address
-               ,@Neighborhood
+               ,UPPER(@Occupation)
+               ,UPPER(@Address)
+               ,UPPER(@Neighborhood)
                ,@Telephone1
                ,@Telephone2
-               ,@AttendantName
-               ,@AttendantRelationship
+               ,UPPER(@AttendantName)
+               ,UPPER(@AttendantRelationship)
                ,@AttendantPhone
-               ,@AttendantEmail
+               ,UPPER(@AttendantEmail)
                ,@Profile
                ,getdate()
                ,@PatientTypeId
-               ,@NameCompleted) 
+               ,UPPER(@NameCompleted)) 
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
@@ -440,21 +440,21 @@ namespace Adom.Hhm.Data.Querys
                 ,[BirthDate] = @BirthDate
                 ,[Age] = @Age
                 ,[UnitTimeId] = @UnitTimeId
-                ,[FirstName] = @FirstName
-                ,[SecondName] = @SecondName
-                ,[Surname] = @Surname
-                ,[SecondSurname] = @SecondSurname
-                ,[Email] = @Email
+                ,[FirstName] = UPPER(@FirstName)
+                ,[SecondName] = UPPER(@SecondName)
+                ,[Surname] = UPPER(@Surname)
+                ,[SecondSurname] = UPPER(@SecondSurname)
+                ,[Email] = UPPER(@Email)
                 ,[GenderId] = @GenderId
-                ,[Occupation] = @Occupation
-                ,[Address] = @Address
-                ,[Neighborhood] = @Neighborhood
+                ,[Occupation] = UPPER(@Occupation)
+                ,[Address] = UPPER(@Address)
+                ,[Neighborhood] = UPPER(@Neighborhood)
                 ,[Telephone1] = @Telephone1
                 ,[Telephone2] = @Telephone2
-                ,[AttendantName] = @AttendantName
-                ,[AttendantRelationship] = @AttendantRelationship
+                ,[AttendantName] = UPPER(@AttendantName)
+                ,[AttendantRelationship] = UPPER(@AttendantRelationship)
                 ,[AttendantPhone] = @AttendantPhone
-                ,[AttendantEmail] = @AttendantEmail
+                ,[AttendantEmail] = UPPER(@AttendantEmail)
                 ,[Profile] = @Profile
                 ,[PatientTypeId] = @PatientTypeId
                 ,[NameCompleted] = @NameCompleted

@@ -39,7 +39,7 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Update =
         @"  UPDATE [cfg].[CoPaymentFrecuency]
-            SET     [Name] = @Name
+            SET     [Name] = UPPER(@Name)
             WHERE   [CoPaymentFrecuencyId] = @CoPaymentFrecuencyId";
     }
 }

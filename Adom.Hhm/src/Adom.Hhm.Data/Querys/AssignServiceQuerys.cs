@@ -24,7 +24,7 @@
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -35,7 +35,7 @@
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
 					FROM [cfg].[AdomInfo]  
-					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
+					WHERE ProviderCode = 110011114201 AND Ags.[FinalDate] < ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -78,7 +78,7 @@
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -89,7 +89,7 @@
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
 					FROM [cfg].[AdomInfo]  
-					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
+					WHERE ProviderCode = 110011114201 AND Ags.[FinalDate] > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -133,7 +133,7 @@
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -144,9 +144,10 @@
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
 					FROM [cfg].[AdomInfo]  
-					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
+					WHERE ProviderCode = 110011114201 AND Ags.[FinalDate] > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
                   ,CONVERT(char(10), Ags.[RecordDate],105) AS RecordDate
+                  ,CASE (SELECT COUNT(*) FROM sas.AssignServiceObservation where [AssignServiceId] = Ags.AssignServiceId) WHEN 0 THEN 0 ELSE 1 END HasObservations
             FROM	    [sas].[AssignService] Ags
 			LEFT JOIN  [cfg].[Professionals] Pro
             ON Pro.ProfessionalId = Ags.ProfessionalId
@@ -189,7 +190,7 @@
                   ,Ags.[ServiceFrecuencyId]
 				  ,sef.Name as ServiceFrecuencyName
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,Ags.[CoPaymentAmount]
                   ,Ags.[CoPaymentFrecuencyId]
 				  ,cpf.Name AS CoPaymentFrecuencyName
@@ -200,7 +201,7 @@
                   ,Ags.Observation
                   ,(SELECT COUNT([ServicesLockDate]) 
 					FROM [cfg].[AdomInfo]  
-					WHERE ProviderCode = 110011114201 AND GETDATE() > ServicesLockDate) AllowsUpdate
+					WHERE ProviderCode = 110011114201 AND Ags.[FinalDate] > ServicesLockDate) AllowsUpdate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -221,6 +222,19 @@
             ON pe.PlanEntityId = Ags.PlanEntityId
             WHERE   [AssignServiceId] = @AssignServiceId ";
 
+        public static string InsertServiceObservations =
+       @"INSERT INTO [sas].[AssignServiceObservation]
+               ([AssignServiceId]
+               ,[Description]
+               ,[RecordDate]
+               ,[UserId])
+         VALUES
+               (@AssignServiceId
+               ,UPPER(@Description)
+               ,GETDATE()
+               ,@UserId) 
+        SELECT CAST(SCOPE_IDENTITY() as int)";
+
         public static string CreateAssignServiceAndDetails =
         @"[sas].[CreateAssignServiceAndDetails]";
 
@@ -232,7 +246,7 @@
                SET [AuthorizationNumber] = @AuthorizationNumber
               ,[CoPaymentAmount] = @CoPaymentAmount
               ,[CoPaymentFrecuencyId] = @CoPaymentFrecuencyId
-              ,[Observation] = @Observation
+              ,[Observation] = UPPER(@Observation)
             WHERE   [AssignServiceId] = @AssignServiceId";
 
         public static string UpdateStatesAssignServices =
@@ -256,5 +270,23 @@
             ON pe.PlanEntityId = Ags.PlanEntityId
             WHERE  Ags.[PatientId] = @PatientId AND ((Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2)) = 0
             ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
+
+        public static string GetServiceObservations =
+            @"SELECT   so.[AssignServiceObservationId]
+                      ,so.[AssignServiceId]
+                      ,so.[Description]
+                      ,FORMAT(so.[RecordDate],'yyyy-MM-dd HH:mm:ss') [RecordDate]
+                      ,so.[UserId]
+	                  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS UserName
+                      ,CASE @userId  WHEN so.UserId THEN 1 ELSE usr2.IsAdmin END AS AllowDelete
+                  FROM [sas].[AssignServiceObservation] so
+                  INNER JOIN [sec].[Users] usr ON so.UserId = usr.UserId
+                  LEFT JOIN [sec].[Users] usr2 ON usr2.UserId = @userId
+                WHERE so.[AssignServiceId] = @assignServiceId ORDER BY RecordDate DESC";
+
+
+        public static string DeleteObservation =
+            @"DELETE FROM [sas].[AssignServiceObservation] 
+                WHERE [AssignServiceObservationId] = @assignServiceObservationId";
     }
 }

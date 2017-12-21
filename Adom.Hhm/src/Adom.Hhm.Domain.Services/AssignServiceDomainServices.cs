@@ -42,7 +42,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<AssignService>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getAssignService
             };
         }
@@ -54,7 +54,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<IEnumerable<AssignService>>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getAssignService
             };
         }
@@ -65,7 +65,7 @@ namespace Adom.Hhm.Domain.Services
             return new ServiceResult<IEnumerable<AssignService>>
             {
                 Success = true,
-                Errors = new string[] { string.Empty },
+                Errors = new[] { string.Empty },
                 Result = getAssignServices
             };
         }
@@ -86,6 +86,30 @@ namespace Adom.Hhm.Domain.Services
             var assignServiceInserted = _repository.Insert(assignService);
             AssignmentMail(assignServiceInserted);
             return new ServiceResult<AssignService>
+            {
+                Success = true,
+                Result = assignServiceInserted
+            };
+        }
+
+        public ServiceResult<IEnumerable<ServiceObservation>> GetServiceObservations(int assignServiceId, int userId)
+        {
+
+            var serviceObservations = _repository.GetServiceObservations(assignServiceId, userId);
+            return new ServiceResult<IEnumerable<ServiceObservation>>
+            {
+                Success = true,
+                Errors = new[] { string.Empty },
+                Result = serviceObservations
+            };
+        }
+
+        public ServiceResult<ServiceObservation> InsertObservation(ServiceObservation serviceObservation)
+        {
+            var currentDate = DateTime.Now;
+            serviceObservation.RecordDate = currentDate.ToString("yyyy-MM-dd HH:mm:ss");
+            var assignServiceInserted = _repository.InsertObservation(serviceObservation);
+            return new ServiceResult<ServiceObservation>
             {
                 Success = true,
                 Result = assignServiceInserted
@@ -195,6 +219,16 @@ namespace Adom.Hhm.Domain.Services
             {
                 Success = true,
                 Result = finalDateAssignService
+            };
+        }
+
+        public ServiceResult<string> DeleteObservation(int assignServiceObservationId)
+        {
+            var result = _repository.DeleteObservation(assignServiceObservationId);
+            return new ServiceResult<string>
+            {
+                Success = true,
+                Result = result
             };
         }
     }

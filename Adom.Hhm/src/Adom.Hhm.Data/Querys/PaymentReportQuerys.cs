@@ -4,7 +4,7 @@
     {
         public static string GetPaymentReport =
             @"SELECT	    Asd.[ProfessionalId]
-		                ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+		                ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
 		                ,Pro.Document ProfessionalDocument
 		                ,UPPER(Typ.Description) ServiceType
 		                ,Ser.Name ServiceName

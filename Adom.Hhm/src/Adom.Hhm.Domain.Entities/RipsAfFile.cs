@@ -16,7 +16,7 @@
         public string BenefitPlan { get; set; }
         public string PolicyNumber { get; set; }
         public int TotalCopaymentReceived { get; set; }
-        public string Comission { get; set; }
+        public int Comission { get; set; }
         public int OtherValuesReceived { get; set; }
         public int NetValue { get; set; }
     }

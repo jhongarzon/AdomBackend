@@ -44,7 +44,7 @@
                     ,FORMAT(Ags.[FinalDate], 'dd-MM-yyyy') AS FinalDate         
                     ,Ags.[ServiceFrecuencyId]		            
                     ,Ags.[ProfessionalId]
-		            ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+		            ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                     ,Ags.[CoPaymentAmount]
                     ,Ags.[CoPaymentFrecuencyId]
 		            ,cpf.Name AS CoPaymentFrecuencyName
@@ -114,7 +114,7 @@
             @"SELECT   [AssignServiceDetailId]
                       ,[AssignServiceId]
                       ,[ProfessionalId]
-                      ,[DateVisit]
+                      ,FORMAT(DateVisit, 'yyyy/MM/dd') DateVisit
                       ,[Consecutive]
                       ,[StateId]
                       ,[Observation]

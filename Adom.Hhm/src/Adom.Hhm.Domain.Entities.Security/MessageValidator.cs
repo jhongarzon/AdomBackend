@@ -38,8 +38,9 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string CodeSupplyRequired { get; set; } = "El código del insumo es requerido";
         public static string NameServiceRequired { get; set; } = "El nombre del servicio es requerido";
         public static string ValueServiceRequired { get; set; } = "El valor del servicio es requerido";
+        public static string ServiceObservationRequired { get; set; } = "La observación del servicio es requerido";
         public static string ValueGreaterServiceRequired { get; set; } = "El valor del servicio debe ser mayor a 0";
-        public static string CodeServiceRequired { get; set; } = "El código del s eervicios requerido";
+        public static string CodeServiceRequired { get; set; } = "El código del servicio es requerido";
         public static string ClassificationServiceRequired { get; set; } = "La clasificación del servicio es requerido";
         public static string ServiceTypeServiceRequired { get; set; } = "El tipo de servicio es requerido";
         public static string NamePlanRateRequired { get; set; } = "El nombre del plan y tarifa es requerido";
@@ -80,5 +81,6 @@ namespace Adom.Hhm.Domain.Entities.Security
 
         public static string NoticeTittleRequired { get; set; } = "El titulo del anuncio es requerido";
         public static string NoticeTextRequired { get; set; } = "El cuerpo del anuncio es requerido";
+
     }
 }

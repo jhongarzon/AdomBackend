@@ -27,7 +27,7 @@ namespace Adom.Hhm.Data.Querys
                     ,Ags.[ServiceFrecuencyId]
 		            ,sef.Name as ServiceFrecuencyName
                     ,Ags.[ProfessionalId]
-		            ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+		            ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                     ,Ags.[CoPaymentAmount]
                     ,Ags.[CoPaymentFrecuencyId]
 		            ,cpf.Name AS CoPaymentFrecuencyName

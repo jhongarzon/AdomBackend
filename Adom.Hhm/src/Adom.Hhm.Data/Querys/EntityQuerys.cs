@@ -34,14 +34,14 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Insert =
         @"  INSERT INTO [cfg].[Entities]([Nit],[BusinessName],[Code],[Name])
-            VALUES(@Nit, @BusinessName, @Code,@Name);
+            VALUES(@Nit, UPPER(@BusinessName), @Code,UPPER(@Name));
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
         @"  UPDATE [cfg].[Entities]
-            SET     [Name] = @Name, 
+            SET     [Name] = UPPER(@Name), 
                     [Nit] = @Nit,
-                    [BusinessName] = @BusinessName,
+                    [BusinessName] = UPPER(@BusinessName),
                     [Code] = @Code
             WHERE   [EntityId] = @EntityId";
     }

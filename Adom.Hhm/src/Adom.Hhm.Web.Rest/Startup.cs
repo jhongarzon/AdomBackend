@@ -55,7 +55,7 @@ namespace Adom.Hhm.Web.Rest
 
             services.AddOptions();
             services.AddSingleton(Configuration);
-            this.AddServicesValidators(services);
+            AddServicesValidators(services);
             Ioc.IoCConfiguration.Configure(services);
             services.AddScoped<IDbConnection>(c => new SqlConnection(Configuration["ConnectionString"]));
             services.AddMvc(config =>
@@ -146,6 +146,7 @@ namespace Adom.Hhm.Web.Rest
             services.AddScoped<CoPaymentFrecuencyValidator>();
             services.AddScoped<PlanRateValidator>();
             services.AddScoped<AssignServiceValidator>();
+            services.AddScoped<AssignServiceObservationValidator>();
             services.AddScoped<AssignServiceDetailValidator>();
             services.AddScoped<AssignServiceSupplyValidator>();
             services.AddScoped<PlanEntityValidator>();

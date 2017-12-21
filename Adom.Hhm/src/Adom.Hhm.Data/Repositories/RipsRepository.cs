@@ -20,7 +20,7 @@ namespace Adom.Hhm.Data.Repositories
 
         public IEnumerable<Rips> GetServiceRips(RipsFilter ripsFilter)
         {
-            var whereClause = new StringBuilder("WHERE 1 = 1 ");
+            var whereClause = new StringBuilder("WHERE ags.StateId = 2 ");
             if (ripsFilter.EntityId > 0)
             {
                 whereClause.Append("AND ent.EntityId = @EntityId ");
@@ -35,19 +35,19 @@ namespace Adom.Hhm.Data.Repositories
             }
             if (!string.IsNullOrEmpty(ripsFilter.InitialDateIni))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) > CONVERT(DATETIME,@InitialDateIni, 105) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) >= CONVERT(DATETIME,@InitialDateIni, 105) ");
             }
             if (!string.IsNullOrEmpty(ripsFilter.InitialDateEnd))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) < CONVERT(DATETIME,@InitialDateEnd, 105) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.InitialDate) <= CONVERT(DATETIME,@InitialDateEnd, 105) ");
             }
             if (!string.IsNullOrEmpty(ripsFilter.FinalDateIni))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) > CONVERT(DATETIME,@FinalDateIni, 105) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) >= CONVERT(DATETIME,@FinalDateIni, 105) ");
             }
             if (!string.IsNullOrEmpty(ripsFilter.FinalDateEnd))
             {
-                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) < CONVERT(DATETIME,@FinalDateEnd, 105) ");
+                whereClause.Append("AND CONVERT(DATETIME,ags.FinalDate) <= CONVERT(DATETIME,@FinalDateEnd, 105) ");
             }
             var finalQuery = string.Format("{0} {1}", RipsQuerys.GetServiceRips, whereClause);
             return _dbConnection.Query<Rips>(finalQuery, ripsFilter);

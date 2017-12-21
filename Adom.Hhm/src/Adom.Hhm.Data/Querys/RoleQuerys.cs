@@ -37,12 +37,12 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Insert =
         @"  INSERT INTO [sec].[Roles]([Name])
-            VALUES(@Name);
+            VALUES(UPPER(@Name));
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Update =
         @"  UPDATE [sec].[Roles]
-            SET     [Name] = @Name, 
+            SET     [Name] = UPPER(@Name), 
                     [State] = @State
             WHERE   [RoleId] = @RoleId";
     }
