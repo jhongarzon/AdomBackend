@@ -61,9 +61,9 @@ namespace Adom.Hhm.Domain.Entities.Reports
         [ExcelReportCell("GENERO")]
         public string PatientGender { get; set; }
         [ExcelReportCell("TELÉFONO 1", IsNumber = true)]
-        public long PatientPhone1 { get; set; }
+        public string PatientPhone1 { get; set; }
         [ExcelReportCell("TELÉFONO 2", IsNumber = true)]
-        public long PatientPhone2 { get; set; }
+        public string PatientPhone2 { get; set; }
         [ExcelReportCell("DIRECCIÓN")]
         public string PatientAddress { get; set; }
         [ExcelReportCell("EMAIL")]

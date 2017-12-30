@@ -32,7 +32,7 @@ namespace Adom.Hhm.Data.Repositories
             }
             if (!string.IsNullOrEmpty(specialReportFilter.VisitDateIni))
             {
-                summaryReport += " AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit >= CONVERT(DATE, @VisitDateIni, 105)) ";
+                summaryReport += " Ags.StateId = 2 AND EXISTS(SELECT 1 FROM[sas].[AssignServiceDetails] WHERE DateVisit >= CONVERT(DATE, @VisitDateIni, 105)) ";
             }
             if (!string.IsNullOrEmpty(specialReportFilter.VisitDateEnd))
             {
@@ -83,7 +83,7 @@ namespace Adom.Hhm.Data.Repositories
             }
             if (!string.IsNullOrEmpty(specialReportFilter.VisitDateIni))
             {
-                detailedReportQuery += " AND Asd.[DateVisit] > CONVERT(DATE, @VisitDateIni, 105) ";
+                detailedReportQuery += "Asd.StateId = 2 AND Asd.[DateVisit] > CONVERT(DATE, @VisitDateIni, 105) ";
             }
             if (!string.IsNullOrEmpty(specialReportFilter.VisitDateEnd))
             {

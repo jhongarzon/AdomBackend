@@ -21,9 +21,9 @@ namespace Adom.Hhm.Data.Repositories
         {
             return new HomeReport
             {
-                NursingStatuses = _dbConnection.Query<ServiceChartStatus>(HomeQuerys.GetNursingServiceReport),
-                TherapyStatuses = _dbConnection.Query<ServiceChartStatus>(HomeQuerys.GetTherapyServiceReport),
-                IrreglularServices = _dbConnection.Query<PatientReportData>(HomeQuerys.GetIrregularServices).ToList(),
+                NursingStatuses = _dbConnection.Query<ServiceChartStatus>(HomeQuerys.GetNursingServiceReport, new {@serviceType = 2}, commandType: CommandType.StoredProcedure),
+                TherapyStatuses = _dbConnection.Query<ServiceChartStatus>(HomeQuerys.GetTherapyServiceReport, new { @serviceType = 3 }, commandType: CommandType.StoredProcedure),
+                IrreglularServices = _dbConnection.Query<PatientReportData>(HomeQuerys.GetIrregularServices, commandType: CommandType.StoredProcedure),
                 PatientsWithoutProfessional = _dbConnection.Query<PatientReportData>(HomeQuerys.GetPatientsWithoutProfessional).ToList(),
                 ProfessionalCopayments = _dbConnection.Query<ProfessionalCopaymentReport>(HomeQuerys.GetProfessionalCopayments).ToList()
             };

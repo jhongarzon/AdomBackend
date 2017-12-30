@@ -37,7 +37,7 @@ namespace Adom.Hhm.Web.Rest.Controllers
         }
 
         [Authorize(Policy = "/Notices/Get")]
-        //[AllowAnonymous]
+        [AllowAnonymous]
         [HttpGet]
         public ServiceResult<IEnumerable<Notice>> Get()
         {

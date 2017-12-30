@@ -4,6 +4,6 @@
     {
         public int ProfessionalId { get; set; }
         public string ProfessionalName { get; set; }
-        public decimal CopaymentAmount { get; set; }
+        public decimal ReceivedAmount { get; set; }
     }
 }

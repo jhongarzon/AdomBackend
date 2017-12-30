@@ -10,17 +10,17 @@
 		                ,Ser.Name ServiceName
 		                ,FORMAT(Ags.InitialDate, 'dd-MM-yyyy HH:mm:ss') InitialDate
 		                ,UPPER(CASE DATEPART(dw,CONVERT(DATETIME,Ags.InitialDate,120)) 
-			                WHEN 2 THEN 'Lunes' 
-			                WHEN 3 THEN 'Martes' 
-			                WHEN 4 THEN 'Miercoles' 
-			                WHEN 5 THEN 'Jueves' 
-			                WHEN 6 THEN 'Viernes' 
-			                WHEN 7 THEN 'Sabado' 
-			                WHEN 1 THEN 'Domingo' 
+			                WHEN 2 THEN 'LUNES' 
+			                WHEN 3 THEN 'MARTES' 
+			                WHEN 4 THEN 'MIERCOLES' 
+			                WHEN 5 THEN 'JUEVES' 
+			                WHEN 6 THEN 'VIERNES' 
+			                WHEN 7 THEN 'SABADO' 
+			                WHEN 1 THEN 'DOMINGO' 
 			                ELSE '' END ) DayOfWeek
                         ,'NO' IsHoliday
-		                ,pr.Rate
-		                ,CASE PaymentType WHEN 1 THEN 'Efectivo' WHEN 2 THEN 'PIN' WHEN 3 THEN 'OTRO' ELSE NULL END PaymentType
+		                ,ser.Value AS Rate
+		                ,CASE PaymentType WHEN 1 THEN 'EFECTIVO' WHEN 2 THEN 'PIN' WHEN 3 THEN 'OTRO' ELSE NULL END PaymentType
                         ,asd.Pin
 		                ,asd.ReceivedAmount
 		                ,asd.OtherAmount		                
@@ -50,9 +50,6 @@
             INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
             INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId
             INNER JOIN [cfg].[DocumentType] doc ON doc.Id = pat.DocumentTypeId
-            WHERE Asd.StateId = 3             
-            AND Asd.ProfessionalId NOT IN (-1, 0) 
-
-             ";
+            WHERE Asd.StateId = 2 AND Asd.ProfessionalId NOT IN (-1, 0) ";
     }
 }

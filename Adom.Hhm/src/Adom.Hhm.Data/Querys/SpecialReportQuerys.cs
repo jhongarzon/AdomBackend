@@ -57,7 +57,7 @@
             INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
             INNER JOIN [cfg].[PlansRates] pr ON pr.PlanEntityId = Ags.PlanEntityId AND pr.ServiceId = Ags.ServiceId
             INNER JOIN [sec].[Users] usr ON usr.UserId = Ags.AssignedBy
-			WHERE 1 =1 ";
+			WHERE 1 = 1 ";
 
         public static string GetDetailedReport =
             @"SELECT	  AssignServiceDetailId

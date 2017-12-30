@@ -47,7 +47,7 @@ namespace Adom.Hhm.Data.Repositories
                     StateAssignServiceDetailId = assignServiceDetail.StateId,
                     assignServiceDetail.ProfessionalId,
                     @DateVisitP = assignServiceDetail.DateVisit,
-                    Observation = assignServiceDetail.Observation.ToUpper(),
+                    Observation = assignServiceDetail.Observation?.ToUpper(),
                     assignServiceDetail.PaymentType,
                     assignServiceDetail.ReceivedAmount,
                     assignServiceDetail.OtherAmount,

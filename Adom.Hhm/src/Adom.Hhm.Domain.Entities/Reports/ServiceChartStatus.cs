@@ -3,6 +3,7 @@
     public class ServiceChartStatus
     {
         public int Amount { get; set; }
-        public string Name { get; set; }
+        public string Status { get; set; }
+        public string Month { get; set; }
     }
 }

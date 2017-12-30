@@ -19,7 +19,7 @@ namespace Adom.Hhm.Data.Querys
 
         public static string Insert =
       @"  INSERT INTO [cfg].[Notice]([NoticeTitle],[NoticeText],[UserId],[CreationDate])
-            VALUES(@NoticeTitle, @NoticeText,@UserId,getdate());
+            VALUES(UPPER(@NoticeTitle), UPPER(@NoticeText),@UserId,getdate());
             SELECT CAST(SCOPE_IDENTITY() as int)";
 
         public static string Delete =

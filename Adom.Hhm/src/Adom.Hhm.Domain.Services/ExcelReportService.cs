@@ -137,7 +137,7 @@ namespace Adom.Hhm.Domain.Services
                         value = dataRow.GetType().GetProperty(propInfos[j].Name).GetValue(dataRow, null);
                         if (excelReportAttribute.IsUpperCase)
                         {
-                            value = value.ToString().ToUpper();
+                            value = value.ToString()?.ToUpper();
                         }
                     }
                     excelRow.AppendChild(newCell);
@@ -184,7 +184,7 @@ namespace Adom.Hhm.Domain.Services
                     value = data.GetType().GetProperty(info.Name).GetValue(data, null);
                     if (excelReportAttribute.IsUpperCase)
                     {
-                        value = value.ToString().ToUpper();
+                        value = value.ToString()?.ToUpper();
                     }
                 }
                 newCell.CellValue = value == null ? new CellValue("") : new CellValue(value.ToString());

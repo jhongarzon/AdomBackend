@@ -87,11 +87,10 @@ namespace Adom.Hhm.Data.Querys
             ORDER BY    Ags.[Consecutive]";
 
         public static string GetById =
-        @"  
-            SELECT Ags.[AssignServiceDetailId]
+        @" SELECT Ags.[AssignServiceDetailId]
                   ,Ags.[AssignServiceId]
                   ,Ags.[ProfessionalId]
-				  ,(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+				  ,(ISNULL(usr.FirstName,'POR ASIGNAR') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
                   ,CONVERT(char(10), Ags.[DateVisit],105) AS DateVisit
                   ,Ags.[Consecutive]
                   ,Ags.[StateId]
@@ -102,9 +101,9 @@ namespace Adom.Hhm.Data.Querys
                   ,VerifiedBy
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignServiceDetails] Ags
-			INNER JOIN  [cfg].[Professionals] Pro
+			LEFT JOIN  [cfg].[Professionals] Pro
             ON Ags.ProfessionalId = Pro.ProfessionalId
-			INNER JOIN  [sec].[Users] usr
+			LEFT JOIN  [sec].[Users] usr
             ON usr.UserId = Pro.UserId
 			INNER JOIN [sas].[StateAssignService] sta
             ON sta.Id = Ags.StateId
