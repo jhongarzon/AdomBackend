@@ -3,7 +3,10 @@
     public static class AssignServiceQuerys
     {
         public static string GetAll =
-        @" SELECT Ags.[AssignServiceId]
+        @" SELECT	AssignServices.*, 
+	CASE WHEN maxDateVisit > ServicesLockDate THEN 1
+	ELSE 0 END AllowsUpdate
+	FROM (	SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
                   ,Ags.[AuthorizationNumber]
                   ,Ags.[ContractNumber]
@@ -33,9 +36,10 @@
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
                   ,Ags.Observation
-                  ,(SELECT COUNT([ServicesLockDate]) 
-					FROM [cfg].[AdomInfo]  
-					WHERE ProviderCode = 110011114201 AND Ags.[FinalDate] < ServicesLockDate) AllowsUpdate
+                  ,(SELECT	ISNULL(MAX(DateVisit), GETDATE())
+								FROM	[sas].AssignServiceDetails asd
+								WHERE	AssignServiceId = Ags.AssignServiceId AND asd.StateId = 2) MaxDateVisit 
+				  ,info.ServicesLockDate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -54,10 +58,14 @@
             ON ent.EntityId = Ags.EntityId
             INNER JOIN [cfg].[PlansEntity] pe
             ON pe.PlanEntityId = Ags.PlanEntityId
-            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY";
+			INNER JOIN [cfg].[AdomInfo] info ON info.ProviderCode = 110011114201
+            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC OFFSET ((@PageNumber - 1) * @PageSize) ROWS FETCH NEXT @PageSize ROWS ONLY ) AssignServices ";
 
         public static string GetAllWithoutPagination =
-        @" SELECT Ags.[AssignServiceId]
+        @" SELECT	AssignServices.*, 
+	CASE WHEN maxDateVisit > ServicesLockDate THEN 1
+	ELSE 0 END AllowsUpdate
+	FROM (	SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
                   ,Ags.[AuthorizationNumber]
                   ,Ags.[ContractNumber]
@@ -71,7 +79,7 @@
                   ,Ags.[ApplicantName]
                   ,Ags.[ServiceId]
 				  ,Ser.Name as ServiceName
-                  ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3) AS Quantity
+                  ,(Ags.[Quantity] - (select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 3)) AS Quantity
                   ,(select count(det.AssignServiceDetailId) from [sas].AssignServiceDetails det WHERE det.AssignServiceId = Ags.AssignServiceId AND det.StateId = 2) as QuantityCompleted
                   ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
                   ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
@@ -87,9 +95,10 @@
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
                   ,Ags.Observation
-                  ,(SELECT COUNT([ServicesLockDate]) 
-					FROM [cfg].[AdomInfo]  
-					WHERE ProviderCode = 110011114201 AND Ags.[FinalDate] > ServicesLockDate) AllowsUpdate
+                  ,(SELECT	ISNULL(MAX(DateVisit), GETDATE())
+								FROM	[sas].AssignServiceDetails asd
+								WHERE	AssignServiceId = Ags.AssignServiceId AND asd.StateId = 2) MaxDateVisit 
+				  ,info.ServicesLockDate
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -108,7 +117,7 @@
             ON ent.EntityId = Ags.EntityId
             INNER JOIN [cfg].[PlansEntity] pe
             ON pe.PlanEntityId = Ags.PlanEntityId
-            ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
+            INNER JOIN [cfg].[AdomInfo] info ON info.ProviderCode = 110011114201) AssignServices ORDER BY  StateId ASC, [InitialDate] DESC";
 
         public static string GetByPateintId =
         $@" {UpdateStatesAssignServices} ;
@@ -164,12 +173,15 @@
             INNER JOIN [cfg].[Entities] ent
             ON ent.EntityId = Ags.EntityId
             INNER JOIN [cfg].[PlansEntity] pe
-            ON pe.PlanEntityId = Ags.PlanEntityId
+            ON pe.PlanEntityId = Ags.PlanEntityId            
             WHERE       Ags.[PatientId] = @PatientId
             ORDER BY    Ags.StateId ASC, Ags.[InitialDate] DESC";
 
         public static string GetById =
-        @"   SELECT Ags.[AssignServiceId]
+        @" SELECT	AssignServices.*, 
+	    CASE WHEN maxDateVisit > ServicesLockDate THEN 1
+	    ELSE 0 END AllowsUpdate
+	    FROM (   SELECT Ags.[AssignServiceId]
                   ,Ags.[PatientId]
                   ,Ags.[AuthorizationNumber]
                   ,Ags.[ContractNumber]
@@ -198,10 +210,11 @@
                   ,Ags.[External]
                   ,Ags.[StateId]
 				  ,sta.Name AS StateName
-                  ,Ags.Observation
-                  ,(SELECT COUNT([ServicesLockDate]) 
-					FROM [cfg].[AdomInfo]  
-					WHERE ProviderCode = 110011114201 AND Ags.[FinalDate] > ServicesLockDate) AllowsUpdate
+                  ,Ags.Observation 
+                  ,(SELECT	ISNULL(MAX(DateVisit), GETDATE())
+								FROM	[sas].AssignServiceDetails asd
+								WHERE	AssignServiceId = Ags.AssignServiceId AND asd.StateId = 2) MaxDateVisit 
+				  ,info.ServicesLockDate                 
 				  ,Count(*) Over() AS TotalRows
             FROM	    [sas].[AssignService] Ags
 			INNER JOIN  [cfg].[Professionals] Pro
@@ -220,7 +233,8 @@
             ON ent.EntityId = Ags.EntityId
             INNER JOIN [cfg].[PlansEntity] pe
             ON pe.PlanEntityId = Ags.PlanEntityId
-            WHERE   [AssignServiceId] = @AssignServiceId ";
+            INNER JOIN [cfg].[AdomInfo] info ON info.ProviderCode = 110011114201
+            WHERE   [AssignServiceId] = @AssignServiceId ) AssignServices ";
 
         public static string InsertServiceObservations =
        @"INSERT INTO [sas].[AssignServiceObservation]

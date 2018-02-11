@@ -8,8 +8,8 @@
 		                ,Pro.Document ProfessionalDocument
 		                ,UPPER(Typ.Description) ServiceType
 		                ,Ser.Name ServiceName
-		                ,FORMAT(Ags.InitialDate, 'dd-MM-yyyy HH:mm:ss') InitialDate
-		                ,UPPER(CASE DATEPART(dw,CONVERT(DATETIME,Ags.InitialDate,120)) 
+		                ,FORMAT(Asd.DateVisit, 'dd-MM-yyyy HH:mm:ss') InitialDate
+		                ,UPPER(CASE DATEPART(dw,CONVERT(DATETIME,Asd.DateVisit,120)) 
 			                WHEN 2 THEN 'LUNES' 
 			                WHEN 3 THEN 'MARTES' 
 			                WHEN 4 THEN 'MIERCOLES' 

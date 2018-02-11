@@ -20,7 +20,7 @@
 		            ,pr.Rate
 		            ,Ags.CoPaymentAmount
 		            ,cpf.Name CopaymentFrecuency
-		            ,CASE Ags.CopaymentStatus WHEN 0 THEN 'ENTREGADO' ELSE 'SIN ENTREGAR' END CopaymentStatus
+		            ,CASE Ags.CopaymentStatus WHEN 0 THEN 'SIN ENTREGADO' ELSE 'ENTREGADO' END CopaymentStatus
 		            ,FORMAT(Ags.RecordDate, 'dd-MM-yyyy HH:mm:ss') RequestDate
                     ,FORMAT(Ags.[InitialDate], 'dd-MM-yyyy') InitialDate
                     ,FORMAT(Ags.[FinalDate], 'dd-MM-yyyy') FinalDate
@@ -108,7 +108,7 @@
             
 
         public static string GetAssignedProfessionals =
-            @"SELECT pro.[Document] DocumentNumber,  (ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
+            @"SELECT pro.[Document] DocumentNumber,  (ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
 			    FROM [cfg].[Professionals] pro
 			    INNER JOIN  [sec].[Users] usr
                 ON usr.UserId = Pro.UserId

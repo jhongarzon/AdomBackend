@@ -15,7 +15,7 @@
                 INNER JOIN [sas].[AssignServiceDetails] asd ON ags.AssignServiceId = asd.AssignServiceId
                 INNER JOIN [cfg].[Patients] pat ON ags.PatientId = pat.PatientId
                 INNER JOIN [cfg].[Services] ser ON ags.ServiceId= ser.ServiceId
-                WHERE asd.ProfessionalId = -1 ";
+                WHERE asd.ProfessionalId = -1 AND ags.stateId <> 3";
 
 
         public static string GetIrregularServices =

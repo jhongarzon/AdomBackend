@@ -114,7 +114,7 @@
             @"SELECT   [AssignServiceDetailId]
                       ,[AssignServiceId]
                       ,[ProfessionalId]
-                      ,FORMAT(DateVisit, 'yyyy/MM/dd') DateVisit
+                      ,FORMAT(DateVisit, 'dd/MM/yyyy') DateVisit
                       ,[Consecutive]
                       ,[StateId]
                       ,[Observation]
@@ -122,6 +122,7 @@
                       ,[ReceivedAmount]
                       ,[OtherAmount]
                   FROM [sas].[AssignServiceDetails]
-                  WHERE [AssignServiceId] = @AssignServiceId";
+                  WHERE [AssignServiceId] = @AssignServiceId 
+                  AND StateId = 2 ";
     }
 }

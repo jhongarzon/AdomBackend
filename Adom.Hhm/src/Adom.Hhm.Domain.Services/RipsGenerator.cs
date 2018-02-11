@@ -126,18 +126,18 @@ namespace Adom.Hhm.Domain.Services
                 acFiles.AddRange(details.Select(item => new RipsAcFile
                 {
                     ProviderCode = rip.ProviderCode,
-                    DocumentTypeName = rip.DocumentTypeAbbreviation,
-                    PatientDocument = rip.PatientDocument.Replace("\"", "").Trim(),
-                    InvoiceNumber = ripsFilter.InvoiceNumber,
-                    FinalDate = item.DateVisit.Replace("-", "/"),
-                    AuthorizationNumber = rip.AuthorizationNumber,
-                    Cups = rip.Cups,
+                    DocumentTypeName = rip.DocumentTypeAbbreviation?.Replace("\"", "").Trim(),
+                    PatientDocument = rip.PatientDocument?.Replace("\"", "").Trim(),
+                    InvoiceNumber = ripsFilter.InvoiceNumber?.Replace("\"", "").Trim(),
+                    FinalDate = item.DateVisit?.Replace("-", "/"),
+                    AuthorizationNumber = rip.AuthorizationNumber?.Replace("\"", "").Trim(),
+                    Cups = rip.Cups?.Replace("\"", "").Trim(),
                     Rate = rip.Rate,
                     Consultation = rip.Consultation,
-                    Cie10 = rip.Cie10,
+                    Cie10 = rip.Cie10?.Replace("\"", "").Trim(),
                     DiagnosticType = "2",
                     External = rip.External,
-                    CopaymentPerSession = item.ReceivedAmount,
+                    CopaymentPerSession = rip.CoPaymentAmount,
                     NetValuePerSession = rip.Rate - rip.CoPaymentAmount
                 }));
 

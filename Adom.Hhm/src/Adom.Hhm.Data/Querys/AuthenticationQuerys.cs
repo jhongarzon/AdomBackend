@@ -8,11 +8,10 @@ namespace Adom.Hhm.Data.Querys
     public static class AuthenticationQuerys
     {
         public static string ValidCredentials =
-        @"  SELECT	[UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email]
+        @"  SELECT	[UserId],[FirstName],[SecondName],[Surname],[SecondSurname],[Email],[State]
             FROM	[sec].[Users]
             WHERE   [Email] = @Email 
-            AND     [Password] = @Password
-            AND     [State] = 1";
+            AND     [Password] = @Password";
 
 
     }

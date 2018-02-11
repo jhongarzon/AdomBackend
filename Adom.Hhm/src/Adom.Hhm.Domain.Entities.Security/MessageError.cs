@@ -26,5 +26,6 @@ namespace Adom.Hhm.Domain.Entities.Security
         public static string NamePlanRateExists = "El plan y tarifa ya existe.";
 
         public static string NamePlanEntityExists = "El nombre del plan ya existe.";
+        public static string UserDisabled = "El usuario está inactivo";
     }
 }

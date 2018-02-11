@@ -47,6 +47,11 @@ namespace Adom.Hhm.Web.Rest.Controllers
                     result.Errors = new string[] { MessageError.InvalidCredentials };
                     result.Success = false;
                 }
+                else if (!user.State)
+                {
+                    result.Errors = new string[] { MessageError.UserDisabled };
+                    result.Success = false;
+                }
                 else
                 {
                     object token = await this.authenticacion.GetNewToken(user);

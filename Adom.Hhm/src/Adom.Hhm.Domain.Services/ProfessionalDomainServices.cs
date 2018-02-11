@@ -138,7 +138,9 @@ namespace Adom.Hhm.Domain.Services
                     SecondName = professional.SecondName,
                     Surname = professional.Surname,
                     SecondSurname = professional.SecondSurname,
-                    UserId = professional.UserId
+                    UserId = professional.UserId,
+                    State = professional.State
+
                 };
                 var userUpdate = _userRepository.Update(user);
                 var updated = _repository.Update(professional);
