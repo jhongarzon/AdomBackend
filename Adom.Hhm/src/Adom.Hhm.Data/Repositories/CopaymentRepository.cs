@@ -24,18 +24,18 @@ namespace Adom.Hhm.Data.Repositories
             var copaymentQuery = CopaymentQuerys.GetCopayment;
             if (professionalId > 0)
             {
-                copaymentQuery += "AND pro.ProfessionalId = @ProfessionalId ";
+                copaymentQuery += " AND ProfessionalId = @ProfessionalId ";
             }
-            if (serviceStatusId > 0)
+            if (serviceStatusId > 1)
             {
-                copaymentQuery += "AND Ags.StateId = @ServiceStatusId ";
+                copaymentQuery += " AND QuantityCompleted = Quantity ";
             }
             if (copaymentStatusId < 2)
             {
-                copaymentQuery += "AND Ags.CopaymentStatus = @copaymentStatusId ";
+                copaymentQuery += " AND CopaymentStatusId = @copaymentStatusId ";
             }
 
-            copaymentQuery += "ORDER BY Ags.StateId ASC, Ags.[InitialDate] DESC";
+            copaymentQuery += " ORDER BY StateId ASC, [InitialDate] DESC";
 
 
             return _connection.Query<Copayment>(copaymentQuery,
@@ -56,7 +56,8 @@ namespace Adom.Hhm.Data.Repositories
                     copayment.TotalCopaymentReceived,
                     copayment.OtherValuesReceived,
                     copayment.DeliveredCopayments,
-                    copayment.Discounts
+                    copayment.Discounts,
+                    copayment.ReceivedBy
                 });
             if (result < 1)
             {

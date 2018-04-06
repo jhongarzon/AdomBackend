@@ -9,7 +9,7 @@ namespace Adom.Hhm.Data.Querys
     {
         public static string GetCopaymentReport =
             @"SELECT 	(ISNULL(usr.FirstName,'') + ' ' + ISNULL(usr.SecondName, '') + ' ' + ISNULL(usr.Surname, '') + ' ' + ISNULL(usr.SecondSurname, '')) AS ProfessionalName
-		        ,pro.Document
+		        ,pro.Document ProfessionalDocument
 		        ,Ser.Name as ServiceName
 		        ,CONVERT(char(10), Ags.[InitialDate],105) AS InitialDate
 		        ,CONVERT(char(10), Ags.[FinalDate],105) AS FinalDate
@@ -20,18 +20,17 @@ namespace Adom.Hhm.Data.Querys
                 ,cpf.Name CopaymentFrecuency
 		        ,pr.Rate
 		        ,CASE Ags.CopaymentStatus WHEN 0 THEN 'SE' ELSE 'E' END CopaymentStatus
-		        ,(SELECT SUM(Asd.ReceivedAmount) FROM [sas].[AssignServiceDetails] asd WHERE asd.AssignServiceId = Ags.AssignServiceId) ReportedAmount
-		        ,(SELECT SUM(Asd.OtherAmount) FROM [sas].[AssignServiceDetails] asd WHERE asd.AssignServiceId = Ags.AssignServiceId) OtherAmount		        
-		        ,0 TotalReceivedVerified--Efectivo Recibido (Verificado)
-		        ,Ags.DeliveredCopayments --Efectivo Entregado
-		        ,0 OtherReceived--Otros recibidos
-                ,0 OtherDelivered--Otros recibidos
-		        ,Ags.Discounts
+		        ,(SELECT SUM(Asd.ReceivedAmount) FROM [sas].[AssignServiceDetails] asd WHERE asd.AssignServiceId = Ags.AssignServiceId) ReportedAmount -- EFECTIVO REPORTADO
+		        ,(SELECT SUM(Asd.OtherAmount) FROM [sas].[AssignServiceDetails] asd WHERE asd.AssignServiceId = Ags.AssignServiceId) OtherAmount  --OTROS REPORTADOS		        
+		        ,Ags.TotalCopaymentReceived --Efectivo Recibido (Verificado)
+		        ,Ags.OtherValuesReceived --Otros recibidos
+                ,Ags.DeliveredCopayments --Efectivo Entregados
+		        ,Ags.Discounts --Descuentos
 		        ,Ser.Value ValueToPayToProfessional
-		        ,'Recicido Por'  ReceivedBy
-		        ,FORMAT(GETDATE(),'dd-MM-yyyy HH:mm:ss') ReceivedDateTime
+		        ,(ISNULL(UserReceive.FirstName,'') + ' ' + ISNULL(UserReceive.SecondName, '') + ' ' + ISNULL(UserReceive.Surname, '') + ' ' + ISNULL(UserReceive.SecondSurname, '')) AS ReceivedBy
+		        ,FORMAT(Ags.DelieveredCopaymentDate,'dd-MM-yyyy HH:mm:ss') ReceivedDateTime
 		        ,CONCAT(pat.[FirstName],' ', pat.Surname) PatientName
-		        ,doc.Name PatientDocumentType
+		        ,doc.Name PatientDocumentTypeName
 		        ,pat.[Document] PatientDocument
 		        ,ent.[Name] AS EntityName                 
 		        ,pe.[Name] AS PlanEntityName
@@ -49,6 +48,7 @@ namespace Adom.Hhm.Data.Querys
         INNER JOIN [cfg].[PlansEntity] pe ON pe.PlanEntityId = Ags.PlanEntityId
         INNER JOIN [cfg].[Patients] pat ON Ags.PatientId = pat.PatientId 
         INNER JOIN [cfg].[DocumentType] doc ON Pat.DocumentTypeId = doc.Id 
-        WHERE 1 = 1 ";
+        LEFT JOIN  [sec].[Users] UserReceive ON Ags.ReceivedBy = UserReceive.UserId
+        WHERE Ags.StateId <> 3 ";
     }
 }

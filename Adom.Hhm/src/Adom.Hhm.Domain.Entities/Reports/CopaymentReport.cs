@@ -32,17 +32,15 @@ namespace Adom.Hhm.Domain.Entities.Reports
         [ExcelReportCell("ESTADO COPAGOS")]
         public string CopaymentStatus { get; set; }
         [ExcelReportCell("EFECTIVO REPORTADO")]
-        public string ReceivedAmount { get; set; }
-        [ExcelReportCell("OTROS REPORTADOS")]
         public string ReportedAmount { get; set; }
-        [ExcelReportCell("EFECTIVO RECIBIDO VERIFICADO")]
+        [ExcelReportCell("OTROS REPORTADOS")]
         public string OtherAmount { get; set; }
-        [ExcelReportCell("EFECTIVO ENTREGADO")]
+        [ExcelReportCell("EFECTIVO RECIBIDO VERIFICADO")]
         public string TotalCopaymentReceived { get; set; }
         [ExcelReportCell("OTROS RECIBIDOS")]
-        public string OtherReceived { get; set; }
-        [ExcelReportCell("OTROS ENTREGADOS")]
-        public string OtherDelivered { get; set; }
+        public string OtherValuesReceived { get; set; }
+        [ExcelReportCell("EFECTIVO ENTREGADO")]
+        public string DeliveredCopayments { get; set; }
         [ExcelReportCell("DESCUENTOS")]
         public string Discounts { get; set; }
         [ExcelReportCell("VALOR A PAGAR AL PROFESIONAL")]

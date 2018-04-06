@@ -33,5 +33,6 @@
         public int OtherValuesReceived { get; set; }
         public int Discounts { get; set; }
         public int DeliveredCopayments { get; set; }
+        public int ReceivedBy { get; set; }
     }
 }
